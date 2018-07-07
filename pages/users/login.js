@@ -89,7 +89,6 @@ class Login extends Component {
                         <Checkbox label='I agree to the Terms and Conditions' />
                     </Form.Field>
                     <Message error header="Opps" content={this.state.errorMessage}/>
-                    <div>{this.state.errorMessage}</div>
                     <Button type='submit'
                             onClick={() => {this.loginUser()}}
                     >Submit</Button>
