@@ -35,11 +35,16 @@ class HomeIndex extends Component {
                 />
                     </a>
                 </Link>
+
+                     <Link route="/messages/show">
+                         <a>
                 <Button basic color='teal'
                         content='みてみる'
                         size='massive'
                         // style={styles.showButtonStyle}
                 />
+                         </a>
+                     </Link>
                 </Div>
             </Layout>
 
