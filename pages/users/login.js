@@ -29,6 +29,10 @@ class Login extends Component {
 
         const { email, password } = this.state;
 
+        firebase.auth().signInWithEmailAndPassword(email, password)
+
+
+
     }
 
 
