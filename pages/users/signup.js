@@ -41,15 +41,20 @@ class Signup extends Component {
     }
 
     signupUser() {
-        const {address, password } = this.state;
+        const {username, address, password } = this.state;
 
         const addressEmail = address + '@gmail.com';
 
         firebase.auth().createUserWithEmailAndPassword(addressEmail, password)
             .then(
                 () => {
-                    this.setState({errorMessage: ""})
-                    window.location.replace('http://localhost:3000')
+                    firebase.database().ref(`/users`).push({ username, address})
+                        .then(
+                            () => {
+                                this.setState({errorMessage: ""})
+                                window.location.replace('http://localhost:3000')
+                            }
+                )
                 }
             )
             .catch(()=> {
