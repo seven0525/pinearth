@@ -3,6 +3,8 @@ import Layout from '../../components/Layout';
 import styled from 'styled-components';
 import { Button, Checkbox, Form } from 'semantic-ui-react';
 import { Link } from '../../routes';
+import firebase from 'firebase';
+
 
 const Div = styled.div`
     width: 300px;
@@ -16,6 +18,19 @@ const Div = styled.div`
     marginLeft:300px
     
 `;
+
+var config = {
+    apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
+    authDomain: "timecapsule-3b1bd.firebaseapp.com",
+    databaseURL: "https://timecapsule-3b1bd.firebaseio.com",
+    projectId: "timecapsule-3b1bd",
+    storageBucket: "timecapsule-3b1bd.appspot.com",
+    messagingSenderId: "221653140896"
+};
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
 
 class Login extends Component {
 
