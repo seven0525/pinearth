@@ -19,9 +19,23 @@ const Div = styled.div`
 
 class Login extends Component {
 
+    state={
+        email: '',
+        password: '',
+        loading: ''
+    }
+
+    loginUser() {
+
+        const { email, password } = this.state;
+
+    }
+
 
 
     render() {
+
+        console.log(this.state.email)
         return(
 
             <Layout>
@@ -29,16 +43,23 @@ class Login extends Component {
                 <Form>
                     <Form.Field>
                         <label>email</label>
-                        <input placeholder='email' />
+                        <input
+                            placeholder='email'
+                            onChange={event => this.setState({ email: event.target.value})}
+                        />
                     </Form.Field>
                     <Form.Field>
                         <label>password</label>
-                        <input placeholder='passwod' />
+                        <input placeholder='passwod'
+                               onChange={event => this.setState({ password: event.target.value})}
+                        />
                     </Form.Field>
                     <Form.Field>
                         <Checkbox label='I agree to the Terms and Conditions' />
                     </Form.Field>
-                    <Button type='submit'>Submit</Button>
+                    <Button type='submit'
+                            onClick={() => {this.loginUser()}}
+                    >Submit</Button>
                 </Form>
 
 
