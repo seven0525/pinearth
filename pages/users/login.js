@@ -45,8 +45,15 @@ class Login extends Component {
         const { email, password } = this.state;
 
         firebase.auth().signInWithEmailAndPassword(email, password)
-
-
+            .then(
+                () => {
+                    window.location.replace('http://localhost:3000')
+                }
+            )
+            .catch(()=> {
+                console.log("your login failed")
+            })
+console.log("why u can sign in?")
 
     }
 
