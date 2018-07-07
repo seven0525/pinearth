@@ -35,7 +35,7 @@ if (!firebase.apps.length) {
 class Login extends Component {
 
     state={
-        email: '',
+        address: '',
         password: '',
         loading: '',
         errorMessage: ''
@@ -43,9 +43,11 @@ class Login extends Component {
 
     loginUser() {
 
-        const { email, password } = this.state;
+        const {address, password } = this.state;
 
-        firebase.auth().signInWithEmailAndPassword(email, password)
+        const addressEmail = address + '@gmail.com';
+
+        firebase.auth().signInWithEmailAndPassword(addressEmail, password)
             .then(
 
                 () => {
@@ -68,10 +70,10 @@ class Login extends Component {
                 <h2>Login</h2>
                 <Form error={!!this.state.errorMessage}>
                     <Form.Field>
-                        <label>email</label>
+                        <label>ether address</label>
                         <input
-                            placeholder='email'
-                            onChange={event => this.setState({ email: event.target.value})}
+                            placeholder='ether adress'
+                            onChange={event => this.setState({ address: event.target.value})}
                         />
                     </Form.Field>
                     <Form.Field>
