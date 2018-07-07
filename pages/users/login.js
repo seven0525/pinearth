@@ -5,6 +5,8 @@ import { Button, Checkbox, Form, Message } from 'semantic-ui-react';
 import { Link } from '../../routes';
 import firebase from 'firebase';
 
+var currentUser = ''
+
 
 const Div = styled.div`
     width: 300px;
@@ -52,12 +54,13 @@ class Login extends Component {
 
                 () => {
                     this.setState({errorMessage: ""})
+                  currentUser= firebase.auth().currentUser;
 
                     window.location.replace('http://localhost:3000')
                 }
             )
             .catch(()=> {
-                this.setState({errorMessage: "Authentication invalid"})
+                this.setState({errorMessage: "ログインに失敗しました"})
             })
 
     }

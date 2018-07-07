@@ -3,6 +3,7 @@ import Layout from '../components/Layout';
 import { Button } from 'semantic-ui-react';
 import { Link } from '../routes';
 import styled from 'styled-components';
+import firebase from 'firebase';
 
 
 const Div = styled.div`
@@ -16,9 +17,50 @@ const Div = styled.div`
     margin: auto;
 `;
 
+var config = {
+    apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
+    authDomain: "timecapsule-3b1bd.firebaseapp.com",
+    databaseURL: "https://timecapsule-3b1bd.firebaseio.com",
+    projectId: "timecapsule-3b1bd",
+    storageBucket: "timecapsule-3b1bd.appspot.com",
+    messagingSenderId: "221653140896"
+};
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
+
+
+
+
+    // console.log(firebase.auth().currentUser);
+    // firebase.auth().onAuthStateChanged(function (user) {
+    //     if (user) {
+    //         console.log("User is signed in.")
+    //     } else {
+    //         console.log("User is not signed in.")
+    //         window.location.replace('http://localhost:3000/users/login')
+    //
+    //     }
+    // });
+
 
 
 class HomeIndex extends Component {
+
+    componentWillMount() {
+
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                console.log("User is signed in.")
+            } else {
+                console.log("User is not signed in.")
+                window.location.replace('http://localhost:3000/users/login')
+
+            }
+        });
+
+    }
 
     render() {
         return (
