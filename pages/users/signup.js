@@ -91,8 +91,14 @@ class Signup extends Component {
                         />
                     </Form.Field>
                     <Form.Field>
+                        <label>avatar</label>
+                        <input type="file" />
+                    </Form.Field>
+                    <Form.Field>
                         <Checkbox label='I agree to the Terms and Conditions' />
                     </Form.Field>
+
+
                     <Message error header="Opps" content={this.state.errorMessage}/>
                     <Button type='submit'
                             onClick={() => {this.signupUser()}}
