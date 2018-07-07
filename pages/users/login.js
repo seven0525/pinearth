@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Layout from '../../components/Layout';
 import styled from 'styled-components';
-import { Button, Checkbox, Form } from 'semantic-ui-react';
+import { Button, Checkbox, Form, Message } from 'semantic-ui-react';
 import { Link } from '../../routes';
 import firebase from 'firebase';
 
@@ -37,7 +37,8 @@ class Login extends Component {
     state={
         email: '',
         password: '',
-        loading: ''
+        loading: '',
+        errorMessage: ''
     }
 
     loginUser() {
@@ -46,19 +47,18 @@ class Login extends Component {
 
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(
+
                 () => {
+                    this.setState({errorMessage: ""})
+
                     window.location.replace('http://localhost:3000')
                 }
             )
             .catch(()=> {
-                console.log("your login failed")
+                this.setState({errorMessage: "Authentication invalid"})
             })
-console.log("why u can sign in?")
 
     }
-
-
-
     render() {
 
         console.log(this.state.email)
@@ -66,7 +66,7 @@ console.log("why u can sign in?")
 
             <Layout>
                 <h2>Login</h2>
-                <Form>
+                <Form error={!!this.state.errorMessage}>
                     <Form.Field>
                         <label>email</label>
                         <input
@@ -83,14 +83,12 @@ console.log("why u can sign in?")
                     <Form.Field>
                         <Checkbox label='I agree to the Terms and Conditions' />
                     </Form.Field>
+                    <Message error header="Opps" content={this.state.errorMessage}/>
+                    <div>{this.state.errorMessage}</div>
                     <Button type='submit'
                             onClick={() => {this.loginUser()}}
                     >Submit</Button>
                 </Form>
-
-
-
-
                         <h4>サインアップは
                             <Link route="/users/signup">
                                 <a>
@@ -99,13 +97,7 @@ console.log("why u can sign in?")
                             </Link>
 
                             へ</h4>
-
-
-
             </Layout>
-
-
-
         )
     }
 
