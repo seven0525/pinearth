@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "firebase": "^5.2.0",
     "fs-extra": "^6.0.1",
     "ganache-cli": "^6.1.5",
