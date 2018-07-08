@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import Layout from '../../components/Layout';
 import styled from 'styled-components';
-import { Button, Checkbox, Form } from 'semantic-ui-react';
+import { Button, Checkbox, Form, Message } from 'semantic-ui-react';
 import { Link } from '../../routes';
+import firebase from 'firebase';
+
+var currentUser = ''
+
 
 const Div = styled.div`
     width: 300px;
@@ -17,33 +21,76 @@ const Div = styled.div`
     
 `;
 
+var config = {
+    apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
+    authDomain: "timecapsule-3b1bd.firebaseapp.com",
+    databaseURL: "https://timecapsule-3b1bd.firebaseio.com",
+    projectId: "timecapsule-3b1bd",
+    storageBucket: "timecapsule-3b1bd.appspot.com",
+    messagingSenderId: "221653140896"
+};
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
+
 class Login extends Component {
 
+    state={
+        address: '',
+        password: '',
+        loading: '',
+        errorMessage: ''
+    }
 
+    loginUser() {
 
+        const {address, password } = this.state;
+
+        const addressEmail = address + '@gmail.com';
+
+        firebase.auth().signInWithEmailAndPassword(addressEmail, password)
+            .then(
+
+                () => {
+                    this.setState({errorMessage: ""})
+                  currentUser= firebase.auth().currentUser;
+
+                    window.location.replace('http://localhost:3000')
+                }
+            )
+            .catch(()=> {
+                this.setState({errorMessage: "ログインに失敗しました"})
+            })
+
+    }
     render() {
         return(
 
             <Layout>
                 <h2>Login</h2>
-                <Form>
+                <Form error={!!this.state.errorMessage}>
                     <Form.Field>
-                        <label>email</label>
-                        <input placeholder='email' />
+                        <label>ether address</label>
+                        <input
+                            placeholder='ether adress'
+                            onChange={event => this.setState({ address: event.target.value})}
+                        />
                     </Form.Field>
                     <Form.Field>
                         <label>password</label>
-                        <input placeholder='passwod' />
+                        <input placeholder='passwod'
+                               onChange={event => this.setState({ password: event.target.value})}
+                        />
                     </Form.Field>
                     <Form.Field>
                         <Checkbox label='I agree to the Terms and Conditions' />
                     </Form.Field>
-                    <Button type='submit'>Submit</Button>
+                    <Message error header="Opps" content={this.state.errorMessage}/>
+                    <Button type='submit'
+                            onClick={() => {this.loginUser()}}
+                    >Submit</Button>
                 </Form>
-
-
-
-
                         <h4>サインアップは
                             <Link route="/users/signup">
                                 <a>
@@ -52,13 +99,7 @@ class Login extends Component {
                             </Link>
 
                             へ</h4>
-
-
-
             </Layout>
-
-
-
         )
     }
 
