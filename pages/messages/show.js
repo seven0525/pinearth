@@ -55,12 +55,18 @@ class MessagesShow extends Component {
                                 }>
                                     <Modal.Header>投げ銭したい量を記入してください</Modal.Header>
                                     <Modal.Content image>
-                                        <Image wrapped size='medium' src='/images/avatar/large/rachel.png' />
-                                        <Modal.Description>
-                                            <Header>0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22</Header>
-                                            <p>We've found the following gravatar image associated with your e-mail address.</p>
-                                            <p>Is it okay to use this photo?</p>
-                                        </Modal.Description>
+                                        {/*<Image wrapped size='medium' src='/images/avatar/large/rachel.png' />*/}
+                                        {/*<Modal.Description>*/}
+                                            {/*<Header>0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22</Header>*/}
+                                            {/*<p>We've found the following gravatar image associated with your e-mail address.</p>*/}
+                                            {/*<p>Is it okay to use this photo?</p>*/}
+                                        {/*</Modal.Description>*/}
+                                        <Form>
+                                            <Form.Field>
+                                                <label>Amount of ether</label>
+                                                <input /> ether
+                                            </Form.Field>
+                                        </Form>
                                     </Modal.Content>
                                 </Modal>
 
