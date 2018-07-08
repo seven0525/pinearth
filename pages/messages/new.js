@@ -8,15 +8,6 @@ import styled from 'styled-components';
 class MessageForm extends Component {
 
 
-    componentWillMount() {
-
-        fetch('https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=39cd3139183a4de3829d88dc70e82693')
-        // fetch('https://rallycoding.herokuapp.com/api/music_albums')
-            .then(response => response.json())
-
-            .then(data => this.setState({ articles: data.articles }));
-
-    }
 
     componentDidMount() {
         if( navigator.geolocation )
@@ -45,39 +36,26 @@ class MessageForm extends Component {
                     // アラート表示
 			alert( "あなたの現在位置は、\n[" + ido + "," + keido + "]\nです。" ) ;
 
-
-
                     var apiKey = 'AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0';
 
                     var requestURL = 'https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false';
 
                     requestURL += '&latlng=' + ido + ',' + keido;
                     requestURL += '&key=' + apiKey;
-                    fetch("https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=39cd3139183a4de3829d88dc70e82693")
-                    // fetch('https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false&latlng=35.6909389,139.6952959&key=AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0')
+                    // fetch("https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=39cd3139183a4de3829d88dc70e82693")
+                    fetch('https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false&latlng=35.6909389,139.6952959&key=AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0')
                         .then(responce => {
                             console.log(responce.json())
                             console.log(responce)
+                            console.log("fuck")
                             // console.log(responce.results[0]['formatted_address'])
-                            console.log(responce.results[0]['formatted_address'])
+                            // console.log(responce.results[0]['formatted_address'])
 
+                        }).catch(() =>{
+                            console.log("oogle map api の取得に失敗")
+                        }
+                    )
 
-                        })
-
-                    // 位置情報
-                    // var latlng = new google.maps.LatLng( lat , lng ) ;
-
-                    // Google Mapsに書き出し
-                    // var map = new google.maps.Map( document.getElementById( 'map-canvas' ) , {
-                    //     zoom: 15 ,				// ズーム値
-                    //     center: latlng ,		// 中心座標 [latlng]
-                    // } ) ;
-
-                    // マーカーの新規出力
-                    // new google.maps.Marker( {
-                    //     map: map ,
-                    //     position: latlng ,
-                    // } ) ;
                 },
 
                 // [第2引数] 取得に失敗した場合の関数
