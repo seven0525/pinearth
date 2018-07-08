@@ -1,6 +1,6 @@
 import React, { Component }from 'react';
 import Layout from '../../components/Layout';
-import { Button, Card, Image } from 'semantic-ui-react'
+import { Button, Card, Image, Header, Modal } from 'semantic-ui-react'
 import { Link } from '../../routes';
 import styled from 'styled-components';
 
@@ -24,6 +24,14 @@ class MessagesShow extends Component {
                         </Card.Content>
                         <Card.Content extra>
                             <div className='ui two buttons'>
+                                <Button basic color='red'>
+                                    トランザクションIDを確認する
+                                </Button>
+
+                            </div>
+                        </Card.Content>
+                        <Card.Content extra>
+                            <div className='ui two buttons'>
                                 <Button basic color='green'>
                                     投げ銭
                                 </Button>
@@ -39,6 +47,14 @@ class MessagesShow extends Component {
                             <Card.Description>
                                 Molly wants to add you to the group <strong>musicians</strong>
                             </Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                            <div className='ui two buttons'>
+                                <Button basic color='red'>
+                                    トランザクションIDを確認する
+                                </Button>
+
+                            </div>
                         </Card.Content>
                         <Card.Content extra>
                             <div className='ui two buttons'>
