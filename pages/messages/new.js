@@ -57,14 +57,14 @@ class MessageForm extends Component {
                         requestURL += '&latlng=' + ido + ',' + keido;
                         requestURL += '&key=' + apiKey;
 
-                       () => {
+
                            fetch('https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false&latlng=35.6909389,139.6952959&key=AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0')
                                .then(res => {
                                    const resData = res.json();
-                                   console.log(data.results[0].address_components[3].long_name)
+                                   console.log(data.results[0].formatted_address)
 
                                })
-                       }
+
 
 
 
