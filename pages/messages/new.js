@@ -4,7 +4,24 @@ import { Button, Form } from 'semantic-ui-react';
 import { Link } from '../../routes';
 import styled from 'styled-components';
 
+
 class MessageForm extends Component {
+
+    componentDidMount() {
+        if( navigator.geolocation )
+        {
+            alert( "あなたの端末では、現在位置を取得することができます。" ) ;
+            console.log("あなたの端末では、現在位置を取得することができます");
+
+        }
+
+        else
+        {
+            alert( "あなたの端末では、現在位置を取得できません。" ) ;
+            console.log("あなたの端末では、現在位置を取得できません");
+
+        }
+    }
 
     render() {
         return (
