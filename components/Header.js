@@ -28,9 +28,10 @@ class Header extends Component {
 
         if(url ===  "http://localhost:3000/") {
 
-            // const {currentUser} = firebase.auth();
+            const {currentUser} = firebase.auth();
+
             //
-            // console.log(currrentUser);
+            console.log(firebase.auth());
         }
         }
 
