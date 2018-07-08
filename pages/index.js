@@ -61,16 +61,16 @@ class HomeIndex extends Component {
         });
 
 
-
-        fetch('https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false&latlng=35.6909389,139.6952959&key=AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0')
-            .then(responce => {
-                console.log(responce.json())
-                console.log(responce)
-                // console.log(responce.results[0]['formatted_address'])
-                // console.log(responce.results[0]['formatted_address'])
-
-
-            })
+        //
+        // fetch('https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false&latlng=35.6909389,139.6952959&key=AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0')
+        //     .then(responce => {
+        //         console.log(responce.json())
+        //         console.log(responce)
+        //         // console.log(responce.results[0]['formatted_address'])
+        //         // console.log(responce.results[0]['formatted_address'])
+        //
+        //
+        //     })
 
     }
 

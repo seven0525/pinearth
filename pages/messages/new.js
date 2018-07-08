@@ -12,10 +12,14 @@ class MessageForm extends Component {
 
 
     static async getInitialProps () {
+        // if( navigator.geolocation ) {
+        //
+        // }
         const res = await fetch('https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false&latlng=35.6909389,139.6952959&key=AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0')
         const data = await res.json()
 
         console.log(data)
+        console.log(data.results[0].formatted_address)
         return {  address: data.results[0].address_components[3].long_name }
     }
 
@@ -52,19 +56,19 @@ class MessageForm extends Component {
 
                         requestURL += '&latlng=' + ido + ',' + keido;
                         requestURL += '&key=' + apiKey;
-                        // fetch("https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=39cd3139183a4de3829d88dc70e82693")
-                        fetch('https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false&latlng=35.6909389,139.6952959&key=AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0')
-                            .then(responce=> {
-                                console.log(responce.json())
-                                console.log(responce)
-                                console.log("fuck")
-                                // console.log(responce.results[0]['formatted_address'])
-                                // console.log(responce.results[0]['formatted_address'])
 
-                            }).catch(() => {
-                                console.log("oogle map api の取得に失敗")
-                            }
-                        )
+                       () => {
+                           fetch('https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false&latlng=35.6909389,139.6952959&key=AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0')
+                               .then(res => {
+                                   const resData = res.json();
+                                   console.log(data.results[0].address_components[3].long_name)
+
+                               })
+                       }
+
+
+
+
 
                     },
 
