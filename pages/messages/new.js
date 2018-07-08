@@ -11,17 +11,17 @@ class MessageForm extends Component {
 
 
 
-    static async getInitialProps () {
-        // if( navigator.geolocation ) {
-        //
-        // }
-        const res = await fetch('https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false&latlng=35.6909389,139.6952959&key=AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0')
-        const data = await res.json()
-
-        console.log(data)
-        console.log(data.results[0].formatted_address)
-        return {  address: data.results[0].address_components[3].long_name }
-    }
+    // static async getInitialProps () {
+    //     // if( navigator.geolocation ) {
+    //     //
+    //     // }
+    //     const res = await fetch('https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false&latlng=35.6909389,139.6952959&key=AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0')
+    //     const data = await res.json()
+    //
+    //     console.log(data)
+    //     console.log(data.results[0].formatted_address)
+    //     return {  address: data.results[0].address_components[3].long_name }
+    // }
 
 
 
@@ -50,7 +50,7 @@ class MessageForm extends Component {
                         // アラート表示
                         alert("あなたの現在位置は、\n[" + ido + "," + keido + "]\nです。");
 
-                        var apiKey = 'AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0';
+                        var apiKey = 'AIzaSyDXOmYRsMNcBnm8BRCvKBV1vuRTzDCocHU';
 
                         var requestURL = 'https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false';
 
@@ -58,16 +58,11 @@ class MessageForm extends Component {
                         requestURL += '&key=' + apiKey;
 
 
-                           fetch('https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false&latlng=35.6909389,139.6952959&key=AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0')
-                               .then(res => {
-                                   const resData = res.json();
-                                   console.log(data.results[0].formatted_address)
-
-                               })
-
-
-
-
+                           fetch(requestURL)
+                               .then(response => response.json())
+                               .then(json => {
+                                   console.log(json);
+                               });
 
 
                     },
