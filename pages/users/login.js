@@ -65,8 +65,6 @@ class Login extends Component {
 
     }
     render() {
-
-        console.log(this.state.email)
         return(
 
             <Layout>

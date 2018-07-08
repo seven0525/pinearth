@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import  { Menu } from'semantic-ui-react';
+import  { Menu, Icon } from'semantic-ui-react';
 import { Link } from '../routes';
 import firebase from 'firebase';
 
@@ -17,7 +17,24 @@ if (!firebase.apps.length) {
 }
 
 
+
 class Header extends Component {
+
+
+    componentDidMount() {
+
+        const url = window.location.href;
+
+
+        if(url ===  "http://localhost:3000/") {
+
+            // const {currentUser} = firebase.auth();
+            //
+            // console.log(currrentUser);
+        }
+        }
+
+
 
     signOut() {
         firebase.auth().signOut().then(function() {
@@ -41,7 +58,9 @@ class Header extends Component {
                     onClick={()=>{this.signOut()}}
                 />
                 <Menu.Item
-                />
+                >
+                    <Icon link name='user' />
+                </Menu.Item>
             </Menu>
 
         );
