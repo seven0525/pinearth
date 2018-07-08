@@ -51,9 +51,22 @@ class Signup extends Component {
                     firebase.database().ref(`/users`).push({ username, address})
                         .then(
                             () => {
-                                this.setState({errorMessage: ""})
-                                window.location.replace('http://localhost:3000')
-                            })
+                                var files = document.getElementById('file').files;
+                                var image = files[0];
+
+                                var ref = firebase.storage().ref().child(image.name);
+                                ref.put(image).then(function(snapshot) {
+                                    alert('アップロードしました');
+                                })
+                                    .then(
+                                        () => {
+                                            this.setState({errorMessage: ""})
+                                            window.location.replace('http://localhost:3000')
+                                        })
+                                ;
+                            }
+                        )
+
                 })
             .catch(()=> {
                 this.setState({errorMessage: "サインアップに失敗しました"})
@@ -88,10 +101,10 @@ class Signup extends Component {
 
                         />
                     </Form.Field>
-                    {/*<Form.Field>*/}
-                        {/*<label>avatar</label>*/}
-                        {/*<input type="file" id="file" />*/}
-                    {/*</Form.Field>*/}
+                    <Form.Field>
+                        <label>avatar</label>
+                        <input type="file" id="file" />
+                    </Form.Field>
                     <Form.Field>
                         <Checkbox label='I agree to the Terms and Conditions' />
                     </Form.Field>
