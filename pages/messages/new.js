@@ -7,29 +7,22 @@ import styled from 'styled-components';
 
 class MessageForm extends Component {
 
-
-
-
-
-    // static async getInitialProps () {
-    //     // if( navigator.geolocation ) {
-    //     //
-    //     // }
-    //     const res = await fetch('https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false&latlng=35.6909389,139.6952959&key=AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0')
-    //     const data = await res.json()
-    //
-    //     console.log(data)
-    //     console.log(data.results[0].formatted_address)
-    //     return {  address: data.results[0].address_components[3].long_name }
-    // }
+    state = {
+        place: ''
+    }
 
 
 
     componentDidMount() {
+
+        var hereThis= this;
+
+
+        var here = '';
         if( navigator.geolocation )
         {
-            alert( "あなたの端末では、現在位置を取得することができます。" ) ;
-            console.log("あなたの端末では、現在位置を取得することができます");
+            // alert( "あなたの端末では、現在位置を取得することができます。" ) ;
+            // console.log("あなたの端末では、現在位置を取得することができます");
 
                 // 現在地を取得
                 navigator.geolocation.getCurrentPosition(
@@ -48,9 +41,9 @@ class MessageForm extends Component {
                         var speed = data.speed;
 
                         // アラート表示
-                        alert("あなたの現在位置は、\n[" + ido + "," + keido + "]\nです。");
+                        // alert("あなたの現在位置は、\n[" + ido + "," + keido + "]\nです。");
 
-                        var apiKey = 'AIzaSyDXOmYRsMNcBnm8BRCvKBV1vuRTzDCocHU';
+                        var apiKey = 'AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0';
 
                         var requestURL = 'https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false';
 
@@ -62,7 +55,17 @@ class MessageForm extends Component {
                                .then(response => response.json())
                                .then(json => {
                                    console.log(json);
+                                   console.log(json.results[0].address_components[3].long_name);
+                                   here = json.results[0].address_components[3].long_name;
+                                   console.log(this);
+
+                                       hereThis.setState({place: here})
+
+
+                                   // const here =
                                });
+
+
 
 
                     },
@@ -115,9 +118,11 @@ class MessageForm extends Component {
         return (
             <Layout>
                 <div>
-                    <h1>aaa{this.props.address}</h1>
+                    <h1>aaa{this.state.place}</h1>
                     <Form>
-                    <Form.Input fluid label='現在地' placeholder='東京都' />
+                    <Form.Input fluid label='現在地' placeholder='東京都'>
+                        {this.state.place}
+                    </Form.Input>
                     <Form.TextArea label='伝えたいこと' placeholder='Tell us more about you...' />
                     <Form.Checkbox label='I agree to the Terms and Conditions' />
                     <Form.Button>保存する</Form.Button>
