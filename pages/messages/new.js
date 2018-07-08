@@ -118,10 +118,9 @@ class MessageForm extends Component {
         return (
             <Layout>
                 <div>
-                    <h1>aaa{this.state.place}</h1>
                     <Form>
                     <Form.Input fluid label='現在地' placeholder='東京都'>
-                        {this.state.place}
+                        <h2> {this.state.place}</h2>
                     </Form.Input>
                     <Form.TextArea label='伝えたいこと' placeholder='Tell us more about you...' />
                     <Form.Checkbox label='I agree to the Terms and Conditions' />
