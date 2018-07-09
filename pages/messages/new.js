@@ -10,7 +10,9 @@ class MessageForm extends Component {
 
     state = {
         place: '',
-        loading: true
+        loading: true,
+        ido:'',
+        keido:''
     }
 
 
@@ -41,6 +43,8 @@ class MessageForm extends Component {
                         var accAlt = data.altitudeAccuracy;
                         var heading = data.heading;			//0=北,90=東,180=南,270=西
                         var speed = data.speed;
+
+                        hereThis.setState({ido: ido, keido:keido})
 
                         // アラート表示
                         // alert("あなたの現在位置は、\n[" + ido + "," + keido + "]\nです。");
@@ -115,6 +119,7 @@ class MessageForm extends Component {
         }
 
     render() {
+
         return (
             <Layout>
                 <div>
