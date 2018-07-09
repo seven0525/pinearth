@@ -3,6 +3,10 @@ import Layout from '../../components/Layout';
 import styled from 'styled-components';
 import { Button, Checkbox, Form, Message } from 'semantic-ui-react';
 import firebase from 'firebase';
+import LoginSignHeader from "../../components/LoginSignHeader";
+import LoginSignLayout from "../../components/LoginSignLayout";
+
+
 
 const Div = styled.div`
     width: 300px;
@@ -45,27 +49,32 @@ class Signup extends Component {
 
         const addressEmail = address + '@gmail.com';
 
+
+
         firebase.auth().createUserWithEmailAndPassword(addressEmail, password)
             .then(
                 () => {
-                    firebase.database().ref(`/users`).push({ username, address})
-                        .then(
-                            () => {
-                                var files = document.getElementById('file').files;
-                                var image = files[0];
-
-                                var ref = firebase.storage().ref().child(image.name);
-                                ref.put(image).then(function(snapshot) {
-                                    alert('アップロードしました');
-                                })
+                    const { currentUser} = firebase.auth();
+                    console.log(currentUser.uid)
+                    var userId= currentUser.uid;
+                    firebase.database().ref(`/users`).push({userId, username, address})
+                        // .then(
+                        //     () => {
+                        //         var files = document.getElementById('file').files;
+                        //         var image = files[0];
+                        //
+                        //         var ref = firebase.storage().ref().child(image.name);
+                        //         ref.put(image).then(function(snapshot) {
+                        //             alert('アップロードしました');
+                        //         })
                                     .then(
                                         () => {
                                             this.setState({errorMessage: ""})
                                             window.location.replace('http://localhost:3000')
                                         })
                                 ;
-                            }
-                        )
+                            // }
+                        // )
 
                 })
             .catch(()=> {
@@ -78,7 +87,7 @@ class Signup extends Component {
     render() {
         return(
 
-            <Layout>
+          <LoginSignLayout>
                 <h2>signup</h2>
                 <Form error={!!this.state.errorMessage}>
                     <Form.Field>
@@ -116,9 +125,9 @@ class Signup extends Component {
                     >Submit</Button>
                 </Form>
 
+          </LoginSignLayout>
 
 
-            </Layout>
 
 
 

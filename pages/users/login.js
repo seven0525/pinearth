@@ -4,6 +4,10 @@ import styled from 'styled-components';
 import { Button, Checkbox, Form, Message } from 'semantic-ui-react';
 import { Link } from '../../routes';
 import firebase from 'firebase';
+import LoginSignHeader from "../../components/LoginSignHeader";
+import LoginSignLayout from "../../components/LoginSignLayout";
+
+
 
 var currentUser = ''
 
@@ -67,7 +71,7 @@ class Login extends Component {
     render() {
         return(
 
-            <Layout>
+           <LoginSignLayout>
                 <h2>Login</h2>
                 <Form error={!!this.state.errorMessage}>
                     <Form.Field>
@@ -99,7 +103,7 @@ class Login extends Component {
                             </Link>
 
                             へ</h4>
-            </Layout>
+           </LoginSignLayout>
         )
     }
 

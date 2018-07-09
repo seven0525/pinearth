@@ -1,14 +1,18 @@
 import React, { Component }from 'react';
 import Layout from '../../components/Layout';
-import { Button, Form } from 'semantic-ui-react';
+import { Button, Form, Modal,  Header, Image } from 'semantic-ui-react';
 import { Link } from '../../routes';
 import styled from 'styled-components';
-
+import { ClipLoader } from 'react-spinners';
+import MapComponent from '../../components/MapComponent';
 
 class MessageForm extends Component {
 
     state = {
-        place: ''
+        place: '',
+        loading: true,
+        ido:'',
+        keido:''
     }
 
 
@@ -40,6 +44,8 @@ class MessageForm extends Component {
                         var heading = data.heading;			//0=北,90=東,180=南,270=西
                         var speed = data.speed;
 
+                        hereThis.setState({ido: ido, keido:keido})
+
                         // アラート表示
                         // alert("あなたの現在位置は、\n[" + ido + "," + keido + "]\nです。");
 
@@ -54,15 +60,13 @@ class MessageForm extends Component {
                            fetch(requestURL)
                                .then(response => response.json())
                                .then(json => {
-                                   console.log(json);
-                                   console.log(json.results[0].address_components[3].long_name);
-                                   here = json.results[0].address_components[3].long_name;
-                                   console.log(this);
-
-                                       hereThis.setState({place: here})
-
-
-                                   // const here =
+                                   console.log(json)
+                                   console.log(json.results[0]. formatted_address);
+                                   here = json.results[0].formatted_address;
+                                   const herePlaceNames = here.match("(.{2}[都道府県]|.{3}県)");
+                                  const herePlaceName = herePlaceNames[0];
+                                   hereThis.setState({place: herePlaceName});
+                                   hereThis.setState({loading: false});
                                });
 
 
@@ -115,17 +119,37 @@ class MessageForm extends Component {
         }
 
     render() {
+
         return (
             <Layout>
                 <div>
                     <Form>
                     <Form.Input fluid label='現在地' placeholder='東京都'>
                         <h2> {this.state.place}</h2>
+                        <ClipLoader
+                            loading={this.state.loading}
+                        />
                     </Form.Input>
                     <Form.TextArea label='伝えたいこと' placeholder='Tell us more about you...' />
                     <Form.Checkbox label='I agree to the Terms and Conditions' />
                     <Form.Button>保存する</Form.Button>
                 </Form>
+
+
+
+                    <Modal style={{height: 400}} trigger={<Button>保存する</Button>}>
+                        <Modal.Header>Select a Photo</Modal.Header>
+                        <Modal.Content >
+                            <MapComponent
+                                ido = {this.state.ido}
+                                keido={this.state.keido}
+                            />
+
+
+                        </Modal.Content>
+                    </Modal>
+
+
                 </div>
             </Layout>
 

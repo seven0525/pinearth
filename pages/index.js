@@ -32,20 +32,6 @@ if (!firebase.apps.length) {
 
 
 
-
-    // console.log(firebase.auth().currentUser);
-    // firebase.auth().onAuthStateChanged(function (user) {
-    //     if (user) {
-    //         console.log("User is signed in.")
-    //     } else {
-    //         console.log("User is not signed in.")
-    //         window.location.replace('http://localhost:3000/users/login')
-    //
-    //     }
-    // });
-
-
-
 class HomeIndex extends Component {
 
     componentWillMount() {
@@ -53,25 +39,17 @@ class HomeIndex extends Component {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 console.log("User is signed in.")
+                const { currentUser } = firebase.auth();
+
+
+                console.log(currentUser.uid)
+                console.log(currentUser.getUid());
             } else {
                 console.log("User is not signed in.")
                 window.location.replace('http://localhost:3000/users/login')
 
             }
         });
-
-
-        //
-        // fetch('https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false&latlng=35.6909389,139.6952959&key=AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0')
-        //     .then(responce => {
-        //         console.log(responce.json())
-        //         console.log(responce)
-        //         // console.log(responce.results[0]['formatted_address'])
-        //         // console.log(responce.results[0]['formatted_address'])
-        //
-        //
-        //     })
-
     }
 
     render() {
