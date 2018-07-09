@@ -54,15 +54,12 @@ class MessageForm extends Component {
                            fetch(requestURL)
                                .then(response => response.json())
                                .then(json => {
-                                   console.log(json);
-                                   console.log(json.results[0].address_components[3].long_name);
-                                   here = json.results[0].address_components[3].long_name;
-                                   console.log(this);
-
-                                       hereThis.setState({place: here})
-
-
-                                   // const here =
+                                   console.log(json)
+                                   console.log(json.results[0]. formatted_address);
+                                   here = json.results[0].formatted_address;
+                                   const herePlaceNames = here.match("(.{2}[都道府県]|.{3}県)");
+                                  const herePlaceName = herePlaceNames[0];
+                                   hereThis.setState({place: herePlaceName})
                                });
 
 
