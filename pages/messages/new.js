@@ -1,10 +1,10 @@
 import React, { Component }from 'react';
 import Layout from '../../components/Layout';
-import { Button, Form } from 'semantic-ui-react';
+import { Button, Form, Modal,  Header, Image } from 'semantic-ui-react';
 import { Link } from '../../routes';
 import styled from 'styled-components';
 import { ClipLoader } from 'react-spinners';
-
+import MapComponent from '../../components/MapComponent';
 
 class MessageForm extends Component {
 
@@ -134,6 +134,22 @@ class MessageForm extends Component {
                     <Form.Checkbox label='I agree to the Terms and Conditions' />
                     <Form.Button>保存する</Form.Button>
                 </Form>
+
+
+
+                    <Modal style={{height: 400}} trigger={<Button>保存する</Button>}>
+                        <Modal.Header>Select a Photo</Modal.Header>
+                        <Modal.Content >
+                            <MapComponent
+                                ido = {this.state.ido}
+                                keido={this.state.keido}
+                            />
+
+
+                        </Modal.Content>
+                    </Modal>
+
+
                 </div>
             </Layout>
 
