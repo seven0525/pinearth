@@ -3,12 +3,14 @@ import Layout from '../../components/Layout';
 import { Button, Form } from 'semantic-ui-react';
 import { Link } from '../../routes';
 import styled from 'styled-components';
+import { ClipLoader } from 'react-spinners';
 
 
 class MessageForm extends Component {
 
     state = {
-        place: ''
+        place: '',
+        loading: true
     }
 
 
@@ -59,7 +61,8 @@ class MessageForm extends Component {
                                    here = json.results[0].formatted_address;
                                    const herePlaceNames = here.match("(.{2}[都道府県]|.{3}県)");
                                   const herePlaceName = herePlaceNames[0];
-                                   hereThis.setState({place: herePlaceName})
+                                   hereThis.setState({place: herePlaceName});
+                                   hereThis.setState({loading: false});
                                });
 
 
@@ -118,6 +121,9 @@ class MessageForm extends Component {
                     <Form>
                     <Form.Input fluid label='現在地' placeholder='東京都'>
                         <h2> {this.state.place}</h2>
+                        <ClipLoader
+                            loading={this.state.loading}
+                        />
                     </Form.Input>
                     <Form.TextArea label='伝えたいこと' placeholder='Tell us more about you...' />
                     <Form.Checkbox label='I agree to the Terms and Conditions' />
