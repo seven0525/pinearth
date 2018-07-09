@@ -3,6 +3,10 @@ import Layout from '../../components/Layout';
 import styled from 'styled-components';
 import { Button, Checkbox, Form, Message } from 'semantic-ui-react';
 import firebase from 'firebase';
+import LoginSignHeader from "../../components/LoginSignHeader";
+import LoginSignLayout from "../../components/LoginSignLayout";
+
+
 
 const Div = styled.div`
     width: 300px;
@@ -83,7 +87,7 @@ class Signup extends Component {
     render() {
         return(
 
-            <Layout>
+          <LoginSignLayout>
                 <h2>signup</h2>
                 <Form error={!!this.state.errorMessage}>
                     <Form.Field>
@@ -121,9 +125,9 @@ class Signup extends Component {
                     >Submit</Button>
                 </Form>
 
+          </LoginSignLayout>
 
 
-            </Layout>
 
 
 
