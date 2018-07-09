@@ -208,8 +208,9 @@ class Header extends Component {
                 />
                 <Menu.Item
                 >
-                    <Icon link name='user'>{this.state.username}</Icon>
-                        <Img　width="30px" height="30px" src={this.state.imageUrl} />
+                        <Img 　width="30px" height="30px" src={this.state.imageUrl} />
+                    <h4 >{this.state.username}</h4>
+
                 </Menu.Item>
             </Menu>
 
