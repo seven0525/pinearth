@@ -32,20 +32,6 @@ if (!firebase.apps.length) {
 
 
 
-
-    // console.log(firebase.auth().currentUser);
-    // firebase.auth().onAuthStateChanged(function (user) {
-    //     if (user) {
-    //         console.log("User is signed in.")
-    //     } else {
-    //         console.log("User is not signed in.")
-    //         window.location.replace('http://localhost:3000/users/login')
-    //
-    //     }
-    // });
-
-
-
 class HomeIndex extends Component {
 
     componentWillMount() {
@@ -53,15 +39,17 @@ class HomeIndex extends Component {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 console.log("User is signed in.")
+                const { currentUser } = firebase.auth();
+
+
+                console.log(currentUser.uid)
+                console.log(currentUser.getUid());
             } else {
                 console.log("User is not signed in.")
                 window.location.replace('http://localhost:3000/users/login')
 
             }
         });
-
-
-
     }
 
     render() {

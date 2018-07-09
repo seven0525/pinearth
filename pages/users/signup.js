@@ -45,27 +45,31 @@ class Signup extends Component {
 
         const addressEmail = address + '@gmail.com';
 
+
+        var userId = Math.floor( Math.random() * 100000000000000 );
+
+
         firebase.auth().createUserWithEmailAndPassword(addressEmail, password)
             .then(
                 () => {
-                    firebase.database().ref(`/users`).push({ username, address})
-                        .then(
-                            () => {
-                                var files = document.getElementById('file').files;
-                                var image = files[0];
-
-                                var ref = firebase.storage().ref().child(image.name);
-                                ref.put(image).then(function(snapshot) {
-                                    alert('アップロードしました');
-                                })
+                    firebase.database().ref(`/users`).push({userId, username, address})
+                        // .then(
+                        //     () => {
+                        //         var files = document.getElementById('file').files;
+                        //         var image = files[0];
+                        //
+                        //         var ref = firebase.storage().ref().child(image.name);
+                        //         ref.put(image).then(function(snapshot) {
+                        //             alert('アップロードしました');
+                        //         })
                                     .then(
                                         () => {
                                             this.setState({errorMessage: ""})
                                             window.location.replace('http://localhost:3000')
                                         })
                                 ;
-                            }
-                        )
+                            // }
+                        // )
 
                 })
             .catch(()=> {
