@@ -46,12 +46,13 @@ class Signup extends Component {
         const addressEmail = address + '@gmail.com';
 
 
-        var userId = Math.floor( Math.random() * 100000000000000 );
-
 
         firebase.auth().createUserWithEmailAndPassword(addressEmail, password)
             .then(
                 () => {
+                    const { currentUser} = firebase.auth();
+                    console.log(currentUser.uid)
+                    var userId= currentUser.uid;
                     firebase.database().ref(`/users`).push({userId, username, address})
                         // .then(
                         //     () => {
