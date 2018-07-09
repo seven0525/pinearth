@@ -11,11 +11,9 @@ class LoginSignHeader extends Component {
 
         return (
             <Menu color='blue' inverted widths={3}>
-                <Link route="/">
-                    <a>
+
                         <Menu.Item name='Time Coupsel'  />
-                    </a>
-                </Link>
+
                 <Menu.Item
                     // name='signout'
                     // onClick={()=>{this.signOut()}}
