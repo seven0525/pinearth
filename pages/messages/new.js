@@ -16,7 +16,6 @@ class MessageForm extends Component {
     }
 
 
-
     componentDidMount() {
 
         var hereThis= this;

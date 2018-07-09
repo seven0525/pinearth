@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import  { Menu, Icon } from'semantic-ui-react';
+import  { Menu, Icon, Feed } from'semantic-ui-react';
 import { Link } from '../routes';
 import firebase from 'firebase';
+import 'firebase/storage';
+import styled from 'styled-components';
+
+
 
 var config = {
     apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
@@ -17,11 +21,11 @@ if (!firebase.apps.length) {
 }
 
 
-
 class Header extends Component {
 
     state={
-        username: ''
+        username: '',
+        imageUrl:''
     }
 
     componentWillMount() {
@@ -86,6 +90,8 @@ class Header extends Component {
 
         const url = window.location.href;
 
+        var hereThis = this;
+
 
         if(url ===  "http://localhost:3000/") {
 
@@ -94,6 +100,28 @@ class Header extends Component {
             //
             console.log(firebase.auth());
         }
+
+
+        var storageRef = firebase.storage().ref();
+
+        console.log(storageRef.child('userImage/IMG_0616.JPG'))
+
+        console.log(storageRef.child('userImage/IMG_0616.JPG').getDownloadURL());
+
+        storageRef.child('userImage/IMG_0616.JPG').getDownloadURL().then(function(url) {
+
+                var test = url;
+
+                console.log(test);
+                hereThis.setState({imageUrl: url});
+
+            }).catch(function(error) {
+                console.log("画像取得に失敗しました")
+
+            });
+
+
+
         }
 
 
@@ -108,6 +136,13 @@ class Header extends Component {
 
     render(){
 
+        const Img = styled.img`
+             border-radius: 50%;  
+              width:  30px;      
+               height: 30px;  
+        `;
+
+        console.log(this.state.imageUrl)
         return (
             <Menu color='blue' inverted widths={3}>
                 <Link route="/">
@@ -122,6 +157,7 @@ class Header extends Component {
                 <Menu.Item
                 >
                     <Icon link name='user'>{this.state.username}</Icon>
+                        <Img　width="30px" height="30px" src={this.state.imageUrl} />
                 </Menu.Item>
             </Menu>
 

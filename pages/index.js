@@ -4,6 +4,7 @@ import { Button } from 'semantic-ui-react';
 import { Link } from '../routes';
 import styled from 'styled-components';
 import firebase from 'firebase';
+import 'firebase/storage';
 
 
 const Div = styled.div`
@@ -33,6 +34,18 @@ if (!firebase.apps.length) {
 
 
 class HomeIndex extends Component {
+
+    componentDidMount(){
+
+        var storageRef = firebase.storage().ref();
+
+        console.log(storageRef.child('userImage/IMG_0616.JPG'))
+
+        console.log(storageRef.child('userImage/IMG_0616.JPG').getDownloadURL());
+
+
+
+    }
 
     componentWillMount() {
 
