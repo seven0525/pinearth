@@ -20,6 +20,67 @@ if (!firebase.apps.length) {
 
 class Header extends Component {
 
+    state={
+        username: ''
+    }
+
+    componentWillMount() {
+
+        var hereThis= this;
+
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                console.log("User is signed in.")
+                const { currentUser } = firebase.auth();
+
+                var userId = currentUser.uid;
+
+                console.log(userId);
+                var savedUserId = '';
+
+                var  savedUserNickname = '';
+
+                const firebaseUsersRef = firebase.database().ref(`/users`);
+
+                firebaseUsersRef
+                    .on("value", function(snapshot) {
+
+                        snapshot.forEach(function (childSnapshot) {
+
+                            const childData = childSnapshot.val();
+                            savedUserId = childData.userId;
+                            console.log(savedUserId);
+                            console.log(childData);
+
+                            if( userId === savedUserId ) {
+                                savedUserNickname = childData.username;
+                                console.log(savedUserNickname)
+                            }
+
+
+                        });
+
+                        hereThis.setState({username: savedUserNickname});
+                        console.log(savedUserNickname);
+                        console.log(hereThis.state.username);
+
+                    });
+
+
+
+
+
+
+
+            } else {
+                console.log("User is not signed in.")
+                window.location.replace('http://localhost:3000/users/login')
+
+            }
+        });
+
+    }
+
 
     componentDidMount() {
 
@@ -60,7 +121,7 @@ class Header extends Component {
                 />
                 <Menu.Item
                 >
-                    <Icon link name='user' />
+                    <Icon link name='user'>{this.state.username}</Icon>
                 </Menu.Item>
             </Menu>
 
