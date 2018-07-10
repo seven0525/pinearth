@@ -167,7 +167,7 @@ class Header extends Component {
                 </Menu.Item>
                 <Dropdown  text={this.state.username} pointing className='link item'>
                     <Dropdown.Menu>
-                        <Link route="/user/login">
+                        <Link route="/users/mypage">
                     <Dropdown.Item>my page</Dropdown.Item>
                         </Link>
                     </Dropdown.Menu>
