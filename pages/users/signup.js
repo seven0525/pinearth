@@ -45,36 +45,35 @@ class Signup extends Component {
     }
 
     signupUser() {
+
         const {username, address, password } = this.state;
 
         const addressEmail = address + '@gmail.com';
-
 
 
         firebase.auth().createUserWithEmailAndPassword(addressEmail, password)
             .then(
                 () => {
                     const { currentUser} = firebase.auth();
-                    console.log(currentUser.uid)
                     var userId= currentUser.uid;
                     firebase.database().ref(`/users`).push({userId, username, address})
-                        // .then(
-                        //     () => {
-                        //         var files = document.getElementById('file').files;
-                        //         var image = files[0];
-                        //
-                        //         var ref = firebase.storage().ref().child(image.name);
-                        //         ref.put(image).then(function(snapshot) {
-                        //             alert('アップロードしました');
-                        //         })
+                        .then(
+                            () => {
+                                var files = document.getElementById('file').files;
+                                var image = files[0];
+
+                                var ref = firebase.storage().ref().child(image.name);
+                                ref.put(image).then(function(snapshot) {
+                                    alert('アップロードしました');
+                                })
                                     .then(
                                         () => {
                                             this.setState({errorMessage: ""})
                                             window.location.replace('http://localhost:3000')
                                         })
                                 ;
-                            // }
-                        // )
+                            }
+                        )
 
                 })
             .catch(()=> {
