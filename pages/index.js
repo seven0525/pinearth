@@ -39,12 +39,6 @@ class HomeIndex extends Component {
 
         var storageRef = firebase.storage().ref();
 
-        console.log(storageRef.child('userImage/IMG_0616.JPG'))
-
-        console.log(storageRef.child('userImage/IMG_0616.JPG').getDownloadURL());
-
-
-
     }
 
     componentWillMount() {
