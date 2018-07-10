@@ -28,62 +28,6 @@ class Header extends Component {
         imageUrl:''
     }
 
-    componentWillMount() {
-
-        var hereThis= this;
-
-        // firebase.auth().onAuthStateChanged(function (user) {
-        //     if (user) {
-        //         console.log("User is signed in.")
-        //         const { currentUser } = firebase.auth();
-        //
-        //         var userId = currentUser.uid;
-        //
-        //         console.log(userId);
-        //         var savedUserId = '';
-        //
-        //         var  savedUserNickname = '';
-        //
-        //         const firebaseUsersRef = firebase.database().ref(`/users`);
-        //
-        //         firebaseUsersRef
-        //             .on("value", function(snapshot) {
-        //
-        //                 snapshot.forEach(function (childSnapshot) {
-        //
-        //                     const childData = childSnapshot.val();
-        //                     savedUserId = childData.userId;
-        //                     console.log(savedUserId);
-        //                     console.log(childData);
-        //
-        //                     if( userId === savedUserId ) {
-        //                         savedUserNickname = childData.username;
-        //                         console.log(savedUserNickname)
-        //                     }
-        //
-        //
-        //                 });
-        //
-        //                 hereThis.setState({username: savedUserNickname});
-        //                 console.log(savedUserNickname);
-        //                 console.log(hereThis.state.username);
-        //
-        //             });
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //     } else {
-        //         console.log("User is not signed in.")
-        //         window.location.replace('http://localhost:3000/users/login')
-        //
-        //     }
-        // });
-
-    }
 
 
     componentDidMount() {
@@ -135,24 +79,74 @@ class Header extends Component {
 
 
 
-        const {currentUser} = firebase.auth();
-
-        var storageRef = firebase.storage().ref();
-
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
 
 
-        storageRef.child('userImage/IMG_0616.JPG').getDownloadURL().then(function(url) {
+                const {currentUser} = firebase.auth();
 
-                hereThis.setState({imageUrl: url});
+                var userId = currentUser.uid;
 
-            }).catch(function(error) {
-                console.log("画像取得に失敗しました")
+                var storageRef = firebase.storage().ref();
 
-            });
+                const firebaseImagesRef = firebase.database().ref(`/images`);
+
+                var savedImageName = '';
+
+                var savedUserId = '';
+
+                firebaseImagesRef
+                    .on("value", function (snapshot) {
+
+                        snapshot.forEach(function (childSnapshot) {
+
+                            const childData = childSnapshot.val();
+
+                            savedUserId = childData.userId;
+
+                            if (userId === savedUserId) {
+                                savedImageName = childData.imageName;
+                            }
 
 
+                        });
 
-        }
+                    }).then(
+                    () => {
+
+                        console.log(savedImageName)
+
+                        storageRef.child({savedImageName}).getDownloadURL().then(function (url) {
+
+                            console.log(url)
+
+                            hereThis.setState({imageUrl: url});
+
+                        }).catch(function (error) {
+                            console.log("画像取得に失敗しました")
+
+                        });
+
+
+                    }
+                )
+
+
+            }
+
+        //
+        // storageRef.child('userImage/IMG_0616.JPG').getDownloadURL().then(function(url) {
+        //
+        //         hereThis.setState({imageUrl: url});
+        //
+        //     }).catch(function(error) {
+        //         console.log("画像取得に失敗しました")
+        //
+        //     });
+        //
+
+        })
+    }
 
 
 
