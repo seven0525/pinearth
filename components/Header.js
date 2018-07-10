@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import  { Menu, Icon, Feed } from'semantic-ui-react';
+import  { Menu, Icon, Feed, Dropdown } from'semantic-ui-react';
 import { Link } from '../routes';
 import firebase from 'firebase';
 import 'firebase/storage';
@@ -149,7 +149,7 @@ class Header extends Component {
 
         console.log(this.state.imageUrl)
         return (
-            <Menu color='blue' inverted widths={3}>
+            <Menu color='blue' inverted widths={4}>
                 <Link route="/">
                     <a>
                 <Menu.Item name='Time Coupsel'  />
@@ -165,6 +165,14 @@ class Header extends Component {
                     <h4 >{this.state.username}</h4>
 
                 </Menu.Item>
+                <Dropdown  text={this.state.username} pointing className='link item'>
+                    <Dropdown.Menu>
+                        <Link route="/users/mypage">
+                    <Dropdown.Item>my page</Dropdown.Item>
+                        </Link>
+                    </Dropdown.Menu>
+
+                </Dropdown>
             </Menu>
 
         );

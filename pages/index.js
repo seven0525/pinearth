@@ -77,6 +77,7 @@ class HomeIndex extends Component {
                 <Button basic color='teal'
                         content='みてみる'
                         size='massive'
+                        // style={{height: 300}}
                         // style={styles.showButtonStyle}
                 />
                          </a>
