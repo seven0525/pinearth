@@ -135,14 +135,11 @@ class Header extends Component {
 
 
 
-        if(url ===  "http://localhost:3000/") {
-
-            const {currentUser} = firebase.auth();
-
-
-        }
+        const {currentUser} = firebase.auth();
 
         var storageRef = firebase.storage().ref();
+
+
 
         storageRef.child('userImage/IMG_0616.JPG').getDownloadURL().then(function(url) {
 
