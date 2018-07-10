@@ -54,9 +54,6 @@ class HomeIndex extends Component {
                 console.log("User is signed in.")
                 const { currentUser } = firebase.auth();
 
-
-                console.log(currentUser.uid)
-                console.log(currentUser.getUid());
             } else {
                 console.log("User is not signed in.")
                 window.location.replace('http://localhost:3000/users/login')
