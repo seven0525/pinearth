@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import  { Menu, Icon } from'semantic-ui-react';
+import  { Menu, Icon, Feed } from'semantic-ui-react';
 import { Link } from '../routes';
 import firebase from 'firebase';
+import 'firebase/storage';
+import styled from 'styled-components';
+
+
 
 var config = {
     apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
@@ -17,16 +21,20 @@ if (!firebase.apps.length) {
 }
 
 
-
 class Header extends Component {
 
     state={
-        username: ''
+        username: '',
+        imageUrl:''
     }
 
-    componentWillMount() {
 
-        var hereThis= this;
+
+    componentDidMount() {
+
+        const url = window.location.href;
+
+        var hereThis = this;
 
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -49,27 +57,17 @@ class Header extends Component {
 
                             const childData = childSnapshot.val();
                             savedUserId = childData.userId;
-                            console.log(savedUserId);
-                            console.log(childData);
 
                             if( userId === savedUserId ) {
                                 savedUserNickname = childData.username;
-                                console.log(savedUserNickname)
                             }
 
 
                         });
 
                         hereThis.setState({username: savedUserNickname});
-                        console.log(savedUserNickname);
-                        console.log(hereThis.state.username);
 
                     });
-
-
-
-
-
 
 
             } else {
@@ -79,22 +77,57 @@ class Header extends Component {
             }
         });
 
-    }
 
 
-    componentDidMount() {
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
 
-        const url = window.location.href;
+
+                const {currentUser} = firebase.auth();
+
+                var userId = currentUser.uid;
+
+                var storageRef = firebase.storage().ref();
+
+                const firebaseImagesRef = firebase.database().ref(`/images`);
+
+                var savedImageName = '';
+
+                var savedUserId = '';
+
+                firebaseImagesRef
+                    .on("value", function (snapshot) {
+
+                        snapshot.forEach(function (childSnapshot) {
+
+                            const childData = childSnapshot.val();
 
 
-        if(url ===  "http://localhost:3000/") {
+                            savedUserId = childData.userId;
 
-            const {currentUser} = firebase.auth();
+                            if (userId === savedUserId) {
+                                savedImageName = childData.imageName;
+                            }
 
-            //
-            console.log(firebase.auth());
-        }
-        }
+                        })
+                        console.log(savedImageName)
+
+                        storageRef.child(savedImageName).getDownloadURL().then(function (url) {
+
+                            console.log(url)
+
+                            hereThis.setState({imageUrl: url});
+
+                        })
+                    })
+
+                console.log("a")
+
+
+            }
+         })
+     }
+
 
 
 
@@ -108,6 +141,13 @@ class Header extends Component {
 
     render(){
 
+        const Img = styled.img`
+             border-radius: 50%;  
+              width:  30px;      
+               height: 30px;  
+        `;
+
+        console.log(this.state.imageUrl)
         return (
             <Menu color='blue' inverted widths={3}>
                 <Link route="/">
@@ -121,7 +161,9 @@ class Header extends Component {
                 />
                 <Menu.Item
                 >
-                    <Icon link name='user'>{this.state.username}</Icon>
+                        <Img 　width="30px" height="30px" src={this.state.imageUrl} />
+                    <h4 >{this.state.username}</h4>
+
                 </Menu.Item>
             </Menu>
 

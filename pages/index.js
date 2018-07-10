@@ -4,6 +4,7 @@ import { Button } from 'semantic-ui-react';
 import { Link } from '../routes';
 import styled from 'styled-components';
 import firebase from 'firebase';
+import 'firebase/storage';
 
 
 const Div = styled.div`
@@ -34,6 +35,12 @@ if (!firebase.apps.length) {
 
 class HomeIndex extends Component {
 
+    componentDidMount(){
+
+        var storageRef = firebase.storage().ref();
+
+    }
+
     componentWillMount() {
 
         firebase.auth().onAuthStateChanged(function (user) {
@@ -41,9 +48,6 @@ class HomeIndex extends Component {
                 console.log("User is signed in.")
                 const { currentUser } = firebase.auth();
 
-
-                console.log(currentUser.uid)
-                console.log(currentUser.getUid());
             } else {
                 console.log("User is not signed in.")
                 window.location.replace('http://localhost:3000/users/login')
