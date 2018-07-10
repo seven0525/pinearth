@@ -113,27 +113,17 @@ class Header extends Component {
 
                             const childData = childSnapshot.val();
                             savedUserId = childData.userId;
-                            console.log(savedUserId);
-                            console.log(childData);
 
                             if( userId === savedUserId ) {
                                 savedUserNickname = childData.username;
-                                console.log(savedUserNickname)
                             }
 
 
                         });
 
                         hereThis.setState({username: savedUserNickname});
-                        console.log(savedUserNickname);
-                        console.log(hereThis.state.username);
 
                     });
-
-
-
-
-
 
 
             } else {
@@ -149,22 +139,13 @@ class Header extends Component {
 
             const {currentUser} = firebase.auth();
 
-            //
-            console.log(firebase.auth());
-        }
 
+        }
 
         var storageRef = firebase.storage().ref();
 
-        console.log(storageRef.child('userImage/IMG_0616.JPG'))
-
-        console.log(storageRef.child('userImage/IMG_0616.JPG').getDownloadURL());
-
         storageRef.child('userImage/IMG_0616.JPG').getDownloadURL().then(function(url) {
 
-                var test = url;
-
-                console.log(test);
                 hereThis.setState({imageUrl: url});
 
             }).catch(function(error) {
