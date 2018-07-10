@@ -102,51 +102,32 @@ class Header extends Component {
 
                             const childData = childSnapshot.val();
 
+
                             savedUserId = childData.userId;
 
                             if (userId === savedUserId) {
                                 savedImageName = childData.imageName;
                             }
 
-
-                        });
-
-                    }).then(
-                    () => {
-
+                        })
                         console.log(savedImageName)
 
-                        storageRef.child({savedImageName}).getDownloadURL().then(function (url) {
+                        storageRef.child(savedImageName).getDownloadURL().then(function (url) {
 
                             console.log(url)
 
                             hereThis.setState({imageUrl: url});
 
-                        }).catch(function (error) {
-                            console.log("画像取得に失敗しました")
+                        })
+                    })
 
-                        });
-
-
-                    }
-                )
+                console.log("a")
 
 
             }
+         })
+     }
 
-        //
-        // storageRef.child('userImage/IMG_0616.JPG').getDownloadURL().then(function(url) {
-        //
-        //         hereThis.setState({imageUrl: url});
-        //
-        //     }).catch(function(error) {
-        //         console.log("画像取得に失敗しました")
-        //
-        //     });
-        //
-
-        })
-    }
 
 
 
