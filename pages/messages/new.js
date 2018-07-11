@@ -30,7 +30,8 @@ class MessageForm extends Component {
         ido:'',
         keido:'',
         message:'',
-        submitLoading:false
+        submitLoading:false,
+        modalOpen:false
     }
 
 
@@ -181,7 +182,11 @@ class MessageForm extends Component {
 
         }
 
-        this.setState({ submitLoading: false });
+        this.setState({modalOpen: true})
+
+        console.log(this.state.modalOpen)
+
+        this.setState({ submitLoading: false, modalOpen: true });
 
     };
 
@@ -209,7 +214,11 @@ class MessageForm extends Component {
 
 
 
-                    <Modal style={{height: 380, marginBottom: 200}} trigger={<Button>保存する</Button>}>
+                    <Modal
+                        style={{height: 380, marginBottom: 200}}
+                        trigger={<Button>保存する</Button>}
+                        open={this.state.modalOpen}
+                    >
                         <Modal.Header>あなたのメッセージはここに保存されました！</Modal.Header>
                         <Modal.Content >
                             <MapComponent
