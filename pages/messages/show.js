@@ -132,7 +132,7 @@ class MessagesShow extends Component {
                     <Card>
                         <Card.Content>
                             <Image floated='right' size='mini' src='/images/avatar/large/steve.jpg' />
-                            <Card.Header>オススメのレストラン</Card.Header>
+                            {/*<Card.Header>オススメのレストラン</Card.Header>*/}
                             <Card.Meta>コウスケ</Card.Meta>
                             <Card.Description>
                                中央駅の一番街のとんかつやがめっちゃ美味しかった
@@ -161,6 +161,8 @@ class MessagesShow extends Component {
                             </div>
                         </Card.Content>
 
+
+
                         <Card.Content extra>
                             <div className='ui two buttons'>
                                 <Modal trigger={
@@ -171,12 +173,6 @@ class MessagesShow extends Component {
                                 }>
                                     <Modal.Header>投げ銭したい量を記入してください</Modal.Header>
                                     <Modal.Content image>
-                                        {/*<Image wrapped size='medium' src='/images/avatar/large/rachel.png' />*/}
-                                        {/*<Modal.Description>*/}
-                                            {/*<Header>0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22</Header>*/}
-                                            {/*<p>We've found the following gravatar image associated with your e-mail address.</p>*/}
-                                            {/*<p>Is it okay to use this photo?</p>*/}
-                                        {/*</Modal.Description>*/}
                                         <Form>
                                             <Form.Field>
                                                 <label>Amount of ether</label>
@@ -192,7 +188,6 @@ class MessagesShow extends Component {
                     <Card>
                         <Card.Content>
                             <Image floated='right' size='mini' src='/images/avatar/large/molly.png' />
-                            <Card.Header>Molly Thomas</Card.Header>
                             <Card.Meta>New User</Card.Meta>
                             <Card.Description>
                                 Molly wants to add you to the group <strong>musicians</strong>
@@ -218,7 +213,6 @@ class MessagesShow extends Component {
                     <Card>
                         <Card.Content>
                             <Image floated='right' size='mini' src='/images/avatar/large/jenny.jpg' />
-                            <Card.Header>Jenny Lawrence</Card.Header>
                             <Card.Meta>New User</Card.Meta>
                             <Card.Description>Jenny requested permission to view your contact details</Card.Description>
                         </Card.Content>
