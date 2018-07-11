@@ -31,7 +31,7 @@ class MessagesShow extends Component {
         messagesArray:''
     }
 
-    componentWillMount() {
+    getMessagesArray() {
 
         var messages = [];
 
@@ -54,10 +54,12 @@ class MessagesShow extends Component {
 
                 messagePlace = messagesData['place'];
 
+                console.log(here);
 
                 if( here === messagePlace) {
 
                     messages.push({ message:message, place: messagePlace});
+
 
 
                 }
@@ -121,7 +123,10 @@ class MessagesShow extends Component {
                             const herePlaceName = herePlaceNames[0];
                             hereThis.setState({place: herePlaceName});
                             hereThis.setState({loading: false});
-                        });
+                        }).then(() =>{
+                            hereThis.getMessagesArray();
+                        }
+                    );
 
 
 
@@ -176,6 +181,7 @@ class MessagesShow extends Component {
     render(){
 
         console.log(this.state.messagesArray)
+
         return (
             <Layout>
                 <ClipLoader
