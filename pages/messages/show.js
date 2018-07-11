@@ -128,6 +128,8 @@ class MessagesShow extends Component {
                             hereThis.setState({loading: false});
                         }).then(()=>{
                             hereThis.getMessagesArray();
+                    }).then(() => {
+                        hereThis.setMessagesDataNewState();
                     });
 
                 },
@@ -185,6 +187,8 @@ class MessagesShow extends Component {
 
 
         const messagesData = this.state.messagesArray;
+
+        console.log("messagesData:"+messagesData);
 
 
         // const messagesDataNew = [];
@@ -257,11 +261,6 @@ class MessagesShow extends Component {
 
         }
     }
-
-    // componentDidUpdate() {
-    //     this.getMessagesArray();
-    //     this.setMessagesDataNewState();
-    // }
 
 
     render(){
