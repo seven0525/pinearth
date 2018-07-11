@@ -145,8 +145,6 @@ class MessageForm extends Component {
             ).send({ from: accounts[0] })
 
 
-            // Router.pushRoute(`/campaigns/${this.props.address}/requests`);
-
 
         } catch (err){
 
@@ -161,8 +159,6 @@ class MessageForm extends Component {
     };
 
     render() {
-
-        console.log(this.state.message);
 
         return (
             <Layout>
