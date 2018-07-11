@@ -138,16 +138,13 @@ class MessageForm extends Component {
     onSubmit = async event => {
         event.preventDefault();
 
-        var loginUserId = '';
+        var postUserId = '';
 
         await firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
 
                 var currentUser = firebase.auth().currentUser;
-                 loginUserId = currentUser.uid;
-                console.log(currentUser)
-                console.log(loginUserId)
-
+                 postUserId = currentUser.uid;
 
             } else {
                 console.log("user is not signed in")
@@ -172,7 +169,7 @@ class MessageForm extends Component {
                 place
             ).send({ from: accounts[0] })
 
-            await firebase.database().ref(`/messages`).push({ place, message, loginUserId})
+            await firebase.database().ref(`/messages`).push({ place, message, postUserId})
 
 
 
