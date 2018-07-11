@@ -70,8 +70,8 @@ class MessagesShow extends Component {
 
             })
             this.setState({messagesArray:messages});
+            this.setMessagesDataNewState()
 
-            console.log(messages)
         }).bind(this);
 
 
