@@ -80,7 +80,7 @@ class MessageForm extends Component {
                                    console.log(json)
                                    console.log(json.results[0]. formatted_address);
                                    here = json.results[0].formatted_address;
-                                   const herePlaceNames = here.match("(.{2}[都道府県]|.{3}県)");
+                                   const herePlaceNames = here.match("(.{2,3}[都道府県].{1,3}[区市町])");　
                                   const herePlaceName = herePlaceNames[0];
                                    hereThis.setState({place: herePlaceName});
                                    hereThis.setState({loading: false});
