@@ -43,7 +43,6 @@ class Header extends Component {
 
                 var userId = currentUser.uid;
 
-                console.log(userId);
                 var savedUserId = '';
 
                 var  savedUserNickname = '';
@@ -110,19 +109,14 @@ class Header extends Component {
                             }
 
                         })
-                        console.log(savedImageName)
 
                         storageRef.child(savedImageName).getDownloadURL().then(function (url) {
 
-                            console.log(url)
 
                             hereThis.setState({imageUrl: url});
 
                         })
                     })
-
-                console.log("a")
-
 
             }
          })
@@ -147,7 +141,6 @@ class Header extends Component {
                height: 30px;  
         `;
 
-        console.log(this.state.imageUrl)
         return (
             <Menu color='blue' inverted widths={4}>
                 <Link route="/">

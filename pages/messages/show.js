@@ -58,6 +58,9 @@ class MessagesShow extends Component {
 
                 messagePlace = messagesData['place'];
 
+                console.log("here:"+ here);
+                console.log("messagePlace:"+messagePlace);
+
                 if( here === messagePlace) {
 
                     messages.push({ message:message, place: messagePlace});
@@ -67,6 +70,8 @@ class MessagesShow extends Component {
 
             })
             this.setState({messagesArray:messages});
+
+            console.log(messages)
         }).bind(this);
 
 
@@ -121,8 +126,9 @@ class MessagesShow extends Component {
                             const herePlaceName = herePlaceNames[0];
                             hereThis.setState({place: herePlaceName});
                             hereThis.setState({loading: false});
-                        });
-
+                        }).then(()=>{
+                            hereThis.getMessagesArray();
+                    });
 
                 },
 
@@ -168,7 +174,7 @@ class MessagesShow extends Component {
             console.log("あなたの端末では、現在位置を取得できません");
 
         }
-        this.getMessagesArray();
+        // this.getMessagesArray();
         // this.setMessagesDataNewState();
     }
 
