@@ -216,7 +216,6 @@ class MessageForm extends Component {
 
                     <Modal
                         style={{height: 380, marginBottom: 200}}
-                        trigger={<Button>保存する</Button>}
                         open={this.state.modalOpen}
                     >
                         <Modal.Header>あなたのメッセージはここに保存されました！</Modal.Header>
