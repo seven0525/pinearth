@@ -36,13 +36,14 @@ class MessagesShow extends Component {
 
     getMessagesArray() {
 
+
         var messages = [];
 
         var message='';
 
         var messagePlace = '';
 
-        const here = " "+this.state.place;
+        const here = this.state.place;
 
 
         firebase.database().ref("/messages")
@@ -54,20 +55,14 @@ class MessagesShow extends Component {
 
 
                 message = messagesData['message'];
-                console.log(message);
 
                 messagePlace = messagesData['place'];
-
-                console.log(here);
-                console.log(messagePlace)
 
                 if( here === messagePlace) {
 
                     messages.push({ message:message, place: messagePlace});
 
                 }
-
-                console.log(messages)
 
 
             })
@@ -123,22 +118,10 @@ class MessagesShow extends Component {
                         .then(json => {
                             here = json.results[0].formatted_address;
                             const herePlaceNames = here.match("(.{2,3}[都道府県].{1,3}[区市町])");
-                            // const herePlaceName = herePlaceNames[0];
-                            hereThis.setState({place: "東京都新宿区"});
+                            const herePlaceName = herePlaceNames[0];
+                            hereThis.setState({place: herePlaceName});
                             hereThis.setState({loading: false});
-                        }).then(() =>{
-                            hereThis.getMessagesArray();
-                        }
-                    ).then(() => {
-                        hereThis.setMessagesDataNewState();
-
-                        console.log("am i called")
-                        console.log(hereThis)
-                        console.log(this)
-
-                    });
-
-
+                        });
 
 
                 },
@@ -185,171 +168,97 @@ class MessagesShow extends Component {
             console.log("あなたの端末では、現在位置を取得できません");
 
         }
+        this.getMessagesArray();
+        // this.setMessagesDataNewState();
     }
 
     setMessagesDataNewState() {
 
-        console.log("I am in setmessagedatanewstate kick uy ass")
 
         const messagesDataNew = [];
 
 
         const messagesData = this.state.messagesArray;
 
-        console.log(messagesData)
-
 
         // const messagesDataNew = [];
 
-        for (var i = 0; i<messagesData.length;i++) {
-
-            console.log(messagesData[i])
-
+        for (var i = 0; i < messagesData.length; i++) {
+            for (var i = 0; i < messagesData.length; i++) {
 
 
-            messagesDataNew.push(
-                <Card>
-                    <Card.Content>
-                        <Image floated='right' size='mini' src='/images/avatar/large/steve.jpg'/>
-                        <Card.Meta>コウスケ</Card.Meta>
-                        <Card.Description>
-                            {messagesData[i]["message"]}
-                        </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
-                            <Modal trigger={
-                                <Button basic color='red'>
-                                    トランザクションIDを確認する
-                                </Button>
+                messagesDataNew.push(
+                    <Card>
+                        <Card.Content>
+                            <Image floated='right' size='mini' src='/images/avatar/large/steve.jpg'/>
+                            <Card.Meta>コウスケ</Card.Meta>
+                            <Card.Description>
+                                {messagesData[i]["message"]}
+                            </Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                            <div className='ui two buttons'>
+                                <Modal trigger={
+                                    <Button basic color='red'>
+                                        トランザクションIDを確認する
+                                    </Button>
 
-                            }>
-                                <Modal.Header>このメッセージのトランザクションID</Modal.Header>
-                                <Modal.Content image>
-                                    <Image wrapped size='medium' src='/images/avatar/large/rachel.png'/>
-                                    <Modal.Description>
-                                        <Header>0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22</Header>
-                                        <p>We've found the following gravatar image associated with your e-mail
-                                            address.</p>
-                                        <p>Is it okay to use this photo?</p>
-                                    </Modal.Description>
+                                }>
+                                    <Modal.Header>このメッセージのトランザクションID</Modal.Header>
+                                    <Modal.Content image>
+                                        <Image wrapped size='medium' src='/images/avatar/large/rachel.png'/>
+                                        <Modal.Description>
+                                            <Header>0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22</Header>
+                                            <p>We've found the following gravatar image associated with your e-mail
+                                                address.</p>
+                                            <p>Is it okay to use this photo?</p>
+                                        </Modal.Description>
 
-                                </Modal.Content>
-                            </Modal>
+                                    </Modal.Content>
+                                </Modal>
 
-                        </div>
-                    </Card.Content>
+                            </div>
+                        </Card.Content>
 
 
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
-                            <Modal trigger={
-                                <Button basic color='green'>
-                                    投げ銭
-                                </Button>
+                        <Card.Content extra>
+                            <div className='ui two buttons'>
+                                <Modal trigger={
+                                    <Button basic color='green'>
+                                        投げ銭
+                                    </Button>
 
-                            }>
-                                <Modal.Header>投げ銭したい量を記入してください</Modal.Header>
-                                <Modal.Content image>
-                                    <Form>
-                                        <Form.Field>
-                                            <label>Amount of ether</label>
-                                            <input/> ether
-                                        </Form.Field>
-                                    </Form>
-                                </Modal.Content>
-                            </Modal>
+                                }>
+                                    <Modal.Header>投げ銭したい量を記入してください</Modal.Header>
+                                    <Modal.Content image>
+                                        <Form>
+                                            <Form.Field>
+                                                <label>Amount of ether</label>
+                                                <input/> ether
+                                            </Form.Field>
+                                        </Form>
+                                    </Modal.Content>
+                                </Modal>
 
-                        </div>
-                    </Card.Content>
-                </Card>
-            );
+                            </div>
+                        </Card.Content>
+                    </Card>
+                );
+            }
+
+
+            this.setState({messagesDataNewState: messagesDataNew});
+
         }
-
-
-        this.setState({ messagesDataNewState:messagesDataNew});
-
-        console.log(this.state.messagesDataNewState)
-        console.log(messagesDataNew)
-
-
-
-
-
     }
+
+    // componentDidUpdate() {
+    //     this.getMessagesArray();
+    //     this.setMessagesDataNewState();
+    // }
 
 
     render(){
-
-        console.log(this.state.messagesDataNewState)
-
-        // const messagesDataNew = [];
-        //
-        //     const messagesData = this.state.messagesArray;
-        //
-        //
-        //     for (var i = 0; i<messagesData.length;i++) {
-        //
-        //
-        //         messagesDataNew.push(
-        //             <Card>
-        //                 <Card.Content>
-        //                     <Image floated='right' size='mini' src='/images/avatar/large/steve.jpg'/>
-        //                     <Card.Meta>コウスケ</Card.Meta>
-        //                     <Card.Description>
-        //                         {messagesData[i]["message"]}
-        //                     </Card.Description>
-        //                 </Card.Content>
-        //                 <Card.Content extra>
-        //                     <div className='ui two buttons'>
-        //                         <Modal trigger={
-        //                             <Button basic color='red'>
-        //                                 トランザクションIDを確認する
-        //                             </Button>
-        //
-        //                         }>
-        //                             <Modal.Header>このメッセージのトランザクションID</Modal.Header>
-        //                             <Modal.Content image>
-        //                                 <Image wrapped size='medium' src='/images/avatar/large/rachel.png'/>
-        //                                 <Modal.Description>
-        //                                     <Header>0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22</Header>
-        //                                     <p>We've found the following gravatar image associated with your e-mail
-        //                                         address.</p>
-        //                                     <p>Is it okay to use this photo?</p>
-        //                                 </Modal.Description>
-        //
-        //                             </Modal.Content>
-        //                         </Modal>
-        //
-        //                     </div>
-        //                 </Card.Content>
-        //
-        //
-        //                 <Card.Content extra>
-        //                     <div className='ui two buttons'>
-        //                         <Modal trigger={
-        //                             <Button basic color='green'>
-        //                                 投げ銭
-        //                             </Button>
-        //
-        //                         }>
-        //                             <Modal.Header>投げ銭したい量を記入してください</Modal.Header>
-        //                             <Modal.Content image>
-        //                                 <Form>
-        //                                     <Form.Field>
-        //                                         <label>Amount of ether</label>
-        //                                         <input/> ether
-        //                                     </Form.Field>
-        //                                 </Form>
-        //                             </Modal.Content>
-        //                         </Modal>
-        //
-        //                     </div>
-        //                 </Card.Content>
-        //             </Card>
-        //         );
-        //     }
-        //
 
 
 
