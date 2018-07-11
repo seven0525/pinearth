@@ -33,8 +33,39 @@ class MessagesShow extends Component {
 
     componentWillMount() {
 
-        firebase.database().ref('/messages')
+        var messages = [];
 
+        var message='';
+
+        var messagePlace = '';
+
+        const here = this.state.place;
+
+
+        firebase.database().ref("/messages")
+
+    .on('value', snapshot => {
+            snapshot.forEach(function (childSnapshot) {
+
+                const messagesData = childSnapshot.val();
+
+
+                message = messagesData['message'];
+
+                messagePlace = messagesData['place'];
+
+
+                if( here === messagePlace) {
+
+                    messages.push({ message:message, place: messagePlace});
+
+
+                }
+
+
+            })
+            this.setState({messagesArray:messages});
+        }).bind(this);
 
 
     }
@@ -143,6 +174,8 @@ class MessagesShow extends Component {
 
 
     render(){
+
+        console.log(this.state.messagesArray)
         return (
             <Layout>
                 <ClipLoader
