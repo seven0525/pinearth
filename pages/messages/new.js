@@ -140,6 +140,7 @@ class MessageForm extends Component {
         event.preventDefault();
 
         var postUserId = '';
+        var postUsername = '';
 
         await firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -151,6 +152,37 @@ class MessageForm extends Component {
                 console.log("user is not signed in")
             }
         })
+
+        await firebase.database().ref('/users')
+            .on('value', snapshot => {
+                snapshot.forEach(function (childSnapshot) {
+
+                    const usersData = childSnapshot.val();
+
+                    var savedUsername = usersData['username'];
+
+                    var savedUserid = usersData['userId'];
+
+                    // console.log("savedUseid:"+savedUserid);
+                    // console.log("postUserId:"+ postUserId);
+                    console.log(savedUserid);
+                    console.log( postUserId);
+
+
+                    if( postUserId === savedUserid) {
+
+                       postUsername = savedUsername;
+
+                       console.log(postUsername)
+
+                    }
+
+
+                })
+
+            }).bind(this);
+
+
 
         const { place, message } = this.state;
 
@@ -170,7 +202,7 @@ class MessageForm extends Component {
                 place
             ).send({ from: accounts[0] })
 
-            await firebase.database().ref(`/messages`).push({ place, message, postUserId})
+            await firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername})
 
 
 
