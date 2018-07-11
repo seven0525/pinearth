@@ -5,6 +5,8 @@ import { Link } from '../../routes';
 import styled from 'styled-components';
 import { ClipLoader } from 'react-spinners';
 import MapComponent from '../../components/MapComponent';
+import web3 from '../../ethereum/web3';
+import TimeCapsule from '../../ethereum/TimeCapsule';
 
 class MessageForm extends Component {
 
@@ -12,7 +14,9 @@ class MessageForm extends Component {
         place: '',
         loading: true,
         ido:'',
-        keido:''
+        keido:'',
+        message:'',
+        submitLoading:false
     }
 
 
@@ -117,21 +121,67 @@ class MessageForm extends Component {
             }
         }
 
+    onSubmit = async event => {
+        event.preventDefault();
+
+        // const campaign = Campaign(this.props.address);
+
+        const { place, message } = this.state;
+
+        this.setState({ submitLoading: true});
+
+
+        try {
+
+
+            const accounts = await web3.eth.getAccounts();
+
+            console.log(accounts);
+
+            await TimeCapsule.methods.postMessage(
+                "Kosuke",
+                message,
+                place
+            ).send({ from: accounts[0] })
+
+
+            // Router.pushRoute(`/campaigns/${this.props.address}/requests`);
+
+
+        } catch (err){
+
+            // this.setState({ errorMessage: err.message });
+            consol.log(err.message)
+
+
+        }
+
+        this.setState({ submitLoading: false });
+
+    };
+
     render() {
+
+        console.log(this.state.message);
 
         return (
             <Layout>
                 <div>
-                    <Form>
+                    <Form onSubmit={this.onSubmit}>
                     <Form.Input fluid label='現在地' placeholder='東京都'>
                         <h2> {this.state.place}</h2>
                         <ClipLoader
                             loading={this.state.loading}
                         />
                     </Form.Input>
-                    <Form.TextArea label='伝えたいこと' placeholder='Tell us more about you...' />
+                    <Form.TextArea label='伝えたいこと'
+                                   placeholder='Tell us more about you...'
+                                   value={this.state.message}
+                                   onChange={event =>
+                                       this.setState({ message: event.target.value})}
+                    />
                     <Form.Checkbox label='I agree to the Terms and Conditions' />
-                    <Form.Button>保存する</Form.Button>
+                    <Form.Button loading={this.state.submitLoading}>保存する</Form.Button>
                 </Form>
 
 
