@@ -43,6 +43,8 @@ class MessagesShow extends Component {
 
         var messagePlace = '';
 
+        var messageAuthor = '';
+
         const here = this.state.place;
 
 
@@ -58,12 +60,14 @@ class MessagesShow extends Component {
 
                 messagePlace = messagesData['place'];
 
+                messageAuthor = messagesData['postUsername'];
+
                 console.log("here:"+ here);
                 console.log("messagePlace:"+messagePlace);
 
                 if( here === messagePlace) {
 
-                    messages.push({ message:message, place: messagePlace});
+                    messages.push({ message:message, place: messagePlace, author: messageAuthor});
 
                 }
 
@@ -201,7 +205,7 @@ class MessagesShow extends Component {
                     <Card>
                         <Card.Content>
                             <Image floated='right' size='mini' src='/images/avatar/large/steve.jpg'/>
-                            <Card.Meta>コウスケ</Card.Meta>
+                            <Card.Meta> {messagesData[i]["author"]}</Card.Meta>
                             <Card.Description>
                                 {messagesData[i]["message"]}
                             </Card.Description>
