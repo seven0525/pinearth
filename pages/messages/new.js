@@ -209,8 +209,8 @@ class MessageForm extends Component {
 
 
 
-                    <Modal style={{height: 400}} trigger={<Button>保存する</Button>}>
-                        <Modal.Header>Select a Photo</Modal.Header>
+                    <Modal style={{height: 380, marginBottom: 200}} trigger={<Button>保存する</Button>}>
+                        <Modal.Header>あなたのメッセージはここに保存されました！</Modal.Header>
                         <Modal.Content >
                             <MapComponent
                                 ido = {this.state.ido}
@@ -219,6 +219,11 @@ class MessageForm extends Component {
 
 
                         </Modal.Content>
+                        <Modal.Actions>
+                            <Button primary>
+                                topページに戻る
+                            </Button>
+                        </Modal.Actions>
                     </Modal>
 
 
