@@ -7,6 +7,20 @@ import { ClipLoader } from 'react-spinners';
 import MapComponent from '../../components/MapComponent';
 import web3 from '../../ethereum/web3';
 import TimeCapsule from '../../ethereum/TimeCapsule';
+import firebase from 'firebase';
+
+var config = {
+    apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
+    authDomain: "timecapsule-3b1bd.firebaseapp.com",
+    databaseURL: "https://timecapsule-3b1bd.firebaseio.com",
+    projectId: "timecapsule-3b1bd",
+    storageBucket: "timecapsule-3b1bd.appspot.com",
+    messagingSenderId: "221653140896"
+};
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
 
 class MessageForm extends Component {
 
@@ -124,7 +138,21 @@ class MessageForm extends Component {
     onSubmit = async event => {
         event.preventDefault();
 
-        // const campaign = Campaign(this.props.address);
+        var loginUserId = '';
+
+        await firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+
+                var currentUser = firebase.auth().currentUser;
+                 loginUserId = currentUser.uid;
+                console.log(currentUser)
+                console.log(loginUserId)
+
+
+            } else {
+                console.log("user is not signed in")
+            }
+        })
 
         const { place, message } = this.state;
 
@@ -143,6 +171,8 @@ class MessageForm extends Component {
                 message,
                 place
             ).send({ from: accounts[0] })
+
+            await firebase.database().ref(`/messages`).push({ place, message, loginUserId})
 
 
 
