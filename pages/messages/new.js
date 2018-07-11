@@ -220,9 +220,13 @@ class MessageForm extends Component {
 
                         </Modal.Content>
                         <Modal.Actions>
+                            <Link route="/">
+                                <a>
                             <Button primary>
                                 topページに戻る
                             </Button>
+                                </a>
+                            </Link>
                         </Modal.Actions>
                     </Modal>
 
