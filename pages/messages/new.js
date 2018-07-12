@@ -141,6 +141,7 @@ class MessageForm extends Component {
 
         var postUserId = '';
         var postUsername = '';
+        var postUserAddress = '';
 
         await firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -163,17 +164,15 @@ class MessageForm extends Component {
 
                     var savedUserid = usersData['userId'];
 
-                    // console.log("savedUseid:"+savedUserid);
-                    // console.log("postUserId:"+ postUserId);
-                    console.log(savedUserid);
-                    console.log( postUserId);
+                    var savedUserAddress = usersData['address'];
 
 
                     if( postUserId === savedUserid) {
 
                        postUsername = savedUsername;
+                       postUserAddress = savedUserAddress;
 
-                       console.log(postUsername)
+                       console.log(postUserAddress)
 
                     }
 
@@ -202,7 +201,7 @@ class MessageForm extends Component {
                 place
             ).send({ from: accounts[0] })
 
-            await firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername})
+            await firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername, postUserAddress})
 
 
 
