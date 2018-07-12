@@ -7,6 +7,7 @@ import { ClipLoader, BarLoader } from 'react-spinners';
 import firebase from 'firebase';
 import web3 from '../../ethereum/web3';
 import TimeCapsule from '../../ethereum/TimeCapsule';
+import SendEtherForm from "../../components/SendEtherForm";
 
 
 
@@ -214,22 +215,19 @@ class MessagesShow extends Component {
             console.log("あなたの端末では、現在位置を取得できません");
 
         }
-        // this.getMessagesArray();
-        // this.setMessagesDataNewState();
     }
 
-    setMessagesDataNewState() {
 
+
+    render(){
 
         const messagesDataNew = [];
 
 
         const messagesData = this.state.messagesArray;
 
+            for (var i = 0; i < messagesData.length; i++) {
 
-
-        for (var i = 0; i < messagesData.length; i++) {
-            // for (var i = 0; i < messagesData.length; i++) {
 
                 messagesDataNew.push(
                     <Card>
@@ -238,6 +236,8 @@ class MessagesShow extends Component {
                             <Card.Meta> {messagesData[i]["author"]}</Card.Meta>
                             <Card.Description>
                                 {messagesData[i]["message"]}
+                                {messagesData[i]["address"]}
+
                             </Card.Description>
                         </Card.Content>
                         <Card.Content extra>
@@ -265,56 +265,17 @@ class MessagesShow extends Component {
                         </Card.Content>
 
 
-
                         <Card.Content extra>
                             <div className='ui two buttons'>
-                                <Modal trigger={
-                                    <Button
-                                        onClick = {()=>{this.setState({sendAddress:messagesData[i]["address"]})}}
-                                        basic
-                                        color='green'>
-                                        投げ銭
-                                    </Button>
+                                <SendEtherForm toAddress={messagesData[i]["address"]}/>
 
-                                }>
-                                    <Modal.Header>投げ銭したい量を記入してください</Modal.Header>
-                                    <Modal.Content image>
-                                        <Form>
-                                            <Form.Field>
-                                                <label>Amount of ether</label>
-                                                <input
-                                                    // value={this.state.sendEther}
-                                                    onChange={event =>
-                                                        this.setState({ sendEther: event.target.value})}
-                                                /> ether
-
-                                            </Form.Field>
-                                        </Form>
-                                        <Button
-                                            // onClick={()=> {this.sendEther(messagesData[i]["address"])}}
-                                            onClick={()=> {this.sendEther()}}
-
-                                            style={{marginLeft:30, height: 30, marginTop:30}}
-                                            className="ui button"
-                                        >
-                                            投げ銭する
-                                        </Button>
-                                    </Modal.Content>
-                                </Modal>
 
                             </div>
                         </Card.Content>
                     </Card>
                 );
 
-
-            this.setState({messagesDataNewState: messagesDataNew});
-
-        }
-    }
-
-
-    render(){
+            }
 
         return (
             <Layout>
@@ -325,7 +286,7 @@ class MessagesShow extends Component {
             <h1>に書かれたメッセージ</h1>
                 <Card.Group>
 
-                    {this.state.messagesDataNewState}
+                    {messagesDataNew}
 
                 </Card.Group>
                 <Modal
