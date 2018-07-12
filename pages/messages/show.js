@@ -1,6 +1,6 @@
 import React, { Component }from 'react';
 import Layout from '../../components/Layout';
-import { Button, Card, Image, Header, Modal, Form } from 'semantic-ui-react'
+import { Button, Card, Image, Header, Modal, Form, Input } from 'semantic-ui-react'
 import { Link } from '../../routes';
 import styled from 'styled-components';
 import { ClipLoader } from 'react-spinners';
@@ -40,14 +40,14 @@ class MessagesShow extends Component {
 
     sendEther = async () => {
 
-        const accounts = await web3.eth.get.Accounts();
+        const accounts = await web3.eth.getAccounts();
 
         this.setState({ sendStatus: '送金中'});
 
-        await timecapsule.methods.transfer().send({
-            to:'',
+        await TimeCapsule.methods.transfer('0xad7b660ef1423e8911cda49d122a017a20b862bb').send({
+            to:'0xad7b660ef1423e8911cda49d122a017a20b862bb',
             from: accounts[0],
-            value: web3.utils.toWei(this.state.sendEther, 'ether')
+            value: web3.utils.toWei('0.0001', 'ether')
         });
 
         this.setState({sendStatus: '送金しました'});
@@ -269,7 +269,7 @@ class MessagesShow extends Component {
                                             <Form.Field>
                                                 <label>Amount of ether</label>
                                                 <input
-                                                    value={this.state.sendEther}
+                                                    // value={this.state.sendEther}
                                                     onChange={event =>
                                                         this.setState({ sendEther: event.target.value})}
                                                 /> ether
@@ -277,6 +277,7 @@ class MessagesShow extends Component {
                                             </Form.Field>
                                         </Form>
                                         <button
+                                            onClick={()=> {this.sendEther()}}
                                             style={{marginLeft:30, height: 30, marginTop:30}}
                                             className="ui button"
                                         >
@@ -299,7 +300,6 @@ class MessagesShow extends Component {
 
 
     render(){
-
 
 
         return (
