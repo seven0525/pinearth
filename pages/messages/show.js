@@ -39,11 +39,12 @@ class MessagesShow extends Component {
         modalOpen: false,
         whileLoading: false,
         errorModal: false,
-        sendErrorMesssage:''
+        sendErrorMesssage:'',
+        sendAddress:''
 
     }
 
-    sendEther = async (address) => {
+    sendEther = async () => {
 
         this.setState({ whileLoading: true});
 
@@ -51,10 +52,10 @@ class MessagesShow extends Component {
 
             const accounts = await web3.eth.getAccounts();
 
-            await TimeCapsule.methods.transfer(address).send({
-                to: address,
+            await web3.eth.sendTransaction({
+                to:this.state.sendAddress, //そのメッセージを残した相手に変更予定
                 from: accounts[0],
-                value: web3.utils.toWei(this.state.sendEther, 'ether')
+                value:web3.utils.toWei("0.0001", "ether")
             });
 
             this.setState({modalOpen: true, whileLoading: false});
@@ -264,10 +265,14 @@ class MessagesShow extends Component {
                         </Card.Content>
 
 
+
                         <Card.Content extra>
                             <div className='ui two buttons'>
                                 <Modal trigger={
-                                    <Button basic color='green'>
+                                    <Button
+                                        onClick = {()=>{this.setState({sendAddress:messagesData[i]["address"]})}}
+                                        basic
+                                        color='green'>
                                         投げ銭
                                     </Button>
 
@@ -287,7 +292,7 @@ class MessagesShow extends Component {
                                         </Form>
                                         <Button
                                             // onClick={()=> {this.sendEther(messagesData[i]["address"])}}
-                                            onClick={()=> {this.sendEther('0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22')}}
+                                            onClick={()=> {this.sendEther()}}
 
                                             style={{marginLeft:30, height: 30, marginTop:30}}
                                             className="ui button"
