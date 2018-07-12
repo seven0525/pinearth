@@ -51,7 +51,7 @@ class MessagesShow extends Component {
         await TimeCapsule.methods.transfer('0xad7b660ef1423e8911cda49d122a017a20b862bb').send({
             to:'0xad7b660ef1423e8911cda49d122a017a20b862bb',
             from: accounts[0],
-            value: web3.utils.toWei('0.0001', 'ether')
+            value: web3.utils.toWei(this.state.sendEther, 'ether')
         });
 
         this.setState({modalOpen:true, whileLoading:false});
