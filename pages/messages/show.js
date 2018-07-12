@@ -3,10 +3,11 @@ import Layout from '../../components/Layout';
 import { Button, Card, Image, Header, Modal, Form, Input } from 'semantic-ui-react'
 import { Link } from '../../routes';
 import styled from 'styled-components';
-import { ClipLoader } from 'react-spinners';
+import { ClipLoader, BarLoader } from 'react-spinners';
 import firebase from 'firebase';
 import web3 from '../../ethereum/web3';
 import TimeCapsule from '../../ethereum/TimeCapsule';
+
 
 
 var config = {
@@ -34,15 +35,18 @@ class MessagesShow extends Component {
         _isMounted: false,
         messagesDataNewState:'',
         sendStatus:'',
-        sendEther:''
+        sendEther:'',
+        modalOpen: false,
+        whileLoading: false
 
     }
 
     sendEther = async () => {
 
+        this.setState({ whileLoading: true});
+
         const accounts = await web3.eth.getAccounts();
 
-        this.setState({ sendStatus: '送金中'});
 
         await TimeCapsule.methods.transfer('0xad7b660ef1423e8911cda49d122a017a20b862bb').send({
             to:'0xad7b660ef1423e8911cda49d122a017a20b862bb',
@@ -50,7 +54,7 @@ class MessagesShow extends Component {
             value: web3.utils.toWei('0.0001', 'ether')
         });
 
-        this.setState({sendStatus: '送金しました'});
+        this.setState({modalOpen:true, whileLoading:false});
     };
 
 
@@ -276,13 +280,13 @@ class MessagesShow extends Component {
 
                                             </Form.Field>
                                         </Form>
-                                        <button
+                                        <Button
                                             onClick={()=> {this.sendEther()}}
                                             style={{marginLeft:30, height: 30, marginTop:30}}
                                             className="ui button"
                                         >
                                             投げ銭する
-                                        </button>
+                                        </Button>
                                     </Modal.Content>
                                 </Modal>
 
@@ -314,6 +318,37 @@ class MessagesShow extends Component {
                     {this.state.messagesDataNewState}
 
                 </Card.Group>
+                <Modal
+                    style={{height: 380, marginBottom: 200}}
+                    open={this.state.modalOpen}
+                >
+                    <Modal.Header>投げ銭に成功しました！</Modal.Header>
+                    <Modal.Content >
+
+
+                    </Modal.Content>
+                    <Modal.Actions>
+                        <Link route="/">
+                            <a>
+                                <Button primary>
+                                    topページに戻る
+                                </Button>
+                            </a>
+                        </Link>
+                    </Modal.Actions>
+                </Modal>
+                <Modal open={this.state.whileLoading}>
+                    <Modal.Content >
+                        <h2>送金中
+                        </h2>
+                        <BarLoader
+                            loading={this.state.whileLoading}
+                        />
+
+
+                    </Modal.Content>
+
+                </Modal>
             </Layout>
 
         )
