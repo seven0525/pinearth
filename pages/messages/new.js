@@ -183,7 +183,7 @@ class MessageForm extends Component {
 
 
 
-        const { place, message } = this.state;
+        const { place, message, ido, keido } = this.state;
 
         this.setState({ submitLoading: true});
 
@@ -201,9 +201,8 @@ class MessageForm extends Component {
                 place
             ).send({ from: accounts[0] })
 
-            const messageId = Math.round(Math.random() * 100000000000000);
 
-            await firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername, postUserAddress, messageId })
+            await firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername, postUserAddress, ido, keido })
 
 
 
