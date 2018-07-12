@@ -78,6 +78,8 @@ class MessagesShow extends Component {
 
         var messageAuthor = '';
 
+        var messageAddress = '';
+
         const here = this.state.place;
 
 
@@ -95,12 +97,11 @@ class MessagesShow extends Component {
 
                 messageAuthor = messagesData['postUsername'];
 
-                console.log("here:"+ here);
-                console.log("messagePlace:"+messagePlace);
+                messageAddress = messagesData['postUserAddress'];
 
                 if( here === messagePlace) {
 
-                    messages.push({ message:message, place: messagePlace, author: messageAuthor});
+                    messages.push({ message:message, place: messagePlace, author: messageAuthor, address:messageAddress});
 
                 }
 
@@ -225,10 +226,7 @@ class MessagesShow extends Component {
 
         const messagesData = this.state.messagesArray;
 
-        console.log("messagesData:"+messagesData);
 
-
-        // const messagesDataNew = [];
 
         for (var i = 0; i < messagesData.length; i++) {
             for (var i = 0; i < messagesData.length; i++) {
