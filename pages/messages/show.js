@@ -319,12 +319,10 @@ class MessagesShow extends Component {
 
                 </Card.Group>
                 <Modal
-                    style={{height: 380, marginBottom: 200}}
                     open={this.state.modalOpen}
                 >
-                    <Modal.Header>投げ銭に成功しました！</Modal.Header>
                     <Modal.Content >
-
+                        <h2>投げ銭に成功しました！</h2>
 
                     </Modal.Content>
                     <Modal.Actions>
