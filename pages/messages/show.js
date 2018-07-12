@@ -43,7 +43,7 @@ class MessagesShow extends Component {
 
     }
 
-    sendEther = async () => {
+    sendEther = async (address) => {
 
         this.setState({ whileLoading: true});
 
@@ -51,9 +51,8 @@ class MessagesShow extends Component {
 
             const accounts = await web3.eth.getAccounts();
 
-
-            await TimeCapsule.methods.transfer('0xad7b660ef1423e8911cda49d122a017a20b862bb').send({
-                to: '0xad7b660ef1423e8911cda49d122a017a20b862bb',
+            await TimeCapsule.methods.transfer(address).send({
+                to: address,
                 from: accounts[0],
                 value: web3.utils.toWei(this.state.sendEther, 'ether')
             });
@@ -231,7 +230,6 @@ class MessagesShow extends Component {
         for (var i = 0; i < messagesData.length; i++) {
             for (var i = 0; i < messagesData.length; i++) {
 
-
                 messagesDataNew.push(
                     <Card>
                         <Card.Content>
@@ -288,7 +286,9 @@ class MessagesShow extends Component {
                                             </Form.Field>
                                         </Form>
                                         <Button
-                                            onClick={()=> {this.sendEther()}}
+                                            // onClick={()=> {this.sendEther(messagesData[i]["address"])}}
+                                            onClick={()=> {this.sendEther('0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22')}}
+
                                             style={{marginLeft:30, height: 30, marginTop:30}}
                                             className="ui button"
                                         >
@@ -311,7 +311,6 @@ class MessagesShow extends Component {
 
 
     render(){
-
 
         return (
             <Layout>
