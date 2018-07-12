@@ -7,6 +7,7 @@ import { ClipLoader, BarLoader } from 'react-spinners';
 import firebase from 'firebase';
 import web3 from '../../ethereum/web3';
 import TimeCapsule from '../../ethereum/TimeCapsule';
+import SendEtherForm from "../../components/SendEtherForm";
 
 
 
@@ -39,11 +40,12 @@ class MessagesShow extends Component {
         modalOpen: false,
         whileLoading: false,
         errorModal: false,
-        sendErrorMesssage:''
+        sendErrorMesssage:'',
+        sendAddress:''
 
     }
 
-    sendEther = async (address) => {
+    sendEther = async () => {
 
         this.setState({ whileLoading: true});
 
@@ -51,10 +53,10 @@ class MessagesShow extends Component {
 
             const accounts = await web3.eth.getAccounts();
 
-            await TimeCapsule.methods.transfer(address).send({
-                to: address,
+            await web3.eth.sendTransaction({
+                to:this.state.sendAddress, //そのメッセージを残した相手に変更予定
                 from: accounts[0],
-                value: web3.utils.toWei(this.state.sendEther, 'ether')
+                value:web3.utils.toWei("0.0001", "ether")
             });
 
             this.setState({modalOpen: true, whileLoading: false});
@@ -107,7 +109,6 @@ class MessagesShow extends Component {
 
             })
             this.setState({messagesArray:messages});
-            this.setMessagesDataNewState()
 
         }).bind(this);
 
@@ -213,27 +214,24 @@ class MessagesShow extends Component {
             console.log("あなたの端末では、現在位置を取得できません");
 
         }
-        // this.getMessagesArray();
-        // this.setMessagesDataNewState();
     }
 
-    setMessagesDataNewState() {
 
+
+    render(){
 
         const messagesDataNew = [];
 
 
         const messagesData = this.state.messagesArray;
 
+            for (var i = 0; i < messagesData.length; i++) {
 
-
-        for (var i = 0; i < messagesData.length; i++) {
-            // for (var i = 0; i < messagesData.length; i++) {
 
                 messagesDataNew.push(
                     <Card>
                         <Card.Content>
-                            <Image floated='right' size='mini' src='/images/avatar/large/steve.jpg'/>
+                            {/*<Image floated='right' size='mini' src='/images/avatar/large/steve.jpg'/>*/}
                             <Card.Meta> {messagesData[i]["author"]}</Card.Meta>
                             <Card.Description>
                                 {messagesData[i]["message"]}
@@ -266,50 +264,15 @@ class MessagesShow extends Component {
 
                         <Card.Content extra>
                             <div className='ui two buttons'>
-                                <Modal trigger={
-                                    <Button basic color='green'>
-                                        投げ銭
-                                    </Button>
+                                <SendEtherForm toAddress={messagesData[i]["address"]}/>
 
-                                }>
-                                    <Modal.Header>投げ銭したい量を記入してください</Modal.Header>
-                                    <Modal.Content image>
-                                        <Form>
-                                            <Form.Field>
-                                                <label>Amount of ether</label>
-                                                <input
-                                                    // value={this.state.sendEther}
-                                                    onChange={event =>
-                                                        this.setState({ sendEther: event.target.value})}
-                                                /> ether
-
-                                            </Form.Field>
-                                        </Form>
-                                        <Button
-                                            // onClick={()=> {this.sendEther(messagesData[i]["address"])}}
-                                            onClick={()=> {this.sendEther('0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22')}}
-
-                                            style={{marginLeft:30, height: 30, marginTop:30}}
-                                            className="ui button"
-                                        >
-                                            投げ銭する
-                                        </Button>
-                                    </Modal.Content>
-                                </Modal>
 
                             </div>
                         </Card.Content>
                     </Card>
                 );
 
-
-            this.setState({messagesDataNewState: messagesDataNew});
-
-        }
-    }
-
-
-    render(){
+            }
 
         return (
             <Layout>
@@ -320,54 +283,10 @@ class MessagesShow extends Component {
             <h1>に書かれたメッセージ</h1>
                 <Card.Group>
 
-                    {this.state.messagesDataNewState}
+                    {messagesDataNew}
 
                 </Card.Group>
-                <Modal
-                    open={this.state.modalOpen}
-                >
-                    <Modal.Content >
-                        <h2>投げ銭に成功しました！</h2>
 
-                    </Modal.Content>
-                    <Modal.Actions>
-                        <Link route="/">
-                            <a>
-                                <Button primary>
-                                    topページに戻る
-                                </Button>
-                            </a>
-                        </Link>
-                    </Modal.Actions>
-                </Modal>
-                <Modal open={this.state.whileLoading}>
-                    <Modal.Content >
-                        <h2>送金中
-                        </h2>
-                        <BarLoader
-                            loading={this.state.whileLoading}
-                        />
-
-
-                    </Modal.Content>
-
-                </Modal>
-                <Modal open={this.state.errorModal}>
-                    <Modal.Content >
-                        <h2>{this.state.sendErrorMesssage}
-                        </h2>
-                    </Modal.Content>
-                    <Modal.Actions>
-                        <Link route="/">
-                            <a>
-                                <Button primary>
-                                    topページに戻る
-                                </Button>
-                            </a>
-                        </Link>
-                    </Modal.Actions>
-
-                </Modal>
             </Layout>
 
         )
