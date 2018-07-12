@@ -5,6 +5,22 @@ import { Link } from '../../routes';
 import styled from 'styled-components';
 import { ClipLoader } from 'react-spinners';
 import MapComponent from '../../components/MapComponent';
+import web3 from '../../ethereum/web3';
+import TimeCapsule from '../../ethereum/TimeCapsule';
+import firebase from 'firebase';
+
+var config = {
+    apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
+    authDomain: "timecapsule-3b1bd.firebaseapp.com",
+    databaseURL: "https://timecapsule-3b1bd.firebaseio.com",
+    projectId: "timecapsule-3b1bd",
+    storageBucket: "timecapsule-3b1bd.appspot.com",
+    messagingSenderId: "221653140896"
+};
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
 
 class MessageForm extends Component {
 
@@ -12,7 +28,10 @@ class MessageForm extends Component {
         place: '',
         loading: true,
         ido:'',
-        keido:''
+        keido:'',
+        message:'',
+        submitLoading:false,
+        modalOpen:false
     }
 
 
@@ -62,7 +81,7 @@ class MessageForm extends Component {
                                    console.log(json)
                                    console.log(json.results[0]. formatted_address);
                                    here = json.results[0].formatted_address;
-                                   const herePlaceNames = here.match("(.{2}[都道府県]|.{3}県)");
+                                   const herePlaceNames = here.match("(.{2,3}[都道府県].{1,3}[区市町])");　
                                   const herePlaceName = herePlaceNames[0];
                                    hereThis.setState({place: herePlaceName});
                                    hereThis.setState({loading: false});
@@ -117,27 +136,120 @@ class MessageForm extends Component {
             }
         }
 
+    onSubmit = async event => {
+        event.preventDefault();
+
+        var postUserId = '';
+        var postUsername = '';
+        var postUserAddress = '';
+
+        await firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+
+                var currentUser = firebase.auth().currentUser;
+                 postUserId = currentUser.uid;
+
+            } else {
+                console.log("user is not signed in")
+            }
+        })
+
+        await firebase.database().ref('/users')
+            .on('value', snapshot => {
+                snapshot.forEach(function (childSnapshot) {
+
+                    const usersData = childSnapshot.val();
+
+                    var savedUsername = usersData['username'];
+
+                    var savedUserid = usersData['userId'];
+
+                    var savedUserAddress = usersData['address'];
+
+
+                    if( postUserId === savedUserid) {
+
+                       postUsername = savedUsername;
+                       postUserAddress = savedUserAddress;
+
+                       console.log(postUserAddress)
+
+                    }
+
+
+                })
+
+            }).bind(this);
+
+
+
+        const { place, message } = this.state;
+
+        this.setState({ submitLoading: true});
+
+
+        try {
+
+
+            const accounts = await web3.eth.getAccounts();
+
+            console.log(accounts);
+
+            await TimeCapsule.methods.postMessage(
+                "Kosuke",
+                message,
+                place
+            ).send({ from: accounts[0] })
+
+            await firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername, postUserAddress})
+
+
+
+        } catch (err){
+
+            // this.setState({ errorMessage: err.message });
+            consol.log(err.message)
+
+
+        }
+
+        this.setState({modalOpen: true})
+
+        console.log(this.state.modalOpen)
+
+        this.setState({ submitLoading: false, modalOpen: true });
+
+    };
+
     render() {
 
         return (
             <Layout>
                 <div>
-                    <Form>
+                    <Form onSubmit={this.onSubmit}>
                     <Form.Input fluid label='現在地' placeholder='東京都'>
                         <h2> {this.state.place}</h2>
                         <ClipLoader
                             loading={this.state.loading}
                         />
                     </Form.Input>
-                    <Form.TextArea label='伝えたいこと' placeholder='Tell us more about you...' />
+                    <Form.TextArea label='伝えたいこと'
+                                   placeholder='Tell us more about you...'
+                                   value={this.state.message}
+                                   onChange={event =>
+                                       this.setState({ message: event.target.value})}
+                    />
                     <Form.Checkbox label='I agree to the Terms and Conditions' />
-                    <Form.Button>保存する</Form.Button>
+                    <Form.Button loading={this.state.submitLoading}>保存する</Form.Button>
                 </Form>
 
 
 
-                    <Modal style={{height: 400}} trigger={<Button>保存する</Button>}>
-                        <Modal.Header>Select a Photo</Modal.Header>
+                    <Modal
+                        style={{height: 380, marginBottom: 200}}
+                        open={this.state.modalOpen}
+                    >
+                        <Modal.Header>あなたのメッセージはここに保存されました！</Modal.Header>
                         <Modal.Content >
                             <MapComponent
                                 ido = {this.state.ido}
@@ -146,6 +258,15 @@ class MessageForm extends Component {
 
 
                         </Modal.Content>
+                        <Modal.Actions>
+                            <Link route="/">
+                                <a>
+                            <Button primary>
+                                topページに戻る
+                            </Button>
+                                </a>
+                            </Link>
+                        </Modal.Actions>
                     </Modal>
 
 
