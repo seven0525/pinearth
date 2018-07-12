@@ -5,6 +5,8 @@ import { Link } from '../../routes';
 import styled from 'styled-components';
 import { ClipLoader } from 'react-spinners';
 import firebase from 'firebase';
+import web3 from '../../ethereum/web3';
+import TimeCapsule from '../../ethereum/TimeCapsule';
 
 
 var config = {
@@ -30,9 +32,27 @@ class MessagesShow extends Component {
         usernameArray:'',
         messagesArray:'',
         _isMounted: false,
-        messagesDataNewState:''
+        messagesDataNewState:'',
+        sendStatus:'',
+        sendEther:''
 
     }
+
+    sendEther = async () => {
+
+        const accounts = await web3.eth.get.Accounts();
+
+        this.setState({ sendStatus: '送金中'});
+
+        await timecapsule.methods.transfer().send({
+            to:'',
+            from: accounts[0],
+            value: web3.utils.toWei(this.state.sendEther, 'ether')
+        });
+
+        this.setState({sendStatus: '送金しました'});
+    };
+
 
     getMessagesArray() {
 
@@ -248,9 +268,20 @@ class MessagesShow extends Component {
                                         <Form>
                                             <Form.Field>
                                                 <label>Amount of ether</label>
-                                                <input/> ether
+                                                <input
+                                                    value={this.state.sendEther}
+                                                    onChange={event =>
+                                                        this.setState({ sendEther: event.target.value})}
+                                                /> ether
+
                                             </Form.Field>
                                         </Form>
+                                        <button
+                                            style={{marginLeft:30, height: 30, marginTop:30}}
+                                            className="ui button"
+                                        >
+                                            投げ銭する
+                                        </button>
                                     </Modal.Content>
                                 </Modal>
 
