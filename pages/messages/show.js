@@ -228,7 +228,7 @@ class MessagesShow extends Component {
 
 
         for (var i = 0; i < messagesData.length; i++) {
-            for (var i = 0; i < messagesData.length; i++) {
+            // for (var i = 0; i < messagesData.length; i++) {
 
                 messagesDataNew.push(
                     <Card>
@@ -301,7 +301,6 @@ class MessagesShow extends Component {
                         </Card.Content>
                     </Card>
                 );
-            }
 
 
             this.setState({messagesDataNewState: messagesDataNew});
