@@ -56,6 +56,7 @@ class SendEtherForm extends Component {
 
     render() {
         return(
+            <div className='ui two buttons'>
             <Button basic
                     color="green"
                     onClick={()=>this.sendEther()}
@@ -63,6 +64,52 @@ class SendEtherForm extends Component {
                 投げ銭
 
             </Button>
+            <Modal
+        open={this.state.modalOpen}
+    >
+    <Modal.Content >
+        <h2>投げ銭に成功しました！</h2>
+
+    </Modal.Content>
+        <Modal.Actions>
+            <Link route="/">
+                <a>
+                    <Button primary>
+                        topページに戻る
+                    </Button>
+                </a>
+                </Link>
+        </Modal.Actions>
+    </Modal>
+        <Modal open={this.state.whileLoading}>
+            <Modal.Content >
+                <h2>送金中
+                </h2>
+                <BarLoader
+                loading={this.state.whileLoading}
+                />
+
+
+            </Modal.Content>
+
+        </Modal>
+        <Modal open={this.state.errorModal}>
+            <Modal.Content >
+                <h2>{this.state.sendErrorMesssage}
+                </h2>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Link route="/">
+                        <a>
+                            <Button primary>
+                                topページに戻る
+                            </Button>
+                        </a>
+                    </Link>
+                </Modal.Actions>
+
+                </Modal>
+            </div>
 
         )
     }

@@ -109,7 +109,6 @@ class MessagesShow extends Component {
 
             })
             this.setState({messagesArray:messages});
-            this.setMessagesDataNewState()
 
         }).bind(this);
 
@@ -232,12 +231,10 @@ class MessagesShow extends Component {
                 messagesDataNew.push(
                     <Card>
                         <Card.Content>
-                            <Image floated='right' size='mini' src='/images/avatar/large/steve.jpg'/>
+                            {/*<Image floated='right' size='mini' src='/images/avatar/large/steve.jpg'/>*/}
                             <Card.Meta> {messagesData[i]["author"]}</Card.Meta>
                             <Card.Description>
                                 {messagesData[i]["message"]}
-                                {messagesData[i]["address"]}
-
                             </Card.Description>
                         </Card.Content>
                         <Card.Content extra>
@@ -289,51 +286,7 @@ class MessagesShow extends Component {
                     {messagesDataNew}
 
                 </Card.Group>
-                <Modal
-                    open={this.state.modalOpen}
-                >
-                    <Modal.Content >
-                        <h2>投げ銭に成功しました！</h2>
 
-                    </Modal.Content>
-                    <Modal.Actions>
-                        <Link route="/">
-                            <a>
-                                <Button primary>
-                                    topページに戻る
-                                </Button>
-                            </a>
-                        </Link>
-                    </Modal.Actions>
-                </Modal>
-                <Modal open={this.state.whileLoading}>
-                    <Modal.Content >
-                        <h2>送金中
-                        </h2>
-                        <BarLoader
-                            loading={this.state.whileLoading}
-                        />
-
-
-                    </Modal.Content>
-
-                </Modal>
-                <Modal open={this.state.errorModal}>
-                    <Modal.Content >
-                        <h2>{this.state.sendErrorMesssage}
-                        </h2>
-                    </Modal.Content>
-                    <Modal.Actions>
-                        <Link route="/">
-                            <a>
-                                <Button primary>
-                                    topページに戻る
-                                </Button>
-                            </a>
-                        </Link>
-                    </Modal.Actions>
-
-                </Modal>
             </Layout>
 
         )
