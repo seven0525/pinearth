@@ -37,7 +37,9 @@ class MessagesShow extends Component {
         sendStatus:'',
         sendEther:'',
         modalOpen: false,
-        whileLoading: false
+        whileLoading: false,
+        errorModal: false,
+        sendErrorMesssage:''
 
     }
 
@@ -45,16 +47,23 @@ class MessagesShow extends Component {
 
         this.setState({ whileLoading: true});
 
-        const accounts = await web3.eth.getAccounts();
+        try {
+
+            const accounts = await web3.eth.getAccounts();
 
 
-        await TimeCapsule.methods.transfer('0xad7b660ef1423e8911cda49d122a017a20b862bb').send({
-            to:'0xad7b660ef1423e8911cda49d122a017a20b862bb',
-            from: accounts[0],
-            value: web3.utils.toWei(this.state.sendEther, 'ether')
-        });
+            await TimeCapsule.methods.transfer('0xad7b660ef1423e8911cda49d122a017a20b862bb').send({
+                to: '0xad7b660ef1423e8911cda49d122a017a20b862bb',
+                from: accounts[0],
+                value: web3.utils.toWei(this.state.sendEther, 'ether')
+            });
 
-        this.setState({modalOpen:true, whileLoading:false});
+            this.setState({modalOpen: true, whileLoading: false});
+        } catch(err){
+            this.setState({sendErrorMesssage:"送金中にエラーが発生しました。再度お試しください。",
+                           errorModal:true
+            })
+        }
     };
 
 
@@ -345,6 +354,22 @@ class MessagesShow extends Component {
 
 
                     </Modal.Content>
+
+                </Modal>
+                <Modal open={this.state.errorModal}>
+                    <Modal.Content >
+                        <h2>{this.state.sendErrorMesssage}
+                        </h2>
+                    </Modal.Content>
+                    <Modal.Actions>
+                        <Link route="/">
+                            <a>
+                                <Button primary>
+                                    topページに戻る
+                                </Button>
+                            </a>
+                        </Link>
+                    </Modal.Actions>
 
                 </Modal>
             </Layout>
