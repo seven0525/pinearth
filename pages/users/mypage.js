@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { ClipLoader } from 'react-spinners';
 import MapComponent from '../../components/MapComponent';
 import firebase from 'firebase';
+import MypageMap from '../../components/MypageMap';
 
 var config = {
     apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
@@ -27,6 +28,8 @@ class MyPage extends Component {
     }
 
     componentWillMount() {
+
+        var hereThis=this;
 
 
 
@@ -67,6 +70,8 @@ class MyPage extends Component {
 
                         })
 
+                        hereThis.setState({markerArray:mapPlaces})
+
 
                     })
 
@@ -80,11 +85,13 @@ class MyPage extends Component {
 
     render() {
 
+        console.log(this.state.markerArray)
+
         return (
             <Layout>
                 <h1>my page</h1>
                 <h3>今までにメッセージを保存した場所</h3>
-                <MapComponent/>
+                <MypageMap />
             </Layout>
         )
     }
