@@ -87,8 +87,8 @@ class MyPage extends Component {
 
                         }
 
-                        hereThis.setState({markerElementArray: markerArrayNew})
 
+                        hereThis.setState({markerElementArray: markerArrayNew})
 
 
 
@@ -104,12 +104,26 @@ class MyPage extends Component {
 
     render() {
 
+        var array = [];
+        var hereThis = this;
+
+
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+
+                console.log("call from render")
+                array.push(
+                    <MypageMap markerElementArray={hereThis.state.makerElementArray}/>
+                )
+                console.log(array)
+            }
+        })
 
         return (
             <Layout>
                 <h1>my page</h1>
                 <h3>今までにメッセージを保存した場所</h3>
-                <MypageMap markerElementArray={this.state.makerElementArray} />
+                {array}
             </Layout>
         )
     }
