@@ -7,6 +7,7 @@ import { ClipLoader } from 'react-spinners';
 import MapComponent from '../../components/MapComponent';
 import firebase from 'firebase';
 import MypageMap from '../../components/MypageMap';
+import {Marker} from "react-google-maps";
 
 var config = {
     apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
@@ -24,7 +25,8 @@ if (!firebase.apps.length) {
 class MyPage extends Component {
 
     state={
-        markerArray:''
+        markerArray:'',
+        makerElementArray:''
     }
 
     componentWillMount() {
@@ -72,11 +74,28 @@ class MyPage extends Component {
 
                         hereThis.setState({markerArray:mapPlaces})
 
+                        var markerArrayNew = [];
+
+                        for (var i = 0; i < mapPlaces.length; i++) {
+
+                            markerArrayNew.push(
+                                <Marker
+                                 position={{ lat: mapPlaces[i].ido, lng: mapPlaces[i].keido }}
+                                />
+
+                            )
+
+                        }
+
+                        hereThis.setState({markerElementArray: markerArrayNew})
+
+
+
 
                     })
 
             }
-        })
+       })
 
 
 
@@ -85,13 +104,12 @@ class MyPage extends Component {
 
     render() {
 
-        console.log(this.state.markerArray)
 
         return (
             <Layout>
                 <h1>my page</h1>
                 <h3>今までにメッセージを保存した場所</h3>
-                <MypageMap />
+                <MypageMap markerElementArray={this.state.makerElementArray} />
             </Layout>
         )
     }
