@@ -74,18 +74,15 @@ class SendEtherForm extends Component {
 
 
             await firebase.database().ref('/messages')
-                .on('value', snapshot => {
-
-                    console.log("in snapshot")
-
+                .once('value', snapshot => {
 
                     snapshot.forEach(function (childSnapshot) {
 
-                        console.log(" in childsnapshot")
 
                         uniqueKey=childSnapshot.key;
 
                         const messagesData = childSnapshot.val();
+
 
                         var savedmessageId = messagesData['messageId'];
 
@@ -94,8 +91,6 @@ class SendEtherForm extends Component {
                         var savedAmountEther = messagesData['amountEther'];
 
 
-
-                        console.log(savedAmountEther)
 
                         //投げ銭されたメッセージとdbから取得されたメッセージが同じなら
 
@@ -107,7 +102,6 @@ class SendEtherForm extends Component {
 
                         }else if(savedmessageId === messageId && savedAmountEther >= 1  ){
 
-                            console.log(" in if bun")
 
                            var nextAmountEther = savedAmountEther + 1
 
