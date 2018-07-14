@@ -68,10 +68,6 @@ class SendEtherForm extends Component {
 
             var uniqueKey = '';
 
-            var savedmessageIdInRanked = ''
-
-
-
 
             await firebase.database().ref('/messages')
                 .once('value', snapshot => {
