@@ -92,7 +92,7 @@ class MessageForm extends Component {
 
                                    }else{
 
-                                       herePlaceNameWithSpace = hereAllNames
+                                       herePlaceNameWithSpace = hereAllNames[0]
 
                                    }
 
