@@ -51,6 +51,8 @@ class SendEtherForm extends Component {
 
         var amountEther = 0;
 
+        var nowAmountEther = '';
+
         var hereThis = this;
 
         try {
@@ -66,6 +68,48 @@ class SendEtherForm extends Component {
 
             var uniqueKey = '';
 
+            var savedmessageIdInRanked = ''
+
+
+            //ここでmessageIdからそのmessageがetherをもらったことがあるかどうかチェック
+
+
+            await firebase.database().ref('/rankedMessages')
+                .on('value', snapshot => {
+
+
+                    snapshot.forEach(function (childSnapshot) {
+
+                        var uniqueKeyInRanked=childSnapshot.key;
+
+
+                        const rankedMessagesData = childSnapshot.val();
+
+                        savedmessageIdInRanked = rankedMessagesData['savedmessageId'];
+
+                        var ether = rankedMessagesData['amountEther'];
+
+                        console.log(messageId)
+
+                        console.log(savedmessageIdInRanked)
+
+
+                        if( messageId === savedmessageIdInRanked) {
+
+
+
+                            nowAmountEther = ether + 1;
+
+                            firebase.database().ref(`/rankedMessages/${uniqueKeyInRanked}`).set({amountEther: nowAmountEther});
+
+
+                        }
+
+                    })
+
+
+                })
+
             await firebase.database().ref('/messages')
                 .on('value', snapshot => {
 
@@ -80,10 +124,21 @@ class SendEtherForm extends Component {
 
                         var savedusername = messagesData['postUsername'];
 
+                        //そのmessageを特定かつそれがrankedmessagesにすてにあるのなら
+                        //そこでset()で変更しないといけない
 
-                        if( messageId === savedmessageId) {
 
-                            amountEther = 1
+                        if( messageId === savedmessageId&&
+                            savedmessageIdInRanked === messageId) {
+
+                            if(nowAmountEther !== 1) {
+                                amountEther = 1
+                                console.log("called here???")
+                            }else{
+                                amountEther = nowAmountEther + 1
+
+                                console.log(amountEther)
+                            }
 
                             firebase.database().ref(`/rankedMessages`).push({savedusername, savedmessageId, amountEther});
 
