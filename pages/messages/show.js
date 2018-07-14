@@ -191,14 +191,16 @@ class MessagesShow extends Component {
                         .then(response => response.json())
                         .then(json => {
                             here = json.results[0].formatted_address;
-                            const herePlaceNames = here.match("(.{2,3}[都道府県].{1,3}[区市町])");
-                            const herePlaceName = herePlaceNames[0];
+                            const hereBigName = here.match("(.{2,3}[都道府県])");
+                            const hereSmallName = here.match("(.{1,3}[区市町])");
+                            console.log(hereBigName)
+                            console.log(hereSmallName)
+                            const herePlaceNameWithSpace = hereBigName[0] + hereSmallName[0]
+                            const herePlaceName = herePlaceNameWithSpace.replace(/\s+/g, '')
                             hereThis.setState({place: herePlaceName});
                             hereThis.setState({loading: false});
                         }).then(()=>{
                             hereThis.getMessagesArray();
-                    }).then(() => {
-                        // hereThis.setMessagesDataNewState();
                     });
 
                 },
