@@ -78,12 +78,24 @@ class MessageForm extends Component {
                            fetch(requestURL)
                                .then(response => response.json())
                                .then(json => {
-                                   console.log(json)
-                                   console.log(json.results[0]. formatted_address);
                                    here = json.results[0].formatted_address;
                                    const hereBigName = here.match("(.{2,3}[都道府県])");
                                    const hereSmallName = here.match("(.{1,3}[区市町])");
-                                   const herePlaceNameWithSpace = hereBigName[0] + hereSmallName[0]
+                                   const hereAllNames = here.match("(.{2,3}[都道府県].{1,3}[区市町])");
+                                   var herePlaceNameWithSpace = ''
+
+                                   //geolocation API は返して来る値が一定でないので全てに対応できるようにする
+
+                                   if (hereAllNames === null || hereAllNames === '' ){
+
+                                       herePlaceNameWithSpace = hereBigName[0] + hereSmallName[0]
+
+                                   }else{
+
+                                       herePlaceNameWithSpace = hereAllNames
+
+                                   }
+
                                    const herePlaceName = herePlaceNameWithSpace.replace(/\s+/g, '')
                                    hereThis.setState({place: herePlaceName});
                                    hereThis.setState({loading: false});
