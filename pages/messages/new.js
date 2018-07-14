@@ -78,11 +78,25 @@ class MessageForm extends Component {
                            fetch(requestURL)
                                .then(response => response.json())
                                .then(json => {
-                                   console.log(json)
-                                   console.log(json.results[0]. formatted_address);
                                    here = json.results[0].formatted_address;
-                                   const herePlaceNames = here.match("(.{2,3}[都道府県].{1,3}[区市町])");　
-                                  const herePlaceName = herePlaceNames[0];
+                                   const hereBigName = here.match("(.{2,3}[都道府県])");
+                                   const hereSmallName = here.match("(.{1,3}[区市町])");
+                                   const hereAllNames = here.match("(.{2,3}[都道府県].{1,3}[区市町])");
+                                   var herePlaceNameWithSpace = ''
+
+                                   //geolocation API は返して来る値が一定でないので全てに対応できるようにする
+
+                                   if (hereAllNames === null || hereAllNames === '' ){
+
+                                       herePlaceNameWithSpace = hereBigName[0] + hereSmallName[0]
+
+                                   }else{
+
+                                       herePlaceNameWithSpace = hereAllNames[0]
+
+                                   }
+
+                                   const herePlaceName = herePlaceNameWithSpace.replace(/\s+/g, '')
                                    hereThis.setState({place: herePlaceName});
                                    hereThis.setState({loading: false});
                                });
@@ -172,8 +186,6 @@ class MessageForm extends Component {
                        postUsername = savedUsername;
                        postUserAddress = savedUserAddress;
 
-                       console.log(postUserAddress)
-
                     }
 
 
@@ -185,6 +197,8 @@ class MessageForm extends Component {
 
         const { place, message, ido, keido } = this.state;
 
+        const messageId = Math.round(Math.random() * 100000000000);
+
         this.setState({ submitLoading: true});
 
 
@@ -193,8 +207,6 @@ class MessageForm extends Component {
 
             const accounts = await web3.eth.getAccounts();
 
-            console.log(accounts);
-
             await TimeCapsule.methods.postMessage(
                 "Kosuke",
                 message,
@@ -202,7 +214,7 @@ class MessageForm extends Component {
             ).send({ from: accounts[0] })
 
 
-            await firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername, postUserAddress, ido, keido })
+            await firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername, postUserAddress, ido, keido, messageId })
 
 
 
@@ -215,8 +227,6 @@ class MessageForm extends Component {
         }
 
         this.setState({modalOpen: true})
-
-        console.log(this.state.modalOpen)
 
         this.setState({ submitLoading: false, modalOpen: true });
 

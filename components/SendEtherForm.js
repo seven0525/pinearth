@@ -8,6 +8,19 @@ import web3 from '../ethereum/web3';
 import TimeCapsule from '../ethereum/TimeCapsule';
 
 
+var config = {
+    apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
+    authDomain: "timecapsule-3b1bd.firebaseapp.com",
+    databaseURL: "https://timecapsule-3b1bd.firebaseio.com",
+    projectId: "timecapsule-3b1bd",
+    storageBucket: "timecapsule-3b1bd.appspot.com",
+    messagingSenderId: "221653140896"
+};
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
+
 
 class SendEtherForm extends Component {
 
@@ -36,6 +49,12 @@ class SendEtherForm extends Component {
 
         this.setState({ whileLoading: true});
 
+        var amountEther = 0;
+
+        var nowAmountEther = '';
+
+        var hereThis = this;
+
         try {
 
             const accounts = await web3.eth.getAccounts();
@@ -45,6 +64,54 @@ class SendEtherForm extends Component {
                 from: accounts[0],
                 value:web3.utils.toWei("0.0001", "ether")
             });
+            const {messageId} = this.props;
+
+            var uniqueKey = '';
+
+
+            await firebase.database().ref('/messages')
+                .once('value', snapshot => {
+
+                    snapshot.forEach(function (childSnapshot) {
+
+
+                        uniqueKey=childSnapshot.key;
+
+                        const messagesData = childSnapshot.val();
+
+
+                        var savedmessageId = messagesData['messageId'];
+
+                        var savedusername = messagesData['postUsername'];
+
+                        var savedAmountEther = messagesData['amountEther'];
+
+
+
+                        //投げ銭されたメッセージとdbから取得されたメッセージが同じなら
+
+                        if (savedmessageId === messageId && savedAmountEther === undefined ){
+
+
+                            firebase.database().ref(`/messages/${uniqueKey}`).update({amountEther:1});
+
+
+                        }else if(savedmessageId === messageId && savedAmountEther >= 1  ){
+
+
+                           var nextAmountEther = savedAmountEther + 1
+
+                            firebase.database().ref(`/messages/${uniqueKey}`).update({amountEther:nextAmountEther});
+
+
+                        }
+
+
+
+                    });
+
+
+                })
 
             this.setState({modalOpen: true, whileLoading: false});
         } catch(err){

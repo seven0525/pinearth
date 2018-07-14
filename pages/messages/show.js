@@ -81,6 +81,12 @@ class MessagesShow extends Component {
 
         var messageAddress = '';
 
+        var messageId ='';
+
+        var messageEther = '';
+
+        var sortedArray = [];
+
         const here = this.state.place;
 
 
@@ -100,20 +106,45 @@ class MessagesShow extends Component {
 
                 messageAddress = messagesData['postUserAddress'];
 
-                if( here === messagePlace) {
+               messageId = messagesData['messageId'];
 
-                    messages.push({ message:message, place: messagePlace, author: messageAuthor, address:messageAddress});
+                messageEther = messagesData['amountEther'];
+
+                if (messageEther === undefined){
+
+                    messageEther = 0;
+
+                }else{
+
+                    messageEther = messageEther*0.0001;
 
                 }
 
 
+
+                if( here === messagePlace) {
+
+                    messages.push({ message:message, place: messagePlace, author: messageAuthor, address:messageAddress, messageId: messageId, amountEther:messageEther});
+
+                }
+
             })
-            this.setState({messagesArray:messages});
+
+        // Ether量が多い記事が上に来るように降順にソート
+
+        sortedArray=
+           messages.sort(function(a,b){
+               return (a.amountEther>b.amountEther) ? -1 : 1;
+           });
+
+            this.setState({messagesArray:sortedArray});
 
         }).bind(this);
 
 
     }
+
+
 
 
     componentDidMount() {
@@ -160,14 +191,30 @@ class MessagesShow extends Component {
                         .then(response => response.json())
                         .then(json => {
                             here = json.results[0].formatted_address;
-                            const herePlaceNames = here.match("(.{2,3}[都道府県].{1,3}[区市町])");
-                            const herePlaceName = herePlaceNames[0];
+                            const hereBigName = here.match("(.{2,3}[都道府県])");
+                            const hereSmallName = here.match("(.{1,3}[区市町])");
+                            const hereAllNames = here.match("(.{2,3}[都道府県].{1,3}[区市町])");
+                            var herePlaceNameWithSpace = ''
+                            console.log(hereAllNames)
+                            console.log(hereBigName)
+
+                            //geolocation API は返して来る値が一定でないので全てに対応できるようにする
+
+                            if (hereAllNames === null || hereAllNames === '' ){
+
+                                herePlaceNameWithSpace = hereBigName[0] + hereSmallName[0]
+
+                            }else{
+
+                                herePlaceNameWithSpace = hereAllNames[0]
+
+                            }
+
+                            const herePlaceName = herePlaceNameWithSpace.replace(/\s+/g, '')
                             hereThis.setState({place: herePlaceName});
                             hereThis.setState({loading: false});
                         }).then(()=>{
                             hereThis.getMessagesArray();
-                    }).then(() => {
-                        hereThis.setMessagesDataNewState();
                     });
 
                 },
@@ -225,6 +272,7 @@ class MessagesShow extends Component {
 
         const messagesData = this.state.messagesArray;
 
+
             for (var i = 0; i < messagesData.length; i++) {
 
 
@@ -236,6 +284,9 @@ class MessagesShow extends Component {
                             <Card.Description>
                                 {messagesData[i]["message"]}
                             </Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                            Amount Of Ether: {messagesData[i]["amountEther"]}ether
                         </Card.Content>
                         <Card.Content extra>
                             <div className='ui two buttons'>
@@ -264,7 +315,10 @@ class MessagesShow extends Component {
 
                         <Card.Content extra>
                             <div className='ui two buttons'>
-                                <SendEtherForm toAddress={messagesData[i]["address"]}/>
+                                <SendEtherForm
+                                    toAddress={messagesData[i]["address"]}
+                                    messageId={messagesData[i]["messageId"]}
+                                />
 
 
                             </div>
