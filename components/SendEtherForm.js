@@ -71,15 +71,17 @@ class SendEtherForm extends Component {
             var savedmessageIdInRanked = ''
 
 
-            //ここでmessageIdからそのmessageがetherをもらったことがあるかどうかチェック
-
 
 
             await firebase.database().ref('/messages')
                 .on('value', snapshot => {
 
+                    console.log("in snapshot")
+
 
                     snapshot.forEach(function (childSnapshot) {
+
+                        console.log(" in childsnapshot")
 
                         uniqueKey=childSnapshot.key;
 
@@ -89,9 +91,27 @@ class SendEtherForm extends Component {
 
                         var savedusername = messagesData['postUsername'];
 
-                        if (savedmessageId === messageId){
+                        var savedAmountEther = messagesData['amountEther'];
+
+
+
+                        console.log(savedAmountEther)
+
+                        //投げ銭されたメッセージとdbから取得されたメッセージが同じなら
+
+                        if (savedmessageId === messageId && savedAmountEther === undefined ){
+
 
                             firebase.database().ref(`/messages/${uniqueKey}`).update({amountEther:1});
+
+
+                        }else if(savedmessageId === messageId && savedAmountEther >= 1  ){
+
+                            console.log(" in if bun")
+
+                           var nextAmountEther = savedAmountEther + 1
+
+                            firebase.database().ref(`/messages/${uniqueKey}`).update({amountEther:nextAmountEther});
 
 
                         }
