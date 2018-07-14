@@ -83,6 +83,8 @@ class MessagesShow extends Component {
 
         var messageId ='';
 
+        var messageEther = '';
+
         const here = this.state.place;
 
 
@@ -104,14 +106,26 @@ class MessagesShow extends Component {
 
                messageId = messagesData['messageId'];
 
+                messageEther = messagesData['amountEther'];
+
+                if (messageEther === undefined){
+
+                    messageEther = 0;
+
+                }else{
+
+                    messageEther = messageEther*0.0001;
+
+                }
+
+
                 //******本来は" 東京都新宿区"ではなくhere
 
                 if( " 東京都新宿区" === messagePlace) {
 
-                    messages.push({ message:message, place: messagePlace, author: messageAuthor, address:messageAddress, messageId: messageId});
+                    messages.push({ message:message, place: messagePlace, author: messageAuthor, address:messageAddress, messageId: messageId, amountEther:messageEther});
 
                 }
-
 
             })
             this.setState({messagesArray:messages});
@@ -251,6 +265,9 @@ class MessagesShow extends Component {
                             <Card.Description>
                                 {messagesData[i]["message"]}
                             </Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                            Amount Of Ether: {messagesData[i]["amountEther"]}ether
                         </Card.Content>
                         <Card.Content extra>
                             <div className='ui two buttons'>
