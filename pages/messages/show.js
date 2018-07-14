@@ -85,6 +85,8 @@ class MessagesShow extends Component {
 
         var messageEther = '';
 
+        var sortedArray = [];
+
         const here = this.state.place;
 
 
@@ -128,7 +130,15 @@ class MessagesShow extends Component {
                 }
 
             })
-            this.setState({messagesArray:messages});
+
+        // Ether量が多い記事が上に来るように降順にソート
+
+        sortedArray=
+           messages.sort(function(a,b){
+               return (a.amountEther>b.amountEther) ? -1 : 1;
+           });
+
+            this.setState({messagesArray:sortedArray});
 
         }).bind(this);
 
@@ -253,6 +263,8 @@ class MessagesShow extends Component {
 
 
         const messagesData = this.state.messagesArray;
+
+        console.log(messagesData);
 
             for (var i = 0; i < messagesData.length; i++) {
 
