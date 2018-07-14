@@ -186,8 +186,6 @@ class MessageForm extends Component {
                        postUsername = savedUsername;
                        postUserAddress = savedUserAddress;
 
-                       console.log(postUserAddress)
-
                     }
 
 
@@ -209,8 +207,6 @@ class MessageForm extends Component {
 
             const accounts = await web3.eth.getAccounts();
 
-            console.log(accounts);
-
             await TimeCapsule.methods.postMessage(
                 "Kosuke",
                 message,
@@ -231,8 +227,6 @@ class MessageForm extends Component {
         }
 
         this.setState({modalOpen: true})
-
-        console.log(this.state.modalOpen)
 
         this.setState({ submitLoading: false, modalOpen: true });
 
