@@ -36,65 +36,84 @@ if (!firebase.apps.length) {
     firebase.initializeApp(config);
 }
 
-function ResponsiveHeader(props) {
+class ResponsiveHeader extends Component{
+
+    state={
+        username: '',
+        imageUrl:''
+    }
+
 
     // var  savedUserNickname = '';
 
+    componentDidlMount() {
 
 
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-            console.log("User is signed in.")
-            const { currentUser } = firebase.auth();
+        firebase.auth().onAuthStateChanged(function (user) {
 
-            var userId = currentUser.uid;
+            if (user) {
+                console.log("User is signed in.")
 
-            var savedUserId = '';
+                const {currentUser} = firebase.auth();
 
-            var  savedUserNickname = '';
+                var userId = currentUser.uid;
 
-            const firebaseUsersRef = firebase.database().ref(`/users`);
 
-            firebaseUsersRef
-                .on("value", function(snapshot) {
+                var savedUserId = '';
 
-                    snapshot.forEach(function (childSnapshot) {
+                var savedUserNickname = '';
 
-                        const childData = childSnapshot.val();
-                        savedUserId = childData.userId;
+                const firebaseUsersRef = firebase.database().ref(`/users`);
 
-                        if( userId === savedUserId ) {
-                            savedUserNickname = childData.username;
-                        }
 
+                firebaseUsersRef
+                    .on("value", function (snapshot) {
+
+                        snapshot.forEach(function (childSnapshot) {
+
+                            const childData = childSnapshot.val();
+                            savedUserId = childData.userId;
+
+                            if (userId === savedUserId) {
+                                savedUserNickname = childData.username;
+                            }
+
+
+                        });
+
+                        hereThis.setState({username: savedUserNickname});
 
                     });
 
-                    hereThis.setState({username: savedUserNickname});
 
-                });
+            } else {
+                console.log("User is not signed in.")
+                window.location.replace('http://localhost:3000/users/login')
+
+            }
+        });
+
+    }
 
 
-        } else {
-            console.log("User is not signed in.")
-            window.location.replace('http://localhost:3000/users/login')
 
-        }
-    });
+    // const { classes } = this.props;
 
-    const { classes } = props;
-    return (
-        <div className={classes.root}>
-            <AppBar position="static" style={{backgroundColor: "#0066ff"}}>
-                <Toolbar>
-                    <Typography variant="title" color="inherit" className={classes.flex}>
-                        TimeCapsule
-                    </Typography>
-                    <Button color="inherit">{savedUserNickname}</Button>
-                </Toolbar>
-            </AppBar>
-        </div>
-    );
+    render() {
+
+        return (
+            <div className={this.props.classes.root}>
+                <AppBar position="static" style={{backgroundColor: "#0066ff"}}>
+                    <Toolbar>
+                        <Typography variant="title" color="inherit" className={this.props.classes.flex}>
+                            TimeCapsule
+                        </Typography>
+                        <Button color="inherit">a{this.state.username}</Button>
+                    </Toolbar>
+                </AppBar>
+            </div>
+        );
+    }
 }
 
 
