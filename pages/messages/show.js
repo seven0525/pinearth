@@ -85,6 +85,8 @@ class MessagesShow extends Component {
 
         var messageEther = '';
 
+        var messageTransactionId = '';
+
         var sortedArray = [];
 
         const here = this.state.place;
@@ -110,6 +112,10 @@ class MessagesShow extends Component {
 
                 messageEther = messagesData['amountEther'];
 
+                messageTransactionId = messagesData['transactionId'];
+
+
+
                 if (messageEther === undefined){
 
                     messageEther = 0;
@@ -124,7 +130,8 @@ class MessagesShow extends Component {
 
                 if( here === messagePlace) {
 
-                    messages.push({ message:message, place: messagePlace, author: messageAuthor, address:messageAddress, messageId: messageId, amountEther:messageEther});
+                    messages.push({ message:message, place: messagePlace, author: messageAuthor, address:messageAddress,
+                        messageId: messageId, amountEther:messageEther, transactionId: messageTransactionId});
 
                 }
 
@@ -298,12 +305,9 @@ class MessagesShow extends Component {
                                 }>
                                     <Modal.Header>このメッセージのトランザクションID</Modal.Header>
                                     <Modal.Content image>
-                                        <Image wrapped size='medium' src='/images/avatar/large/rachel.png'/>
                                         <Modal.Description>
-                                            <Header>0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22</Header>
-                                            <p>We've found the following gravatar image associated with your e-mail
-                                                address.</p>
-                                            <p>Is it okay to use this photo?</p>
+                                            <Header> {messagesData[i]["transactionId"]}</Header>
+
                                         </Modal.Description>
 
                                     </Modal.Content>
