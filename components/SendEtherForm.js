@@ -115,7 +115,7 @@ class SendEtherForm extends Component {
 
             this.setState({modalOpen: true, whileLoading: false});
         } catch(err){
-            this.setState({sendErrorMesssage:"送金中にエラーが発生しました。再度お試しください。",
+            this.setState({sendErrorMesssage:"送金中にエラーが発生しました。再度お試しください。"+ err,
                 errorModal:true
             })
         }
