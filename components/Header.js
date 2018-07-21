@@ -163,8 +163,10 @@ class Header extends Component {
                         <Link route="/users/mypage">
                     <Dropdown.Item>my page</Dropdown.Item>
                         </Link>
+                        <Link route="/messages/new">
+                            <Dropdown.Item>新たにメッセージをかく</Dropdown.Item>
+                        </Link>
                     </Dropdown.Menu>
-
                 </Dropdown>
             </Menu>
 
