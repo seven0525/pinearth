@@ -22,6 +22,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-google-maps": "^9.4.5",
+    "react-responsive": "^5.0.0",
     "react-spinners": "^0.3.2",
     "recompose": "^0.27.1",
     "redux": "^4.0.0",

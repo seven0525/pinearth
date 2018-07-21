@@ -4,6 +4,7 @@ import { Link } from '../routes';
 import firebase from 'firebase';
 import 'firebase/storage';
 import styled from 'styled-components';
+import MediaQuery from 'react-responsive';
 
 
 
@@ -142,6 +143,9 @@ class Header extends Component {
         `;
 
         return (
+            <div>
+                <MediaQuery query="(min-width: 768px)">
+
             <Menu color='blue' inverted widths={4}>
                 <Link route="/">
                     <a>
@@ -169,6 +173,12 @@ class Header extends Component {
                     </Dropdown.Menu>
                 </Dropdown>
             </Menu>
+                </MediaQuery>
+                <MediaQuery query="(max-width: 768px)">
+                    <h4>www</h4>
+                </MediaQuery>
+            </div>
+
 
         );
 };

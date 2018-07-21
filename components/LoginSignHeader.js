@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import  { Menu, Icon } from'semantic-ui-react';
 import { Link } from '../routes';
+import MediaQuery from 'react-responsive';
+
 
 
 class LoginSignHeader extends Component {
@@ -23,6 +25,7 @@ class LoginSignHeader extends Component {
                     {/*<Icon link name='user'></Icon>*/}
                 </Menu.Item>
             </Menu>
+
 
         );
     };
