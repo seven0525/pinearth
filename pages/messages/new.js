@@ -207,14 +207,19 @@ class MessageForm extends Component {
 
             const accounts = await web3.eth.getAccounts();
 
+            var transactionId = '';
+
             await TimeCapsule.methods.postMessage(
                 "Kosuke",
                 message,
                 place
             ).send({ from: accounts[0] })
+                .on('transactionHash', function(hash){
+                    transactionId = hash;
+                })
 
 
-            await firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername, postUserAddress, ido, keido, messageId })
+            await firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername, postUserAddress, ido, keido, messageId, transactionId })
 
 
 
