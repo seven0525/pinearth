@@ -38,66 +38,6 @@ if (!firebase.apps.length) {
 
 class ResponsiveHeader extends Component{
 
-    state={
-        username: '',
-        imageUrl:''
-    }
-
-
-    // var  savedUserNickname = '';
-
-    componentDidlMount() {
-
-
-        firebase.auth().onAuthStateChanged(function (user) {
-
-            if (user) {
-                console.log("User is signed in.")
-
-                const {currentUser} = firebase.auth();
-
-                var userId = currentUser.uid;
-
-
-                var savedUserId = '';
-
-                var savedUserNickname = '';
-
-                const firebaseUsersRef = firebase.database().ref(`/users`);
-
-
-                firebaseUsersRef
-                    .on("value", function (snapshot) {
-
-                        snapshot.forEach(function (childSnapshot) {
-
-                            const childData = childSnapshot.val();
-                            savedUserId = childData.userId;
-
-                            if (userId === savedUserId) {
-                                savedUserNickname = childData.username;
-                            }
-
-
-                        });
-
-                        hereThis.setState({username: savedUserNickname});
-
-                    });
-
-
-            } else {
-                console.log("User is not signed in.")
-                window.location.replace('http://localhost:3000/users/login')
-
-            }
-        });
-
-    }
-
-
-
-    // const { classes } = this.props;
 
     render() {
 
@@ -108,7 +48,7 @@ class ResponsiveHeader extends Component{
                         <Typography variant="title" color="inherit" className={this.props.classes.flex}>
                             TimeCapsule
                         </Typography>
-                        <Button color="inherit">a{this.state.username}</Button>
+                        <Button color="inherit">{this.props.username}</Button>
                     </Toolbar>
                 </AppBar>
             </div>

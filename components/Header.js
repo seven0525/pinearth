@@ -208,7 +208,7 @@ class Header extends Component {
                             {/*</Toolbar>*/}
                         {/*</AppBar>*/}
                     {/*</div>*/}
-                    < ResponsiveHeader/>
+                    < ResponsiveHeader username = {this.state.username}/>
                 </MediaQuery>
             </div>
 
