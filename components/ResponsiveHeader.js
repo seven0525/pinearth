@@ -12,6 +12,8 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+import { Link } from '../routes';
+
 
 
 
@@ -88,8 +90,14 @@ class ResponsiveHeader extends Component{
             <div className={this.props.classes.root}>
                 <AppBar position="static" style={{backgroundColor: "#0066ff"}}>
                     <Toolbar>
-                        <Typography variant="title" color="inherit" className={this.props.classes.flex}>
+                        <Typography variant="title" color="#FFFFFF" className={this.props.classes.flex}>
+                            <Link route="/">
+                                <a>
+
                             TimeCapsule
+
+                                </a>
+                            </Link>
                         </Typography>
                         <Button onClick={this.toggleDrawer('right', true)} color="inherit">{this.props.username}</Button>
                         <Drawer anchor="right" open={this.state.right} onClose={this.toggleDrawer('right', false)}>
