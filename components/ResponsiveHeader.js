@@ -8,6 +8,14 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import firebase from "firebase";
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+
+
+
+
 
 
 const styles = {
@@ -21,6 +29,12 @@ const styles = {
         marginLeft: -12,
         marginRight: 20,
     },
+    list: {
+        width: 250,
+    },
+    fullList: {
+        width: 'auto',
+    }
 };
 
 var config = {
@@ -38,8 +52,39 @@ if (!firebase.apps.length) {
 
 class ResponsiveHeader extends Component{
 
+    state={
+        top: false,
+        left: false,
+        bottom: false,
+        right: false
+    }
+
+    toggleDrawer = (side, open) => () => {
+        this.setState({
+            [side]: open,
+        });
+    };
+
 
     render() {
+
+        const sideList = (
+            <div className={this.props.classes.list}>
+                <List>{mailFolderListItems}</List>
+                <Divider />
+                <List>{otherMailFolderListItems}</List>
+            </div>
+        );
+
+        const fullList = (
+            <div className={this.props.classes.fullList}>
+                <List>{mailFolderListItems}</List>
+                <Divider />
+                <List>{otherMailFolderListItems}</List>
+            </div>
+        );
+
+
 
         return (
             <div className={this.props.classes.root}>
@@ -48,7 +93,17 @@ class ResponsiveHeader extends Component{
                         <Typography variant="title" color="inherit" className={this.props.classes.flex}>
                             TimeCapsule
                         </Typography>
-                        <Button color="inherit">{this.props.username}</Button>
+                        <Button onClick={this.toggleDrawer('right', true)} color="inherit">{this.props.username}</Button>
+                        <Drawer anchor="right" open={this.state.right} onClose={this.toggleDrawer('right', false)}>
+                            <div
+                                tabIndex={0}
+                                role="button"
+                                onClick={this.toggleDrawer('right', false)}
+                                onKeyDown={this.toggleDrawer('right', false)}
+                            >
+                                {sideList}
+                            </div>
+                        </Drawer>
                     </Toolbar>
                 </AppBar>
             </div>
