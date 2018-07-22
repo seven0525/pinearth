@@ -71,16 +71,14 @@ class ResponsiveHeader extends Component{
         const sideList = (
             <div className={this.props.classes.list}>
                 <List>{mailFolderListItems}</List>
-                <Divider />
-                <List>{otherMailFolderListItems}</List>
+
             </div>
         );
 
         const fullList = (
             <div className={this.props.classes.fullList}>
                 <List>{mailFolderListItems}</List>
-                <Divider />
-                <List>{otherMailFolderListItems}</List>
+
             </div>
         );
 
