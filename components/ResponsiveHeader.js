@@ -92,7 +92,7 @@ class ResponsiveHeader extends Component{
                     <Toolbar>
                         <Typography variant="title" color="#FFFFFF" className={this.props.classes.flex}>
                             <Link route="/">
-                                <a>
+                                <a style={{color:"#FFFFFF"}}>
 
                             TimeCapsule
 
