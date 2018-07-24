@@ -23,6 +23,25 @@ if (!firebase.apps.length) {
     firebase.initializeApp(config);
 }
 
+const ImgDiv = styled.div`
+
+text-align: center
+  margin: 5px 15px
+  height: 200px
+  width: 500px
+  border-left: 1px solid gray
+  border-right: 1px solid gray
+  border-top: 5px solid gray
+  border-bottom: 5px solid gray
+
+
+`;
+
+const ImgWrapper = styled.img`
+   width: 100%
+    height: 100%
+`;
+
 class MessageForm extends Component {
 
     state = {
@@ -284,6 +303,14 @@ class MessageForm extends Component {
 
     render() {
 
+        let $imagePreview = null;
+
+        if (this.state.imagePreviewUrl) {
+            $imagePreview = (<ImgWrapper src={this.state.imagePreviewUrl} />);
+        } else {
+            $imagePreview = (<div>画像を選択するとここにプレビューが表示されます</div>);
+        }
+
         return (
             <Layout>
                 <div>
@@ -300,15 +327,16 @@ class MessageForm extends Component {
                                    onChange={event =>
                                        this.setState({ message: event.target.value})}
                     />
-                    <Form.Checkbox label='I agree to the Terms and Conditions' />
-
-
                             <input
                                 type = "file"
                                 onChange = {this.captureFile}
                             />
 
-                        <img src={this.state.imagePreviewUrl} />
+                        <ImgDiv>
+
+                            {$imagePreview}
+
+                        </ImgDiv>
 
 
                     <Form.Button loading={this.state.submitLoading}>保存する</Form.Button>
