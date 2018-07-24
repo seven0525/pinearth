@@ -278,6 +278,16 @@ class MessageForm extends Component {
         event.preventDefault()
         const file = event.target.files[0]
         let reader = new window.FileReader()
+        reader.readAsArrayBuffer(file)
+        reader.onloadend = () => this.convertToBuffer(file,reader)
+    };
+
+    convertToBuffer = async(file,reader) => {
+        //file is converted to a buffer to prepare for uploading to IPFS
+        const buffer = await Buffer.from(reader.result);
+        //set this buffer -using es6 syntax
+        this.setState({buffer});
+
         reader.onloadend = () => {
             this.setState({
                 file: file,
@@ -286,17 +296,6 @@ class MessageForm extends Component {
         }
 
         reader.readAsDataURL(file)
-
-
-        reader.readAsArrayBuffer(file)
-        reader.onloadend = () => this.convertToBuffer(reader)
-    };
-
-    convertToBuffer = async(reader) => {
-        //file is converted to a buffer to prepare for uploading to IPFS
-        const buffer = await Buffer.from(reader.result);
-        //set this buffer -using es6 syntax
-        this.setState({buffer});
     };
 
 
