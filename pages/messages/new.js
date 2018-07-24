@@ -34,7 +34,8 @@ class MessageForm extends Component {
         submitLoading:false,
         modalOpen:false,
         buffer:'',
-        ipfsHash:''
+        ipfsHash:'',
+        imageUrl:''
     }
 
 
@@ -228,15 +229,15 @@ class MessageForm extends Component {
 
                 this.setState({ ipfsHash:ipfsHash[0].hash });
 
-                ipfsId = this.state.ipfsHash;
+                ipfsId = ipfsHash[0].hash;
 
-                console.log(this.state.ipfsHash)
+                console.log(ipfsId)
+
+                 firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername, postUserAddress, ido, keido, messageId, transactionId, ipfsId })
 
 
             })
 
-
-            await firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername, postUserAddress, ido, keido, messageId, transactionId, ipfsId })
 
 
 
@@ -259,6 +260,7 @@ class MessageForm extends Component {
         event.preventDefault()
         const file = event.target.files[0]
         let reader = new window.FileReader()
+        this.setState({imageUrl: reader.result})
         reader.readAsArrayBuffer(file)
         reader.onloadend = () => this.convertToBuffer(reader)
     };
