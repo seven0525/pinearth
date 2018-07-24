@@ -8,6 +8,7 @@ import MapComponent from '../../components/MapComponent';
 import web3 from '../../ethereum/web3';
 import TimeCapsule from '../../ethereum/TimeCapsule';
 import firebase from 'firebase';
+import ipfs from '../../ethereum/ipfs';
 
 var config = {
     apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
@@ -22,6 +23,25 @@ if (!firebase.apps.length) {
     firebase.initializeApp(config);
 }
 
+const ImgDiv = styled.div`
+
+text-align: center
+  margin: 5px 15px
+  height: 200px
+  width: 500px
+  border-left: 1px solid gray
+  border-right: 1px solid gray
+  border-top: 5px solid gray
+  border-bottom: 5px solid gray
+
+
+`;
+
+const ImgWrapper = styled.img`
+   width: 100%
+    height: 100%
+`;
+
 class MessageForm extends Component {
 
     state = {
@@ -31,7 +51,11 @@ class MessageForm extends Component {
         keido:'',
         message:'',
         submitLoading:false,
-        modalOpen:false
+        modalOpen:false,
+        buffer:'',
+        ipfsHash:'',
+        file:'',
+        imagePreviewUrl:''
     }
 
 
@@ -209,6 +233,8 @@ class MessageForm extends Component {
 
             var transactionId = '';
 
+            var ipfsId = '';
+
             await TimeCapsule.methods.postMessage(
                 "Kosuke",
                 message,
@@ -218,8 +244,18 @@ class MessageForm extends Component {
                     transactionId = hash;
                 })
 
+            await ipfs.add(this.state.buffer, (err, ipfsHash) => {
+                console.log(err,ipfsHash);
 
-            await firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername, postUserAddress, ido, keido, messageId, transactionId })
+                this.setState({ ipfsHash:ipfsHash[0].hash });
+
+                ipfsId = ipfsHash[0].hash;
+
+                 firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername, postUserAddress, ido, keido, messageId, transactionId, ipfsId })
+
+
+            })
+
 
 
 
@@ -237,7 +273,42 @@ class MessageForm extends Component {
 
     };
 
+    captureFile =(event) => {
+        event.stopPropagation()
+        event.preventDefault()
+        const file = event.target.files[0]
+        let reader = new window.FileReader()
+        reader.readAsArrayBuffer(file)
+        reader.onloadend = () => this.convertToBuffer(file,reader)
+    };
+
+    convertToBuffer = async(file,reader) => {
+        //file is converted to a buffer to prepare for uploading to IPFS
+        const buffer = await Buffer.from(reader.result);
+        //set this buffer -using es6 syntax
+        this.setState({buffer});
+
+        reader.onloadend = () => {
+            this.setState({
+                file: file,
+                imagePreviewUrl: reader.result
+            });
+        }
+
+        reader.readAsDataURL(file)
+    };
+
+
+
     render() {
+
+        let $imagePreview = null;
+
+        if (this.state.imagePreviewUrl) {
+            $imagePreview = (<ImgWrapper src={this.state.imagePreviewUrl} />);
+        } else {
+            $imagePreview = (<div>画像を選択するとここにプレビューが表示されます</div>);
+        }
 
         return (
             <Layout>
@@ -255,7 +326,18 @@ class MessageForm extends Component {
                                    onChange={event =>
                                        this.setState({ message: event.target.value})}
                     />
-                    <Form.Checkbox label='I agree to the Terms and Conditions' />
+                            <input
+                                type = "file"
+                                onChange = {this.captureFile}
+                            />
+
+                        <ImgDiv>
+
+                            {$imagePreview}
+
+                        </ImgDiv>
+
+
                     <Form.Button loading={this.state.submitLoading}>保存する</Form.Button>
                 </Form>
 

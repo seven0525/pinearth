@@ -87,6 +87,8 @@ class MessagesIndex extends Component {
 
         var messageTransactionId = '';
 
+        var messageIpfsId ='';
+
         var sortedArray = [];
 
         const here = this.state.place;
@@ -114,6 +116,8 @@ class MessagesIndex extends Component {
 
                     messageTransactionId = messagesData['transactionId'];
 
+                    messageIpfsId = messagesData['ipfsId'];
+
 
 
                     if (messageEther === undefined){
@@ -131,7 +135,7 @@ class MessagesIndex extends Component {
                     if( here === messagePlace) {
 
                         messages.push({ message:message, place: messagePlace, author: messageAuthor, address:messageAddress,
-                            messageId: messageId, amountEther:messageEther, transactionId: messageTransactionId});
+                            messageId: messageId, amountEther:messageEther, transactionId: messageTransactionId, ipfsId: messageIpfsId});
 
                     }
 
@@ -202,8 +206,6 @@ class MessagesIndex extends Component {
                             const hereSmallName = here.match("(.{1,3}[区市町])");
                             const hereAllNames = here.match("(.{2,3}[都道府県].{1,3}[区市町])");
                             var herePlaceNameWithSpace = ''
-                            console.log(hereAllNames)
-                            console.log(hereBigName)
 
                             //geolocation API は返して来る値が一定でないので全てに対応できるようにする
 
@@ -280,11 +282,17 @@ class MessagesIndex extends Component {
         const messagesData = this.state.messagesArray;
 
 
+
+
         for (var i = 0; i < messagesData.length; i++) {
+
+            var ipfsImageUrl = 'https://gateway.ipfs.io/ipfs/' +  messagesData[i]["ipfsId"];
 
 
             messagesDataNew.push(
                 <Card>
+                    <Image src={ipfsImageUrl} />
+
                     <Card.Content>
                         {/*<Image floated='right' size='mini' src='/images/avatar/large/steve.jpg'/>*/}
                         <Card.Meta> {messagesData[i]["author"]}</Card.Meta>

@@ -121,6 +121,16 @@ class SendEtherForm extends Component {
         }
     };
 
+    closeModal(){
+
+        this.setState({modalOpen:false})
+
+        this.setState({errorModal: false, whileLoading: false})
+
+
+    }
+
+
     render() {
         return(
             <div className='ui two buttons'>
@@ -139,13 +149,11 @@ class SendEtherForm extends Component {
 
     </Modal.Content>
         <Modal.Actions>
-            <Link route="/">
-                <a>
-                    <Button primary>
+
+                    <Button primary onClick={()=>this.closeModal()}>
                         topページに戻る
                     </Button>
-                </a>
-                </Link>
+
         </Modal.Actions>
     </Modal>
         <Modal open={this.state.whileLoading}>
@@ -166,13 +174,9 @@ class SendEtherForm extends Component {
                 </h2>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Link route="/">
-                        <a>
-                            <Button primary>
-                                topページに戻る
-                            </Button>
-                        </a>
-                    </Link>
+                    <Button primary onClick={()=>this.closeModal()}>
+                        topページに戻る
+                    </Button>
                 </Modal.Actions>
 
                 </Modal>
