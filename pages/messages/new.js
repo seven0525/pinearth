@@ -8,6 +8,7 @@ import MapComponent from '../../components/MapComponent';
 import web3 from '../../ethereum/web3';
 import TimeCapsule from '../../ethereum/TimeCapsule';
 import firebase from 'firebase';
+import ipfs from '../../ethereum/ipfs';
 
 var config = {
     apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
@@ -31,7 +32,9 @@ class MessageForm extends Component {
         keido:'',
         message:'',
         submitLoading:false,
-        modalOpen:false
+        modalOpen:false,
+        buffer:'',
+        ipfsHash:''
     }
 
 
@@ -209,6 +212,8 @@ class MessageForm extends Component {
 
             var transactionId = '';
 
+            var ipfsId = '';
+
             await TimeCapsule.methods.postMessage(
                 "Kosuke",
                 message,
@@ -218,8 +223,20 @@ class MessageForm extends Component {
                     transactionId = hash;
                 })
 
+            await ipfs.add(this.state.buffer, (err, ipfsHash) => {
+                console.log(err,ipfsHash);
 
-            await firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername, postUserAddress, ido, keido, messageId, transactionId })
+                this.setState({ ipfsHash:ipfsHash[0].hash });
+
+                ipfsId = this.state.ipfsHash;
+
+                console.log(this.state.ipfsHash)
+
+
+            })
+
+
+            await firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername, postUserAddress, ido, keido, messageId, transactionId, ipfsId })
 
 
 
@@ -236,6 +253,24 @@ class MessageForm extends Component {
         this.setState({ submitLoading: false, modalOpen: true });
 
     };
+
+    captureFile =(event) => {
+        event.stopPropagation()
+        event.preventDefault()
+        const file = event.target.files[0]
+        let reader = new window.FileReader()
+        reader.readAsArrayBuffer(file)
+        reader.onloadend = () => this.convertToBuffer(reader)
+    };
+
+    convertToBuffer = async(reader) => {
+        //file is converted to a buffer to prepare for uploading to IPFS
+        const buffer = await Buffer.from(reader.result);
+        //set this buffer -using es6 syntax
+        this.setState({buffer});
+    };
+
+
 
     render() {
 
@@ -256,6 +291,14 @@ class MessageForm extends Component {
                                        this.setState({ message: event.target.value})}
                     />
                     <Form.Checkbox label='I agree to the Terms and Conditions' />
+
+
+                            <input
+                                type = "file"
+                                onChange = {this.captureFile}
+                            />
+
+
                     <Form.Button loading={this.state.submitLoading}>保存する</Form.Button>
                 </Form>
 
