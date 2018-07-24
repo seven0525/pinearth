@@ -35,7 +35,8 @@ class MessageForm extends Component {
         modalOpen:false,
         buffer:'',
         ipfsHash:'',
-        imageUrl:''
+        file:'',
+        imagePreviewUrl:''
     }
 
 
@@ -231,8 +232,6 @@ class MessageForm extends Component {
 
                 ipfsId = ipfsHash[0].hash;
 
-                console.log(ipfsId)
-
                  firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername, postUserAddress, ido, keido, messageId, transactionId, ipfsId })
 
 
@@ -260,7 +259,16 @@ class MessageForm extends Component {
         event.preventDefault()
         const file = event.target.files[0]
         let reader = new window.FileReader()
-        this.setState({imageUrl: reader.result})
+        reader.onloadend = () => {
+            this.setState({
+                file: file,
+                imagePreviewUrl: reader.result
+            });
+        }
+
+        reader.readAsDataURL(file)
+
+
         reader.readAsArrayBuffer(file)
         reader.onloadend = () => this.convertToBuffer(reader)
     };
@@ -299,6 +307,8 @@ class MessageForm extends Component {
                                 type = "file"
                                 onChange = {this.captureFile}
                             />
+
+                        <img src={this.state.imagePreviewUrl} />
 
 
                     <Form.Button loading={this.state.submitLoading}>保存する</Form.Button>
