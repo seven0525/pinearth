@@ -285,6 +285,8 @@ class MessagesIndex extends Component {
 
             messagesDataNew.push(
                 <Card>
+                    <Image src='' />
+
                     <Card.Content>
                         {/*<Image floated='right' size='mini' src='/images/avatar/large/steve.jpg'/>*/}
                         <Card.Meta> {messagesData[i]["author"]}</Card.Meta>
