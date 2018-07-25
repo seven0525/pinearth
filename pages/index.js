@@ -157,12 +157,9 @@ class MessagesIndex extends Component {
                 sortedArray=
                     messages.sort(function(a,b){
 
-                        console.log("coalled?")
 
-                        console.log(a.etherSentDate, b.etherSentDate)
                         return (a.etherSentDate>b.etherSentDate) ? -1 : 1;
 
-                        console.log(a.etherSentDate, b.etherSentDate)
                     });
 
                 this.setState({messagesArray:sortedArray});
@@ -177,13 +174,14 @@ class MessagesIndex extends Component {
         this.setState({cardModalOpen:true})
 
 
+
     }
 
     closeModal(){
 
         this.setState({cardModalOpen:false})
 
-        console.log("aaa")
+        console.log(this.state.cardModalOpen,"incloseModal")
 
 
     }
@@ -311,6 +309,8 @@ class MessagesIndex extends Component {
 
     render(){
 
+        console.log(this.state.cardModalOpen, "in render method")
+
         const messagesDataNew = [];
 
 
@@ -374,7 +374,7 @@ class MessagesIndex extends Component {
                         </div>
                     </Card.Content>
 
-                    <Modal open={this.state.cardModalOpen}>
+                    <Modal open={this.state.cardModalOpen} onClick={()=>{this.closeModal()}} onClose={()=>{this.closeModal()}}>
                         <Modal.Header>Select a Photo</Modal.Header>
                         <Modal.Content image>
                             <Image wrapped size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' />
@@ -384,6 +384,7 @@ class MessagesIndex extends Component {
                                 <p>Is it okay to use this photo?</p>
                             </Modal.Description>
                         </Modal.Content>
+                        <Button onClick={()=>{this.closeModal()}}>Close</Button>
                     </Modal>
 
                 </Card>
