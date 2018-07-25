@@ -94,7 +94,7 @@ class SendEtherForm extends Component {
                         var min   = ( d.getMinutes() < 10 ) ? '0' + d.getMinutes() : d.getMinutes();
                         var sec   = ( d.getSeconds() < 10 ) ? '0' + d.getSeconds() : d.getSeconds();
 
-                        var etherSentDate =year + '-' + month + '-' + day + ' ' + hour + ':' + min + ':' + sec ;
+                        var etherSentDate =year*100000000+ month *10000000 + day * 1000000+  hour *3600+ min*60 + sec ;
 
 
 
