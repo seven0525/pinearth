@@ -93,6 +93,8 @@ class MessagesIndex extends Component {
 
         var sortedArray = [];
 
+        var messagesEtherSentDate = '';
+
         const here = this.state.place;
 
 
@@ -122,6 +124,10 @@ class MessagesIndex extends Component {
 
                     messagesPostDate =  messagesData['postDate'];
 
+                    messagesEtherSentDate =  messagesData['etherSentDate'];
+
+
+
 
                     if (messageEther === undefined){
 
@@ -139,7 +145,7 @@ class MessagesIndex extends Component {
 
                         messages.push({ message:message, place: messagePlace, author: messageAuthor, address:messageAddress,
                             messageId: messageId, amountEther:messageEther, transactionId: messageTransactionId,
-                            ipfsId: messageIpfsId, postDate: messagesPostDate});
+                            ipfsId: messageIpfsId, postDate: messagesPostDate, etherSentDate: messagesEtherSentDate});
 
                     }
 
@@ -149,7 +155,13 @@ class MessagesIndex extends Component {
 
                 sortedArray=
                     messages.sort(function(a,b){
-                        return (a.amountEther>b.amountEther) ? -1 : 1;
+
+                        console.log("coalled?")
+
+                        console.log(a.etherSentDate, b.etherSentDate)
+                        return (a.etherSentDate>b.etherSentDate) ? -1 : 1;
+
+                        console.log(a.etherSentDate, b.etherSentDate)
                     });
 
                 this.setState({messagesArray:sortedArray});
