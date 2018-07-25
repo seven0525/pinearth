@@ -86,6 +86,16 @@ class SendEtherForm extends Component {
 
                         var savedAmountEther = messagesData['amountEther'];
 
+                        var d = new Date();
+                        var year  = d.getFullYear();
+                        var month = d.getMonth() + 1;
+                        var day   = d.getDate();
+                        var hour  = ( d.getHours()   < 10 ) ? '0' + d.getHours()   : d.getHours();
+                        var min   = ( d.getMinutes() < 10 ) ? '0' + d.getMinutes() : d.getMinutes();
+                        var sec   = ( d.getSeconds() < 10 ) ? '0' + d.getSeconds() : d.getSeconds();
+
+                        var etherSentDate =year + '-' + month + '-' + day + ' ' + hour + ':' + min + ':' + sec ;
+
 
 
                         //投げ銭されたメッセージとdbから取得されたメッセージが同じなら
@@ -93,7 +103,7 @@ class SendEtherForm extends Component {
                         if (savedmessageId === messageId && savedAmountEther === undefined ){
 
 
-                            firebase.database().ref(`/messages/${uniqueKey}`).update({amountEther:1});
+                            firebase.database().ref(`/messages/${uniqueKey}`).update({amountEther:1,etherSentDate:etherSentDate});
 
 
                         }else if(savedmessageId === messageId && savedAmountEther >= 1  ){
@@ -101,7 +111,7 @@ class SendEtherForm extends Component {
 
                            var nextAmountEther = savedAmountEther + 1
 
-                            firebase.database().ref(`/messages/${uniqueKey}`).update({amountEther:nextAmountEther});
+                            firebase.database().ref(`/messages/${uniqueKey}`).update({amountEther:nextAmountEther, etherSentDate:etherSentDate});
 
 
                         }
