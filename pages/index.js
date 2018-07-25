@@ -89,6 +89,8 @@ class MessagesIndex extends Component {
 
         var messageIpfsId ='';
 
+        var messagesPostDate = '';
+
         var sortedArray = [];
 
         const here = this.state.place;
@@ -118,6 +120,7 @@ class MessagesIndex extends Component {
 
                     messageIpfsId = messagesData['ipfsId'];
 
+                    messagesPostDate =  messagesData['postDate'];
 
 
                     if (messageEther === undefined){
@@ -135,7 +138,8 @@ class MessagesIndex extends Component {
                     if( here === messagePlace) {
 
                         messages.push({ message:message, place: messagePlace, author: messageAuthor, address:messageAddress,
-                            messageId: messageId, amountEther:messageEther, transactionId: messageTransactionId, ipfsId: messageIpfsId});
+                            messageId: messageId, amountEther:messageEther, transactionId: messageTransactionId,
+                            ipfsId: messageIpfsId, postDate: messagesPostDate});
 
                     }
 
@@ -299,6 +303,9 @@ class MessagesIndex extends Component {
                         <Card.Description>
                             {messagesData[i]["message"]}
                         </Card.Description>
+                    </Card.Content>
+                    <Card.Content extra>
+                        {messagesData[i]["postDate"]}
                     </Card.Content>
                     <Card.Content extra>
                         Amount Of Ether: {messagesData[i]["amountEther"]}ether
