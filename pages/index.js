@@ -41,7 +41,8 @@ class MessagesIndex extends Component {
         whileLoading: false,
         errorModal: false,
         sendErrorMesssage:'',
-        sendAddress:''
+        sendAddress:'',
+        cardModalOpen:false
 
     }
 
@@ -170,6 +171,24 @@ class MessagesIndex extends Component {
 
 
     }
+
+    showCardModal(){
+
+        this.setState({cardModalOpen:true})
+
+
+    }
+
+    closeModal(){
+
+        this.setState({cardModalOpen:false})
+
+        console.log("aaa")
+
+
+    }
+
+
 
 
 
@@ -306,7 +325,7 @@ class MessagesIndex extends Component {
 
 
             messagesDataNew.push(
-                <Card>
+                <Card onClick={() => {this.showCardModal()}}>
                     <Image src={ipfsImageUrl} />
 
                     <Card.Content>
@@ -354,6 +373,19 @@ class MessagesIndex extends Component {
 
                         </div>
                     </Card.Content>
+
+                    <Modal open={this.state.cardModalOpen}>
+                        <Modal.Header>Select a Photo</Modal.Header>
+                        <Modal.Content image>
+                            <Image wrapped size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' />
+                            <Modal.Description>
+                                <Header>Default Profile Image</Header>
+                                <p>We've found the following gravatar image associated with your e-mail address.</p>
+                                <p>Is it okay to use this photo?</p>
+                            </Modal.Description>
+                        </Modal.Content>
+                    </Modal>
+
                 </Card>
             );
 
