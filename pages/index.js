@@ -380,6 +380,7 @@ class MessagesIndex extends Component {
                         postDate={messagesData[i]["postDate"]}
                         amountEther={messagesData[i]["amountEther"]}
                         transactionId={messagesData[i]["transactionId"]}
+                        ipfsId={messagesData[i]["ipfsId"]}
                         cardModalOpen={this.state.cardModalOpen}
                         closeModal={this.closeModal.bind(this)} />
 

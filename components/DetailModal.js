@@ -53,10 +53,10 @@ class DetailModal extends Component{
                                 </Button>
 
                             }>
-                                <Modal.Header>このメッセージのトランザクションID</Modal.Header>
+                                <Modal.Header>このメッセージの IPFS ID</Modal.Header>
                                 <Modal.Content image>
                                     <Modal.Description>
-                                        <Header> {this.props.transactionId}</Header>
+                                        <Header> {this.props.ipfsId}</Header>
 
                                     </Modal.Description>
 
