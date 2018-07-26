@@ -21,6 +21,12 @@ class DetailModal extends Component{
                         <p>{this.props.message}</p>
                         <p>Amount Of Ether: {this.props.amountEther}</p>
                     </Modal.Description>
+                    <Modal.Description style={{marginLeft:100}}>
+                        <Button basic color='green' style={{marginleft:100}}>
+                           投げ銭する
+                        </Button>
+                    </Modal.Description>
+
                 </Modal.Content>
                 {/*<Button onClick={()=>{this.props.closeModal()}}>Close</Button>*/}
             </Modal>
