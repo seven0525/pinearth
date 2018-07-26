@@ -14,16 +14,15 @@ class DetailModal extends Component{
 
         return(
             <Modal   trigger={<Button>詳細をみる</Button>} >
-                <Modal.Header>Select a Photo</Modal.Header>
                 <Modal.Content image>
-                    <Image wrapped size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' />
+                    <Image wrapped size='medium' src={this.props.ipfsImageUrl} />
                     <Modal.Description>
-                        <Header>Default Profile Image</Header>
-                        <p>We've found the following gravatar image associated with your e-mail address.</p>
-                        <p>Is it okay to use this photo?</p>
+                        <Header>{this.props.author}</Header>
+                        <p>{this.props.message}</p>
+                        <p>Amount Of Ether: {this.props.amountEther}</p>
                     </Modal.Description>
                 </Modal.Content>
-                <Button onClick={()=>{this.props.closeModal()}}>Close</Button>
+                {/*<Button onClick={()=>{this.props.closeModal()}}>Close</Button>*/}
             </Modal>
         )
     }

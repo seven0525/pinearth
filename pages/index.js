@@ -373,7 +373,15 @@ class MessagesIndex extends Component {
                         </div>
                     </Card.Content>
 
-                    <DetailModal cardModalOpen={this.state.cardModalOpen} closeModal={this.closeModal.bind(this)} />
+                    <DetailModal　
+                        ipfsImageUrl={ipfsImageUrl}
+                        author={messagesData[i]["author"]}
+                        message={messagesData[i]["message"]}
+                        postDate={messagesData[i]["postDate"]}
+                        amountEther={messagesData[i]["amountEther"]}
+                        transactionId={messagesData[i]["transactionId"]}
+                        cardModalOpen={this.state.cardModalOpen}
+                        closeModal={this.closeModal.bind(this)} />
 
 
                 </Card>
