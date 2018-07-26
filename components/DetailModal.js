@@ -13,7 +13,7 @@ class DetailModal extends Component{
     render(){
 
         return(
-            <Modal open={this.props.cardModalOpen} onClose={()=>{this.props.closeModal()}} >
+            <Modal   trigger={<Button>詳細をみる</Button>} >
                 <Modal.Header>Select a Photo</Modal.Header>
                 <Modal.Content image>
                     <Image wrapped size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' />

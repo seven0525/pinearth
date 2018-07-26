@@ -182,7 +182,6 @@ class MessagesIndex extends Component {
 
         this.setState({cardModalOpen:false})
 
-        // console.log(this.state.cardModalOpen,"incloseModal")
 
 
     }
@@ -310,7 +309,6 @@ class MessagesIndex extends Component {
 
     render(){
 
-        console.log(this.state.cardModalOpen, "in render method")
 
         const messagesDataNew = [];
 
@@ -375,20 +373,8 @@ class MessagesIndex extends Component {
                         </div>
                     </Card.Content>
 
-                    <DetailModal cardModalOpen={this.state.cardModalOpen} closeModal={this.closeModal} />
+                    <DetailModal cardModalOpen={this.state.cardModalOpen} closeModal={this.closeModal.bind(this)} />
 
-                    {/*<Modal open={this.state.cardModalOpen} onClick={()=>{this.closeModal()}} >*/}
-                        {/*<Modal.Header>Select a Photo</Modal.Header>*/}
-                        {/*<Modal.Content image>*/}
-                            {/*<Image wrapped size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' />*/}
-                            {/*<Modal.Description>*/}
-                                {/*<Header>Default Profile Image</Header>*/}
-                                {/*<p>We've found the following gravatar image associated with your e-mail address.</p>*/}
-                                {/*<p>Is it okay to use this photo?</p>*/}
-                            {/*</Modal.Description>*/}
-                        {/*</Modal.Content>*/}
-                        {/*<Button onClick={()=>{this.closeModal()}}>Close</Button>*/}
-                    {/*</Modal>*/}
 
                 </Card>
             );
