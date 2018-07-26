@@ -23,7 +23,10 @@ class DetailModal extends Component{
                         <p>Amount Of Ether: {this.props.amountEther}</p>
                     </Modal.Description>
                     <Modal.Description style={{marginLeft:100}}>
-                        <SendEtherForm/>
+                        <SendEtherForm
+                            toAddress={this.props.toAddress}
+                            messageId={this.props.messageId}
+                        />
 
 
 

@@ -364,10 +364,10 @@ class MessagesIndex extends Component {
 
                     <Card.Content extra>
                         <div className='ui two buttons'>
-                            <SendEtherForm
-                                toAddress={messagesData[i]["address"]}
-                                messageId={messagesData[i]["messageId"]}
-                            />
+                            {/*<SendEtherForm*/}
+                                {/*toAddress={messagesData[i]["address"]}*/}
+                                {/*messageId={messagesData[i]["messageId"]}*/}
+                            {/*/>*/}
 
 
                         </div>
@@ -381,6 +381,8 @@ class MessagesIndex extends Component {
                         amountEther={messagesData[i]["amountEther"]}
                         transactionId={messagesData[i]["transactionId"]}
                         ipfsId={messagesData[i]["ipfsId"]}
+                        toAddress={messagesData[i]["address"]}
+                        messageId={messagesData[i]["messageId"]}
                         cardModalOpen={this.state.cardModalOpen}
                         closeModal={this.closeModal.bind(this)} />
 
