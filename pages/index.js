@@ -172,7 +172,8 @@ class MessagesIndex extends Component {
 
     showCardModal(){
 
-        this.setState({cardModalOpen:true})
+        this.setState({cardModalOpen:!this.state.cardModalOpen})
+
 
 
 
@@ -308,6 +309,8 @@ class MessagesIndex extends Component {
 
 
     render(){
+
+        console.log(this.state.cardModalOpen)
 
 
         const messagesDataNew = [];

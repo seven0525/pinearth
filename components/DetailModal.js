@@ -14,7 +14,7 @@ class DetailModal extends Component{
     render(){
 
         return(
-            <Modal   trigger={<Button>詳細をみる</Button>} >
+            <Modal  open={this.props.cardModalOpen} onClose={this.props.closeModal} >
                 <Modal.Content image>
                     <Image wrapped size='medium' src={this.props.ipfsImageUrl} />
                     <Modal.Description>
