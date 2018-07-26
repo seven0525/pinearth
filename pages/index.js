@@ -362,16 +362,16 @@ class MessagesIndex extends Component {
                     {/*</Card.Content>*/}
 
 
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
+                    {/*<Card.Content extra>*/}
+                        {/*<div className='ui two buttons'>*/}
                             {/*<SendEtherForm*/}
                                 {/*toAddress={messagesData[i]["address"]}*/}
                                 {/*messageId={messagesData[i]["messageId"]}*/}
                             {/*/>*/}
 
 
-                        </div>
-                    </Card.Content>
+                        {/*</div>*/}
+                    {/*</Card.Content>*/}
 
                     <DetailModal　
                         ipfsImageUrl={ipfsImageUrl}
