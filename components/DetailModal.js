@@ -1,5 +1,6 @@
 import React, { Component }from 'react';
 import { Button, Card, Image, Header, Modal, Form, Input } from 'semantic-ui-react'
+import SendEtherForm from "./SendEtherForm";
 
 class DetailModal extends Component{
 
@@ -22,9 +23,7 @@ class DetailModal extends Component{
                         <p>Amount Of Ether: {this.props.amountEther}</p>
                     </Modal.Description>
                     <Modal.Description style={{marginLeft:100}}>
-                        <Button basic color='green' style={{marginleft:100}}>
-                           投げ銭する
-                        </Button>
+                        <SendEtherForm/>
                     </Modal.Description>
 
                 </Modal.Content>
