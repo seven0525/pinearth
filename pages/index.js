@@ -8,6 +8,7 @@ import firebase from 'firebase';
 import web3 from '../ethereum/web3';
 import TimeCapsule from '../ethereum/TimeCapsule';
 import SendEtherForm from "../components/SendEtherForm";
+import DetailModal from "../components/DetailModal";
 
 
 
@@ -181,7 +182,7 @@ class MessagesIndex extends Component {
 
         this.setState({cardModalOpen:false})
 
-        console.log(this.state.cardModalOpen,"incloseModal")
+        // console.log(this.state.cardModalOpen,"incloseModal")
 
 
     }
@@ -374,18 +375,20 @@ class MessagesIndex extends Component {
                         </div>
                     </Card.Content>
 
-                    <Modal open={this.state.cardModalOpen} onClick={()=>{this.closeModal()}} onClose={()=>{this.closeModal()}}>
-                        <Modal.Header>Select a Photo</Modal.Header>
-                        <Modal.Content image>
-                            <Image wrapped size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' />
-                            <Modal.Description>
-                                <Header>Default Profile Image</Header>
-                                <p>We've found the following gravatar image associated with your e-mail address.</p>
-                                <p>Is it okay to use this photo?</p>
-                            </Modal.Description>
-                        </Modal.Content>
-                        <Button onClick={()=>{this.closeModal()}}>Close</Button>
-                    </Modal>
+                    <DetailModal cardModalOpen={this.state.cardModalOpen} closeModal={this.closeModal} />
+
+                    {/*<Modal open={this.state.cardModalOpen} onClick={()=>{this.closeModal()}} >*/}
+                        {/*<Modal.Header>Select a Photo</Modal.Header>*/}
+                        {/*<Modal.Content image>*/}
+                            {/*<Image wrapped size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' />*/}
+                            {/*<Modal.Description>*/}
+                                {/*<Header>Default Profile Image</Header>*/}
+                                {/*<p>We've found the following gravatar image associated with your e-mail address.</p>*/}
+                                {/*<p>Is it okay to use this photo?</p>*/}
+                            {/*</Modal.Description>*/}
+                        {/*</Modal.Content>*/}
+                        {/*<Button onClick={()=>{this.closeModal()}}>Close</Button>*/}
+                    {/*</Modal>*/}
 
                 </Card>
             );
