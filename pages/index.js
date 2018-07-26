@@ -327,39 +327,39 @@ class MessagesIndex extends Component {
                 <Card onClick={() => {this.showCardModal()}}>
                     <Image src={ipfsImageUrl} />
 
-                    <Card.Content>
-                        {/*<Image floated='right' size='mini' src='/images/avatar/large/steve.jpg'/>*/}
-                        <Card.Meta> {messagesData[i]["author"]}</Card.Meta>
-                        <Card.Description>
-                            {messagesData[i]["message"]}
-                        </Card.Description>
-                    </Card.Content>
+                    {/*<Card.Content>*/}
+                        {/*<Card.Meta> {messagesData[i]["author"]}</Card.Meta>*/}
+                        {/*<Card.Description>*/}
+                            {/*{messagesData[i]["message"]}*/}
+                        {/*</Card.Description>*/}
+                    {/*</Card.Content>*/}
                     <Card.Content extra>
                         {messagesData[i]["postDate"]}
                     </Card.Content>
                     <Card.Content extra>
                         Amount Of Ether: {messagesData[i]["amountEther"]}ether
                     </Card.Content>
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
-                            <Modal trigger={
-                                <Button basic color='red'>
-                                    トランザクションIDを確認する
-                                </Button>
 
-                            }>
-                                <Modal.Header>このメッセージのトランザクションID</Modal.Header>
-                                <Modal.Content image>
-                                    <Modal.Description>
-                                        <Header> {messagesData[i]["transactionId"]}</Header>
+                    {/*<Card.Content extra>*/}
+                        {/*<div className='ui two buttons'>*/}
+                            {/*<Modal trigger={*/}
+                                {/*<Button basic color='red'>*/}
+                                    {/*トランザクションIDを確認する*/}
+                                {/*</Button>*/}
 
-                                    </Modal.Description>
+                            {/*}>*/}
+                                {/*<Modal.Header>このメッセージのトランザクションID</Modal.Header>*/}
+                                {/*<Modal.Content image>*/}
+                                    {/*<Modal.Description>*/}
+                                        {/*<Header> {messagesData[i]["transactionId"]}</Header>*/}
 
-                                </Modal.Content>
-                            </Modal>
+                                    {/*</Modal.Description>*/}
 
-                        </div>
-                    </Card.Content>
+                                {/*</Modal.Content>*/}
+                            {/*</Modal>*/}
+
+                        {/*</div>*/}
+                    {/*</Card.Content>*/}
 
 
                     <Card.Content extra>
