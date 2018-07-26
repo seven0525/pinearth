@@ -24,6 +24,49 @@ class DetailModal extends Component{
                     </Modal.Description>
                     <Modal.Description style={{marginLeft:100}}>
                         <SendEtherForm/>
+
+
+
+                        <div className='ui two buttons' style={{marginTop:15}}>
+                            <Modal trigger={
+                                <Button basic color='red'>
+                                    トランザクションIDを確認する
+                                </Button>
+
+                            }>
+                                <Modal.Header>このメッセージのトランザクションID</Modal.Header>
+                                <Modal.Content image>
+                                    <Modal.Description>
+                                        <Header> {this.props.transactionId}</Header>
+
+                                    </Modal.Description>
+
+                                </Modal.Content>
+                            </Modal>
+
+                        </div>
+
+                        <div className='ui two buttons' style={{marginTop:15}}>
+                            <Modal trigger={
+                                <Button basic color='red'>
+                                    ipfsIDを確認する
+                                </Button>
+
+                            }>
+                                <Modal.Header>このメッセージのトランザクションID</Modal.Header>
+                                <Modal.Content image>
+                                    <Modal.Description>
+                                        <Header> {this.props.transactionId}</Header>
+
+                                    </Modal.Description>
+
+                                </Modal.Content>
+                            </Modal>
+
+                        </div>
+
+
+
                     </Modal.Description>
 
                 </Modal.Content>
