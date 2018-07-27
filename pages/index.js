@@ -486,7 +486,7 @@ class MessagesIndex extends Component {
 
                     }>
         <Modal.Content image>
-            <Image wrapped size='medium' src={ipfsImageUrl} />
+            <Image style={{width:600, height:450}} src={ipfsImageUrl} />
             <Modal.Description>
                 <Header>{messagesData[i]["author"]}</Header>
                 <p>{messagesData[i]["message"]}</p>
@@ -500,9 +500,9 @@ class MessagesIndex extends Component {
 
 
 
-            <div className='ui two buttons' style={{marginTop:15}}>
+            <div style={{marginTop:15}}>
                 <Modal trigger={
-                    <Button basic color='red'>
+                    <Button style={{width:100, marginTop:300}}basic color='red'>
                         トランザクションIDを確認する
                     </Button>
 
@@ -524,7 +524,7 @@ class MessagesIndex extends Component {
 
             </div>
 
-            <div className='ui two buttons' style={{marginTop:15}}>
+            <div  style={{marginTop:15}}>
         <Modal trigger={
             <Button basic color='red'>
                 ipfsIDを確認する
