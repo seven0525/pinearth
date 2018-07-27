@@ -171,20 +171,6 @@ class MessagesIndex extends Component {
 
     }
 
-    showCardModal(){
-
-        this.setState({cardModalOpen:true})
-
-
-    }
-
-    closeModal(){
-
-        this.setState({cardModalOpen:false})
-
-
-
-    }
 
 
 
