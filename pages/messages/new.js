@@ -223,6 +223,13 @@ class MessageForm extends Component {
 
         const messageId = Math.round(Math.random() * 100000000000);
 
+        var d = new Date();
+        var year  = d.getFullYear();
+        var month = d.getMonth() + 1;
+        var day   = d.getDate();
+
+        var postDate = year + '-' + month + '-' + day + ' '
+
         this.setState({ submitLoading: true});
 
 
@@ -251,7 +258,8 @@ class MessageForm extends Component {
 
                 ipfsId = ipfsHash[0].hash;
 
-                 firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername, postUserAddress, ido, keido, messageId, transactionId, ipfsId })
+                 firebase.database().ref(`/messages`).push({ place, message, postUserId, postUsername, postUserAddress, ido, keido, messageId,
+                     transactionId, ipfsId, postDate })
 
 
             })

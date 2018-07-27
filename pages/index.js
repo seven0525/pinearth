@@ -8,6 +8,8 @@ import firebase from 'firebase';
 import web3 from '../ethereum/web3';
 import TimeCapsule from '../ethereum/TimeCapsule';
 import SendEtherForm from "../components/SendEtherForm";
+import DetailModal from "../components/DetailModal";
+import PictureCard from "../components/PictureCard";
 
 
 
@@ -41,7 +43,8 @@ class MessagesIndex extends Component {
         whileLoading: false,
         errorModal: false,
         sendErrorMesssage:'',
-        sendAddress:''
+        sendAddress:'',
+        cardModalOpen:false
 
     }
 
@@ -89,7 +92,11 @@ class MessagesIndex extends Component {
 
         var messageIpfsId ='';
 
+        var messagesPostDate = '';
+
         var sortedArray = [];
+
+        var messagesEtherSentDate = '';
 
         const here = this.state.place;
 
@@ -118,6 +125,11 @@ class MessagesIndex extends Component {
 
                     messageIpfsId = messagesData['ipfsId'];
 
+                    messagesPostDate =  messagesData['postDate'];
+
+                    messagesEtherSentDate =  messagesData['etherSentDate'];
+
+
 
 
                     if (messageEther === undefined){
@@ -135,7 +147,8 @@ class MessagesIndex extends Component {
                     if( here === messagePlace) {
 
                         messages.push({ message:message, place: messagePlace, author: messageAuthor, address:messageAddress,
-                            messageId: messageId, amountEther:messageEther, transactionId: messageTransactionId, ipfsId: messageIpfsId});
+                            messageId: messageId, amountEther:messageEther, transactionId: messageTransactionId,
+                            ipfsId: messageIpfsId, postDate: messagesPostDate, etherSentDate: messagesEtherSentDate});
 
                     }
 
@@ -145,7 +158,10 @@ class MessagesIndex extends Component {
 
                 sortedArray=
                     messages.sort(function(a,b){
-                        return (a.amountEther>b.amountEther) ? -1 : 1;
+
+
+                        return (a.etherSentDate>b.etherSentDate) ? -1 : 1;
+
                     });
 
                 this.setState({messagesArray:sortedArray});
@@ -154,6 +170,23 @@ class MessagesIndex extends Component {
 
 
     }
+
+    showCardModal(){
+
+        this.setState({cardModalOpen:true})
+
+
+    }
+
+    closeModal(){
+
+        this.setState({cardModalOpen:false})
+
+
+
+    }
+
+
 
 
 
@@ -276,6 +309,9 @@ class MessagesIndex extends Component {
 
     render(){
 
+        console.log(this.state.cardModalOpen)
+
+
         const messagesDataNew = [];
 
 
@@ -290,52 +326,87 @@ class MessagesIndex extends Component {
 
 
             messagesDataNew.push(
-                <Card>
-                    <Image src={ipfsImageUrl} />
-
-                    <Card.Content>
-                        {/*<Image floated='right' size='mini' src='/images/avatar/large/steve.jpg'/>*/}
-                        <Card.Meta> {messagesData[i]["author"]}</Card.Meta>
-                        <Card.Description>
-                            {messagesData[i]["message"]}
-                        </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        Amount Of Ether: {messagesData[i]["amountEther"]}ether
-                    </Card.Content>
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
-                            <Modal trigger={
-                                <Button basic color='red'>
-                                    トランザクションIDを確認する
-                                </Button>
-
-                            }>
-                                <Modal.Header>このメッセージのトランザクションID</Modal.Header>
-                                <Modal.Content image>
-                                    <Modal.Description>
-                                        <Header> {messagesData[i]["transactionId"]}</Header>
-
-                                    </Modal.Description>
-
-                                </Modal.Content>
-                            </Modal>
-
-                        </div>
-                    </Card.Content>
 
 
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
-                            <SendEtherForm
-                                toAddress={messagesData[i]["address"]}
-                                messageId={messagesData[i]["messageId"]}
-                            />
 
 
-                        </div>
-                    </Card.Content>
-                </Card>
+                    <Modal trigger ={
+
+                        <Card>
+                            <Image src={ipfsImageUrl}/>
+
+                            <Card.Content extra>
+                                {messagesData[i]["postDate"]}
+                            </Card.Content>
+                            <Card.Content extra>
+                                Amount Of Ether: {messagesData[i]["amountEther"]}ether
+                            </Card.Content>
+
+
+                        </Card>
+
+
+                    }>
+        <Modal.Content image>
+            <Image wrapped size='medium' src={ipfsImageUrl} />
+            <Modal.Description>
+                <Header>{messagesData[i]["author"]}</Header>
+                <p>{messagesData[i]["message"]}</p>
+                <p>Amount Of Ether: {messagesData[i]["amountEther"]}</p>
+            </Modal.Description>
+            <Modal.Description style={{marginLeft:100}}>
+        <SendEtherForm
+            toAddress={messagesData[i]["address"]}
+            messageId={messagesData[i]["messageId"]}
+            />
+
+
+
+            <div className='ui two buttons' style={{marginTop:15}}>
+                <Modal trigger={
+                    <Button basic color='red'>
+                        トランザクションIDを確認する
+                    </Button>
+
+                }>
+                    <Modal.Header>このメッセージのトランザクションID</Modal.Header>
+                    <Modal.Content image>
+                        <Modal.Description>
+                            <Header> {messagesData[i]["transactionId"]}</Header>
+
+                        </Modal.Description>
+
+                    </Modal.Content>
+                </Modal>
+
+            </div>
+
+            <div className='ui two buttons' style={{marginTop:15}}>
+        <Modal trigger={
+            <Button basic color='red'>
+                ipfsIDを確認する
+            </Button>
+
+        }>
+        <Modal.Header>このメッセージの IPFS ID</Modal.Header>
+            <Modal.Content image>
+                <Modal.Description>
+                    <Header> {messagesData[i]["ipfsId"]}</Header>
+
+                </Modal.Description>
+
+            </Modal.Content>
+            </Modal>
+
+        </div>
+
+
+
+        </Modal.Description>
+
+        </Modal.Content>
+
+        </Modal>
             );
 
         }
@@ -360,119 +431,3 @@ class MessagesIndex extends Component {
 }
 
 export default MessagesIndex;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { Component } from 'react';
-// import Layout from '../components/Layout';
-// import { Button } from 'semantic-ui-react';
-// import { Link } from '../routes';
-// import styled from 'styled-components';
-// import firebase from 'firebase';
-// import 'firebase/storage';
-//
-//
-// const Div = styled.div`
-//     width: 300px;
-//     height: 50px;
-//     top: 0;
-//     bottom: 0;
-//     left: 0;
-//     right: 0;
-//     position: absolute;
-//     margin: auto;
-// `;
-//
-// var config = {
-//     apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
-//     authDomain: "timecapsule-3b1bd.firebaseapp.com",
-//     databaseURL: "https://timecapsule-3b1bd.firebaseio.com",
-//     projectId: "timecapsule-3b1bd",
-//     storageBucket: "timecapsule-3b1bd.appspot.com",
-//     messagingSenderId: "221653140896"
-// };
-//
-// if (!firebase.apps.length) {
-//     firebase.initializeApp(config);
-// }
-//
-//
-//
-// class HomeIndex extends Component {
-//
-//     componentDidMount(){
-//
-//         var storageRef = firebase.storage().ref();
-//
-//     }
-//
-//     componentWillMount() {
-//
-//         firebase.auth().onAuthStateChanged(function (user) {
-//             if (user) {
-//                 console.log("User is signed in.")
-//                 const { currentUser } = firebase.auth();
-//
-//             } else {
-//                 console.log("User is not signed in.")
-//                 window.location.replace('http://localhost:3000/users/login')
-//
-//             }
-//         });
-//     }
-//
-//     render() {
-//         return (
-//             <Layout>
-//                  <Div>
-//
-//                     <Link route="/messages/new">
-//                     <a>
-//                 <Button
-//                     basic color='orange'
-//                     content='伝える'
-//                     size='massive'
-//                     style={styles.saveButtonStyle}
-//                 />
-//                     </a>
-//                 </Link>
-//
-//                      <Link route="/messages/show">
-//                          <a>
-//                 <Button basic color='teal'
-//                         content='みてみる'
-//                         size='massive'
-//                 />
-//                          </a>
-//                      </Link>
-//                 </Div>
-//             </Layout>
-//
-//         )
-//     }
-// }
-//
-// const styles = {
-//     saveButtonStyle: {
-//         marginBottom:20
-//     },
-//     showButtonStyle: {
-//         marginTop:200
-//     }
-//
-// };
-//
-//
-// export default HomeIndex;
