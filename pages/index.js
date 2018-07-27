@@ -9,6 +9,7 @@ import web3 from '../ethereum/web3';
 import TimeCapsule from '../ethereum/TimeCapsule';
 import SendEtherForm from "../components/SendEtherForm";
 import DetailModal from "../components/DetailModal";
+import PictureCard from "../components/PictureCard";
 
 
 
@@ -325,32 +326,87 @@ class MessagesIndex extends Component {
 
 
             messagesDataNew.push(
-                <Card onClick={() => {this.showCardModal()}}>
-                    <Image src={ipfsImageUrl} />
-
-                    <Card.Content extra>
-                        {messagesData[i]["postDate"]}
-                    </Card.Content>
-                    <Card.Content extra>
-                        Amount Of Ether: {messagesData[i]["amountEther"]}ether
-                    </Card.Content>
 
 
-                    <DetailModal　
-                        ipfsImageUrl={ipfsImageUrl}
-                        author={messagesData[i]["author"]}
-                        message={messagesData[i]["message"]}
-                        postDate={messagesData[i]["postDate"]}
-                        amountEther={messagesData[i]["amountEther"]}
-                        transactionId={messagesData[i]["transactionId"]}
-                        ipfsId={messagesData[i]["ipfsId"]}
-                        toAddress={messagesData[i]["address"]}
-                        messageId={messagesData[i]["messageId"]}
-                        cardModalOpen={this.state.cardModalOpen}
-                        />
 
 
-                </Card>
+                    <Modal trigger ={
+
+                        <Card>
+                            <Image src={ipfsImageUrl}/>
+
+                            <Card.Content extra>
+                                {messagesData[i]["postDate"]}
+                            </Card.Content>
+                            <Card.Content extra>
+                                Amount Of Ether: {messagesData[i]["amountEther"]}ether
+                            </Card.Content>
+
+
+                        </Card>
+
+
+                    }>
+        <Modal.Content image>
+            <Image wrapped size='medium' src={ipfsImageUrl} />
+            <Modal.Description>
+                <Header>{messagesData[i]["author"]}</Header>
+                <p>{messagesData[i]["message"]}</p>
+                <p>Amount Of Ether: {messagesData[i]["amountEther"]}</p>
+            </Modal.Description>
+            <Modal.Description style={{marginLeft:100}}>
+        <SendEtherForm
+            toAddress={messagesData[i]["address"]}
+            messageId={messagesData[i]["messageId"]}
+            />
+
+
+
+            <div className='ui two buttons' style={{marginTop:15}}>
+                <Modal trigger={
+                    <Button basic color='red'>
+                        トランザクションIDを確認する
+                    </Button>
+
+                }>
+                    <Modal.Header>このメッセージのトランザクションID</Modal.Header>
+                    <Modal.Content image>
+                        <Modal.Description>
+                            <Header> {messagesData[i]["transactionId"]}</Header>
+
+                        </Modal.Description>
+
+                    </Modal.Content>
+                </Modal>
+
+            </div>
+
+            <div className='ui two buttons' style={{marginTop:15}}>
+        <Modal trigger={
+            <Button basic color='red'>
+                ipfsIDを確認する
+            </Button>
+
+        }>
+        <Modal.Header>このメッセージの IPFS ID</Modal.Header>
+            <Modal.Content image>
+                <Modal.Description>
+                    <Header> {messagesData[i]["ipfsId"]}</Header>
+
+                </Modal.Description>
+
+            </Modal.Content>
+            </Modal>
+
+        </div>
+
+
+
+        </Modal.Description>
+
+        </Modal.Content>
+
+        </Modal>
             );
 
         }
