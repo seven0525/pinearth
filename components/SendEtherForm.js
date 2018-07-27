@@ -137,6 +137,8 @@ class SendEtherForm extends Component {
 
         this.setState({errorModal: false, whileLoading: false})
 
+        location.reload(false)
+
 
     }
 
