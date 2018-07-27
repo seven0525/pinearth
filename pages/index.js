@@ -311,14 +311,13 @@ class MessagesIndex extends Component {
 
             var ipfsImageUrl = 'https://gateway.ipfs.io/ipfs/' +  messagesData[i]["ipfsId"];
 
-            //スマホ版でトランザクションIDとipfsIDを改行してみやすくする
+            //スマホ版でトランザクションIDとipfsIDを改行してみやすくする(transactionId 66文字　IPFS 46文字)
 
             var responsiveTransactionId = '';
 
             var responsiveIpfsId = '';
 
             var strTransaction = messagesData[i]["transactionId"];
-
 
             var firstTransaction = strTransaction.slice(0,30);
 
@@ -327,6 +326,18 @@ class MessagesIndex extends Component {
             var thirdTransavtion = strTransaction.slice(62,73);
 
             responsiveTransactionId = firstTransaction + "\n" + secondTransaction + "\n"+ thirdTransavtion
+
+            var strIpfs = messagesData[i]["ipfsId"];
+
+            var firstIpfs = strIpfs.slice(0,25);
+
+            var secondIpfs = strIpfs.slice(25,40);
+
+            var thirdIpfs = strIpfs.slice(40, 50);
+
+            responsiveIpfsId = firstIpfs + "\n" + secondIpfs + "\n" + thirdIpfs;
+
+
 
 
             messagesDataNew.push(
@@ -400,7 +411,12 @@ class MessagesIndex extends Component {
         <Modal.Header>このメッセージの IPFS ID</Modal.Header>
             <Modal.Content image>
                 <Modal.Description>
-                    <Header> {messagesData[i]["ipfsId"]}</Header>
+                    <MediaQuery query="(min-width: 768px)">
+                        <Header> {messagesData[i]["ipfsId"]}</Header>
+                    </MediaQuery>
+                    <MediaQuery query="(max-width: 768px)">
+                        <Header> {responsiveIpfsId}</Header>
+                    </MediaQuery>
 
                 </Modal.Description>
 
