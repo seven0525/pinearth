@@ -10,6 +10,7 @@ import TimeCapsule from '../ethereum/TimeCapsule';
 import SendEtherForm from "../components/SendEtherForm";
 import DetailModal from "../components/DetailModal";
 import PictureCard from "../components/PictureCard";
+import MediaQuery from 'react-responsive';
 
 
 
@@ -310,6 +311,23 @@ class MessagesIndex extends Component {
 
             var ipfsImageUrl = 'https://gateway.ipfs.io/ipfs/' +  messagesData[i]["ipfsId"];
 
+            //スマホ版でトランザクションIDとipfsIDを改行してみやすくする
+
+            var responsiveTransactionId = '';
+
+            var responsiveIpfsId = '';
+
+            var strTransaction = messagesData[i]["transactionId"];
+
+
+            var firstTransaction = strTransaction.slice(0,30);
+
+            var secondTransaction = strTransaction.slice(30,62);
+
+            var thirdTransavtion = strTransaction.slice(62,73);
+
+            responsiveTransactionId = firstTransaction + "\n" + secondTransaction + "\n"+ thirdTransavtion
+
 
             messagesDataNew.push(
 
@@ -358,7 +376,12 @@ class MessagesIndex extends Component {
                     <Modal.Header>このメッセージのトランザクションID</Modal.Header>
                     <Modal.Content image>
                         <Modal.Description>
+                            <MediaQuery query="(min-width: 768px)">
                             <Header> {messagesData[i]["transactionId"]}</Header>
+                            </MediaQuery>
+                            <MediaQuery query="(max-width: 768px)">
+                                <Header> {responsiveTransactionId}</Header>
+                            </MediaQuery>
 
                         </Modal.Description>
 
