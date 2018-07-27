@@ -328,12 +328,6 @@ class MessagesIndex extends Component {
                 <Card onClick={() => {this.showCardModal()}}>
                     <Image src={ipfsImageUrl} />
 
-                    {/*<Card.Content>*/}
-                        {/*<Card.Meta> {messagesData[i]["author"]}</Card.Meta>*/}
-                        {/*<Card.Description>*/}
-                            {/*{messagesData[i]["message"]}*/}
-                        {/*</Card.Description>*/}
-                    {/*</Card.Content>*/}
                     <Card.Content extra>
                         {messagesData[i]["postDate"]}
                     </Card.Content>
@@ -341,38 +335,6 @@ class MessagesIndex extends Component {
                         Amount Of Ether: {messagesData[i]["amountEther"]}ether
                     </Card.Content>
 
-                    {/*<Card.Content extra>*/}
-                        {/*<div className='ui two buttons'>*/}
-                            {/*<Modal trigger={*/}
-                                {/*<Button basic color='red'>*/}
-                                    {/*トランザクションIDを確認する*/}
-                                {/*</Button>*/}
-
-                            {/*}>*/}
-                                {/*<Modal.Header>このメッセージのトランザクションID</Modal.Header>*/}
-                                {/*<Modal.Content image>*/}
-                                    {/*<Modal.Description>*/}
-                                        {/*<Header> {messagesData[i]["transactionId"]}</Header>*/}
-
-                                    {/*</Modal.Description>*/}
-
-                                {/*</Modal.Content>*/}
-                            {/*</Modal>*/}
-
-                        {/*</div>*/}
-                    {/*</Card.Content>*/}
-
-
-                    {/*<Card.Content extra>*/}
-                        {/*<div className='ui two buttons'>*/}
-                            {/*<SendEtherForm*/}
-                                {/*toAddress={messagesData[i]["address"]}*/}
-                                {/*messageId={messagesData[i]["messageId"]}*/}
-                            {/*/>*/}
-
-
-                        {/*</div>*/}
-                    {/*</Card.Content>*/}
 
                     <DetailModal　
                         ipfsImageUrl={ipfsImageUrl}
