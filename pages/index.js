@@ -172,9 +172,7 @@ class MessagesIndex extends Component {
 
     showCardModal(){
 
-        this.setState({cardModalOpen:!this.state.cardModalOpen})
-
-
+        this.setState({cardModalOpen:true})
 
 
     }
@@ -387,7 +385,7 @@ class MessagesIndex extends Component {
                         toAddress={messagesData[i]["address"]}
                         messageId={messagesData[i]["messageId"]}
                         cardModalOpen={this.state.cardModalOpen}
-                        closeModal={this.closeModal.bind(this)} />
+                        />
 
 
                 </Card>

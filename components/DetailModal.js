@@ -14,7 +14,7 @@ class DetailModal extends Component{
     render(){
 
         return(
-            <Modal  open={this.props.cardModalOpen} onClose={this.props.closeModal} >
+            <Modal trigger={<Button>more details</Button>} >
                 <Modal.Content image>
                     <Image wrapped size='medium' src={this.props.ipfsImageUrl} />
                     <Modal.Description>
@@ -73,7 +73,7 @@ class DetailModal extends Component{
                     </Modal.Description>
 
                 </Modal.Content>
-                {/*<Button onClick={()=>{this.props.closeModal()}}>Close</Button>*/}
+
             </Modal>
         )
     }
