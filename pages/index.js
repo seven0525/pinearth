@@ -469,13 +469,6 @@ class MessagesIndex extends Component {
 
 
 
-
-                <MediaQuery query="(min-width: 1024px)">
-
-
-
-
-
                 <Modal trigger ={
 
                         <Card>
@@ -493,6 +486,9 @@ class MessagesIndex extends Component {
 
 
                     } >
+                    <MediaQuery query="(max-width: 1023px)">
+                    </MediaQuery>
+                     <MediaQuery query="(min-width: 1024px)">
         <Modal.Content style={{width:1000}} image>
             <Image style={{width:600, height:450}} src={ipfsImageUrl} />
             <Modal.Description>
@@ -566,10 +562,10 @@ class MessagesIndex extends Component {
         </Modal.Description>
 
         </Modal.Content>
+                     </MediaQuery>
 
         </Modal>
 
-            </MediaQuery>
             );
         //
         // }else{
