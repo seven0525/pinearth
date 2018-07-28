@@ -465,10 +465,13 @@ class MessagesIndex extends Component {
 
             messagesDataNew.push(
 
+                <MediaQuery query="(min-width: 1024px)">
 
 
 
-                    <Modal trigger ={
+
+
+                <Modal trigger ={
 
                         <Card>
                             <Image src={ipfsImageUrl}/>
@@ -560,6 +563,8 @@ class MessagesIndex extends Component {
         </Modal.Content>
 
         </Modal>
+
+            </MediaQuery>
             );
 
         }
