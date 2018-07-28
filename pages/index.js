@@ -484,11 +484,14 @@ class MessagesIndex extends Component {
                         </Card>
 
 
-                    }>
+                    } style={{width:1000}}>
         <Modal.Content image>
             <Image style={{width:600, height:450}} src={ipfsImageUrl} />
             <Modal.Description>
+                <section>
                 <Header>{messagesData[i]["author"]}</Header>
+                    <hr color="#989898" />
+                </section>
                 <p>{messagesData[i]["message"]}</p>
                 <p>Amount Of Ether: {messagesData[i]["amountEther"]}</p>
             </Modal.Description>
