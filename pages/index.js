@@ -492,8 +492,8 @@ class MessagesIndex extends Component {
                         </Card>
 
 
-                    } style={{width:1000}}>
-        <Modal.Content image>
+                    } >
+        <Modal.Content style={{width:1000}} image>
             <Image style={{width:600, height:450}} src={ipfsImageUrl} />
             <Modal.Description>
                 <section>
