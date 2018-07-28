@@ -495,10 +495,10 @@ class MessagesIndex extends Component {
                             <Modal.Description>
                                 <section>
                                     <Header>{messagesData[i]["author"]}</Header>
-                                    <hr color="#D8D8D8" size="1"　width="200" noshade/>
+                                    <hr color="#D8D8D8" size="1"　width="300" noshade/>
                                 </section>
                                 <p >{messagesData[i]["message"]}</p>
-                                <hr color="#D8D8D8" size="1" width="200" noshade/>
+                                <hr color="#D8D8D8" size="1" width="300" noshade/>
                                 <p>Amount Of Ether</p>
                                 <p>{messagesData[i]["amountEther"]}</p>
                             </Modal.Description>
@@ -534,7 +534,7 @@ class MessagesIndex extends Component {
 
                                 </div>
 
-                                <div　className='ui two buttons'  >
+                                <div　className='ui two buttons'  style={{marginTop:15}} >
                                     <Modal trigger={
                                         <Button basic color='grey'>
                                             ipfsIDを確認する
