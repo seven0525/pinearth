@@ -149,6 +149,7 @@ class SendEtherForm extends Component {
             <Button basic
                     color="green"
                     onClick={()=>this.sendEther()}
+                    style={{marginTop:300}}
             >
                 投げ銭
 

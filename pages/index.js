@@ -502,7 +502,7 @@ class MessagesIndex extends Component {
 
             <div style={{marginTop:15}}>
                 <Modal trigger={
-                    <Button style={{width:100, marginTop:300}}basic color='red'>
+                    <Button style={{width:150, marginTop:10}}basic color='red'>
                         トランザクションIDを確認する
                     </Button>
 
