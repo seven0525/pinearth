@@ -490,10 +490,10 @@ class MessagesIndex extends Component {
             <Modal.Description>
                 <section>
                 <Header>{messagesData[i]["author"]}</Header>
-                    <hr color="#D8D8D8" size="3"　width="200" noshade/>
+                    <hr color="#D8D8D8" size="1"　width="200" noshade/>
                 </section>
                 <p style={{width:300}}>{messagesData[i]["message"]}</p>
-                <hr color="#D8D8D8" size="3" width="200" noshade/>
+                <hr color="#D8D8D8" size="1" width="200" noshade/>
                 <p style={{width:300}}>Amount Of Ether</p>
                 <p>{messagesData[i]["amountEther"]}</p>
             </Modal.Description>
