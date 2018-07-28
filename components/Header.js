@@ -164,7 +164,7 @@ class Header extends Component {
 
         return (
             <div>
-                <MediaQuery query="(min-width: 768px)">
+                <MediaQuery query="(min-width: 769px)">
 
             <Menu color="#0066ff" style={{backgroundColor:"#0066ff"}} inverted widths={4}>
                 <Link route="/">
