@@ -6,6 +6,7 @@ import { ClipLoader, BarLoader } from 'react-spinners';
 import firebase from 'firebase';
 import web3 from '../ethereum/web3';
 import TimeCapsule from '../ethereum/TimeCapsule';
+import MediaQuery from 'react-responsive';
 
 
 var config = {
@@ -146,6 +147,7 @@ class SendEtherForm extends Component {
     render() {
         return(
             <div className='ui two buttons'>
+                <MediaQuery query="(min-width: 1024px)">
             <Button basic
                     color="grey"
                     onClick={()=>this.sendEther()}
@@ -154,6 +156,16 @@ class SendEtherForm extends Component {
                 投げ銭
 
             </Button>
+                </MediaQuery>
+                <MediaQuery query="(max-width: 1023px)">
+                    <Button basic
+                            color="grey"
+                            onClick={()=>this.sendEther()}
+                    >
+                        投げ銭
+
+                    </Button>
+                </MediaQuery>
             <Modal
         open={this.state.modalOpen}
     >
