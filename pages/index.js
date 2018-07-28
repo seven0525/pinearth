@@ -502,7 +502,7 @@ class MessagesIndex extends Component {
 
             <div style={{marginTop:15}}>
                 <Modal trigger={
-                    <Button style={{width:150, marginTop:10}}basic color='red'>
+                    <Button style={{width:150, marginTop:10}}basic color='grey'>
                         トランザクションIDを確認する
                     </Button>
 
@@ -526,7 +526,7 @@ class MessagesIndex extends Component {
 
             <div  style={{marginTop:15}}>
         <Modal trigger={
-            <Button basic color='red'>
+            <Button basic color='grey'>
                 ipfsIDを確認する
             </Button>
 

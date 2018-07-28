@@ -147,7 +147,7 @@ class SendEtherForm extends Component {
         return(
             <div className='ui two buttons'>
             <Button basic
-                    color="green"
+                    color="grey"
                     onClick={()=>this.sendEther()}
                     style={{marginTop:300}}
             >
@@ -194,6 +194,7 @@ class SendEtherForm extends Component {
 
                 </Modal>
             </div>
+
 
         )
     }
