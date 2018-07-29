@@ -147,7 +147,7 @@ class SendEtherForm extends Component {
     render() {
         return(
             <div className='ui two buttons'>
-                <MediaQuery query="(min-width: 1024px)">
+                <MediaQuery query="(min-width: 768px)">
             <Button basic
                     color="grey"
                     onClick={()=>this.sendEther()}
@@ -157,7 +157,8 @@ class SendEtherForm extends Component {
 
             </Button>
                 </MediaQuery>
-                <MediaQuery query="(max-width: 1023px)">
+
+                <MediaQuery query="(max-width: 767px)">
                     <Button basic
                             color="grey"
                             onClick={()=>this.sendEther()}
