@@ -65,10 +65,11 @@ class MessageForm extends Component {
 
 
         var here = '';
-        if( navigator.geolocation )
-        {
-            // alert( "あなたの端末では、現在位置を取得することができます。" ) ;
-            // console.log("あなたの端末では、現在位置を取得することができます");
+
+        if( sessionStorage.getItem('place')==null) {
+            if (navigator.geolocation) {
+                // alert( "あなたの端末では、現在位置を取得することができます。" ) ;
+                // console.log("あなたの端末では、現在位置を取得することができます");
 
                 // 現在地を取得
                 navigator.geolocation.getCurrentPosition(
@@ -86,7 +87,7 @@ class MessageForm extends Component {
                         var heading = data.heading;			//0=北,90=東,180=南,270=西
                         var speed = data.speed;
 
-                        hereThis.setState({ido: ido, keido:keido})
+                        hereThis.setState({ido: ido, keido: keido})
 
                         // アラート表示
                         // alert("あなたの現在位置は、\n[" + ido + "," + keido + "]\nです。");
@@ -99,33 +100,35 @@ class MessageForm extends Component {
                         requestURL += '&key=' + apiKey;
 
 
-                           fetch(requestURL)
-                               .then(response => response.json())
-                               .then(json => {
-                                   here = json.results[0].formatted_address;
-                                   const hereBigName = here.match("(.{2,3}[都道府県])");
-                                   const hereSmallName = here.match("(.{1,3}[区市町])");
-                                   const hereAllNames = here.match("(.{2,3}[都道府県].{1,3}[区市町])");
-                                   var herePlaceNameWithSpace = ''
+                        fetch(requestURL)
+                            .then(response => response.json())
+                            .then(json => {
+                                here = json.results[0].formatted_address;
+                                const hereBigName = here.match("(.{2,3}[都道府県])");
+                                const hereSmallName = here.match("(.{1,3}[区市町])");
+                                const hereAllNames = here.match("(.{2,3}[都道府県].{1,3}[区市町])");
+                                var herePlaceNameWithSpace = ''
 
-                                   //geolocation API は返して来る値が一定でないので全てに対応できるようにする
+                                //geolocation API は返して来る値が一定でないので全てに対応できるようにする
 
-                                   if (hereAllNames === null || hereAllNames === '' ){
+                                if (hereAllNames === null || hereAllNames === '') {
 
-                                       herePlaceNameWithSpace = hereBigName[0] + hereSmallName[0]
+                                    herePlaceNameWithSpace = hereBigName[0] + hereSmallName[0]
 
-                                   }else{
+                                } else {
 
-                                       herePlaceNameWithSpace = hereAllNames[0]
+                                    herePlaceNameWithSpace = hereAllNames[0]
 
-                                   }
+                                }
 
-                                   const herePlaceName = herePlaceNameWithSpace.replace(/\s+/g, '')
-                                   hereThis.setState({place: herePlaceName});
-                                   hereThis.setState({loading: false});
-                               });
+                                const herePlaceName = herePlaceNameWithSpace.replace(/\s+/g, '')
+                                hereThis.setState({place: herePlaceName});
+                                hereThis.setState({loading: false});
 
-
+                                sessionStorage.setItem('place', herePlaceName);
+                                sessionStorage.setItem('ido', ido);
+                                sessionStorage.setItem('keido', keido);
+                            });
 
 
                     },
@@ -172,7 +175,19 @@ class MessageForm extends Component {
                 console.log("あなたの端末では、現在位置を取得できません");
 
             }
+        }else{
+
+            var savedPlaceName =  sessionStorage.getItem('place');
+            var savedIdo = sessionStorage.getItem('ido');
+            var savedKeido = sessionStorage.getItem('keido');
+
+
+            hereThis.setState({place: savedPlaceName, ido:savedIdo, keido:savedKeido});
+            hereThis.setState({loading: false});
+
+
         }
+    }
 
     onSubmit = async event => {
         event.preventDefault();
