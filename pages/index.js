@@ -518,10 +518,10 @@ class MessagesIndex extends Component {
                                         <Modal.Header>このメッセージのトランザクションID</Modal.Header>
                                         <Modal.Content image>
                                             <Modal.Description>
-                                                <MediaQuery query="(min-width: 768px)">
+                                                <MediaQuery query="(min-width: 1024px)">
                                                     <Header> {messagesData[i]["transactionId"]}</Header>
                                                 </MediaQuery>
-                                                <MediaQuery query="(max-width: 768px)">
+                                                <MediaQuery query="(max-width: 1023px)">
                                                     <Header> {responsiveTransactionId}</Header>
                                                 </MediaQuery>
 
@@ -545,7 +545,7 @@ class MessagesIndex extends Component {
                                                 <MediaQuery query="(min-width: 768px)">
                                                     <Header> {messagesData[i]["ipfsId"]}</Header>
                                                 </MediaQuery>
-                                                <MediaQuery query="(max-width: 768px)">
+                                                <MediaQuery query="(max-width: 767px)">
                                                     <Header> {responsiveIpfsId}</Header>
                                                 </MediaQuery>
 
