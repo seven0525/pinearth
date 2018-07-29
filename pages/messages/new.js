@@ -321,6 +321,9 @@ class MessageForm extends Component {
         reader.readAsDataURL(file)
     };
 
+    loadingAgain(){
+        location.reload(false)
+    }
 
 
     render() {
@@ -382,7 +385,7 @@ class MessageForm extends Component {
                         <Modal.Actions>
                             <Link route="/">
                                 <a>
-                            <Button primary>
+                            <Button primary　onClick={()=>{this.loadingAgain()}}>
                                 topページに戻る
                             </Button>
                                 </a>
