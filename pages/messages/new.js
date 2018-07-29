@@ -178,8 +178,8 @@ class MessageForm extends Component {
         }else{
 
             var savedPlaceName =  sessionStorage.getItem('place');
-            var savedIdo = sessionStorage.getItem('ido');
-            var savedKeido = sessionStorage.getItem('keido');
+            var savedIdo = Number(sessionStorage.getItem('ido'));
+            var savedKeido = Number(sessionStorage.getItem('keido'));
 
 
             hereThis.setState({place: savedPlaceName, ido:savedIdo, keido:savedKeido});
