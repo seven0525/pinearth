@@ -402,8 +402,8 @@ class MessagesIndex extends Component {
         }else{
 
             var savedPlaceName =  sessionStorage.getItem('place');
-            var savedIdo = sessionStorage.getItem('ido');
-            var savedKeido = sessionStorage.getItem('keido');
+            var savedIdo = Number(sessionStorage.getItem('ido'));
+            var savedKeido = Number(sessionStorage.getItem('keido'));
 
 
             console.log(savedPlaceName)
@@ -460,6 +460,8 @@ class MessagesIndex extends Component {
 
             responsiveIpfsId = firstIpfs + "\n" + secondIpfs + "\n" + thirdIpfs;
 
+            // if(window.innerWidth>1023){
+
 
 
 
@@ -467,8 +469,7 @@ class MessagesIndex extends Component {
 
 
 
-
-                    <Modal trigger ={
+                <Modal trigger ={
 
                         <Card>
                             <Image src={ipfsImageUrl}/>
@@ -484,13 +485,180 @@ class MessagesIndex extends Component {
                         </Card>
 
 
-                    }>
-        <Modal.Content image>
-            <Image wrapped size='medium' src={ipfsImageUrl} />
+                    } >
+
+                    <MediaQuery maxWidth={1023} minWidth={767}>
+                        <Modal.Content style={{width:700}} image>
+                            <Image style={{width:400, height:250}} src={ipfsImageUrl} />
+                            <Modal.Description>
+                                <section>
+                                    <Header>{messagesData[i]["author"]}</Header>
+                                    <hr color="#D8D8D8" size="1"　width="200" noshade/>
+                                </section>
+                                <p style={{width:300}}>{messagesData[i]["message"]}</p>
+                                <hr color="#D8D8D8" size="1" width="200" noshade/>
+                                <p style={{width:300}}>Amount Of Ether</p>
+                                <p>{messagesData[i]["amountEther"]}</p>
+                            </Modal.Description>
+                            <Modal.Description style={{marginLeft:100}}>
+                                <SendEtherForm
+                                    toAddress={messagesData[i]["address"]}
+                                    messageId={messagesData[i]["messageId"]}
+                                />
+
+
+
+                                <div style={{marginTop:15}}>
+                                    <Modal trigger={
+                                        <Button style={{width:150, marginTop:10}}basic color='grey'>
+                                            トランザクションIDを確認する
+                                        </Button>
+
+                                    }>
+                                        <Modal.Header>このメッセージのトランザクションID</Modal.Header>
+                                        <Modal.Content image>
+                                            <Modal.Description>
+                                                <MediaQuery query="(min-width: 1024px)">
+                                                    <Header> {messagesData[i]["transactionId"]}</Header>
+                                                </MediaQuery>
+                                                <MediaQuery query="(max-width: 1023px)">
+                                                    <Header> {responsiveTransactionId}</Header>
+                                                </MediaQuery>
+
+                                            </Modal.Description>
+
+                                        </Modal.Content>
+                                    </Modal>
+
+                                </div>
+
+                                <div  style={{marginTop:15}}>
+                                    <Modal trigger={
+                                        <Button basic color='grey'>
+                                            ipfsIDを確認する
+                                        </Button>
+
+                                    }>
+                                        <Modal.Header>このメッセージの IPFS ID</Modal.Header>
+                                        <Modal.Content image>
+                                            <Modal.Description>
+                                                <MediaQuery query="(min-width: 768px)">
+                                                    <Header> {messagesData[i]["ipfsId"]}</Header>
+                                                </MediaQuery>
+                                                <MediaQuery query="(max-width: 767px)">
+                                                    <Header> {responsiveIpfsId}</Header>
+                                                </MediaQuery>
+
+                                            </Modal.Description>
+
+                                        </Modal.Content>
+                                    </Modal>
+
+                                </div>
+
+
+
+                            </Modal.Description>
+
+                        </Modal.Content>
+                    </MediaQuery>
+
+
+                    <MediaQuery query="(max-width: 767px)">
+
+                        <Modal.Content image>
+                            <Image  src={ipfsImageUrl} wrapped size='medium'  />
+                            <Modal.Description>
+                                <section>
+                                    <Header>{messagesData[i]["author"]}</Header>
+                                    <hr color="#D8D8D8" size="1"　width="300" noshade/>
+                                </section>
+                                <p >{messagesData[i]["message"]}</p>
+                                <hr color="#D8D8D8" size="1" width="300" noshade/>
+                                <p>Amount Of Ether</p>
+                                <p>{messagesData[i]["amountEther"]}</p>
+                            </Modal.Description>
+                            <Modal.Description >
+                                <SendEtherForm
+                                    toAddress={messagesData[i]["address"]}
+                                    messageId={messagesData[i]["messageId"]}
+                                />
+
+
+
+                                <div　className='ui two buttons' style={{marginTop:15}} >
+                                    <Modal trigger={
+                                        <Button basic color='grey'>
+                                            トランザクションIDを確認する
+                                        </Button>
+
+                                    }>
+                                        <Modal.Header>このメッセージのトランザクションID</Modal.Header>
+                                        <Modal.Content image>
+                                            <Modal.Description>
+                                                <MediaQuery query="(min-width: 768px)">
+                                                    <Header> {messagesData[i]["transactionId"]}</Header>
+                                                </MediaQuery>
+                                                <MediaQuery query="(max-width: 768px)">
+                                                    <Header> {responsiveTransactionId}</Header>
+                                                </MediaQuery>
+
+                                            </Modal.Description>
+
+                                        </Modal.Content>
+                                    </Modal>
+
+                                </div>
+
+                                <div　className='ui two buttons'  style={{marginTop:15}} >
+                                    <Modal trigger={
+                                        <Button basic color='grey'>
+                                            ipfsIDを確認する
+                                        </Button>
+
+                                    }>
+                                        <Modal.Header>このメッセージの IPFS ID</Modal.Header>
+                                        <Modal.Content image>
+                                            <Modal.Description>
+                                                <MediaQuery query="(min-width: 768px)">
+                                                    <Header> {messagesData[i]["ipfsId"]}</Header>
+                                                </MediaQuery>
+                                                <MediaQuery query="(max-width: 768px)">
+                                                    <Header> {responsiveIpfsId}</Header>
+                                                </MediaQuery>
+
+                                            </Modal.Description>
+
+                                        </Modal.Content>
+                                    </Modal>
+
+                                </div>
+
+
+
+                            </Modal.Description>
+
+                        </Modal.Content>
+
+                    </MediaQuery>
+
+
+
+
+
+
+                     <MediaQuery query="(min-width: 1024px)">
+        <Modal.Content style={{width:930}} image>
+            <Image style={{width:600, height:450}} src={ipfsImageUrl} />
             <Modal.Description>
+                <section>
                 <Header>{messagesData[i]["author"]}</Header>
-                <p>{messagesData[i]["message"]}</p>
-                <p>Amount Of Ether: {messagesData[i]["amountEther"]}</p>
+                    <hr color="#D8D8D8" size="1"　width="200" noshade/>
+                </section>
+                <p style={{width:300}}>{messagesData[i]["message"]}</p>
+                <hr color="#D8D8D8" size="1" width="200" noshade/>
+                <p style={{width:300}}>Amount Of Ether</p>
+                <p>{messagesData[i]["amountEther"]}</p>
             </Modal.Description>
             <Modal.Description style={{marginLeft:100}}>
         <SendEtherForm
@@ -500,9 +668,9 @@ class MessagesIndex extends Component {
 
 
 
-            <div className='ui two buttons' style={{marginTop:15}}>
+            <div style={{marginTop:15}}>
                 <Modal trigger={
-                    <Button basic color='red'>
+                    <Button style={{width:150, marginTop:10}}basic color='grey'>
                         トランザクションIDを確認する
                     </Button>
 
@@ -524,9 +692,9 @@ class MessagesIndex extends Component {
 
             </div>
 
-            <div className='ui two buttons' style={{marginTop:15}}>
+            <div  style={{marginTop:15}}>
         <Modal trigger={
-            <Button basic color='red'>
+            <Button basic color='grey'>
                 ipfsIDを確認する
             </Button>
 
@@ -553,10 +721,126 @@ class MessagesIndex extends Component {
         </Modal.Description>
 
         </Modal.Content>
+                     </MediaQuery>
 
         </Modal>
-            );
 
+            );
+        //
+        // }else{
+        //
+        //
+        //         messagesDataNew.push(
+        //
+        //
+        //
+        //
+        //             <MediaQuery query="(max-width: 1023px)">
+        //
+        //
+        //
+        //
+        //
+        //                 <Modal trigger ={
+        //
+        //                     <Card>
+        //                         <Image src={ipfsImageUrl}/>
+        //
+        //                         <Card.Content extra>
+        //                             {messagesData[i]["postDate"]}
+        //                         </Card.Content>
+        //                         <Card.Content extra>
+        //                             Amount Of Ether: {messagesData[i]["amountEther"]}ether
+        //                         </Card.Content>
+        //
+        //
+        //                     </Card>
+        //
+        //
+        //                 } style={{width:1000}}>
+        //                     <Modal.Content image>
+        //                         <Image style={{width:600, height:450}} src={ipfsImageUrl} />
+        //                         <Modal.Description>
+        //                             <section>
+        //                                 <Header>{messagesData[i]["author"]}</Header>
+        //                                 <hr color="#D8D8D8" size="1"　width="200" noshade/>
+        //                             </section>
+        //                             <p style={{width:300}}>{messagesData[i]["message"]}</p>
+        //                             <hr color="#D8D8D8" size="1" width="200" noshade/>
+        //                             <p style={{width:300}}>Amount Of Ether</p>
+        //                             <p>{messagesData[i]["amountEther"]}</p>
+        //                         </Modal.Description>
+        //                         <Modal.Description style={{marginLeft:100}}>
+        //                             <SendEtherForm
+        //                                 toAddress={messagesData[i]["address"]}
+        //                                 messageId={messagesData[i]["messageId"]}
+        //                             />
+        //
+        //
+        //
+        //                             <div style={{marginTop:15}}>
+        //                                 <Modal trigger={
+        //                                     <Button style={{width:150, marginTop:10}}basic color='grey'>
+        //                                         トランザクションIDを確認する
+        //                                     </Button>
+        //
+        //                                 }>
+        //                                     <Modal.Header>このメッセージのトランザクションID</Modal.Header>
+        //                                     <Modal.Content image>
+        //                                         <Modal.Description>
+        //                                             <MediaQuery query="(min-width: 768px)">
+        //                                                 <Header> {messagesData[i]["transactionId"]}</Header>
+        //                                             </MediaQuery>
+        //                                             <MediaQuery query="(max-width: 768px)">
+        //                                                 <Header> {responsiveTransactionId}</Header>
+        //                                             </MediaQuery>
+        //
+        //                                         </Modal.Description>
+        //
+        //                                     </Modal.Content>
+        //                                 </Modal>
+        //
+        //                             </div>
+        //
+        //                             <div  style={{marginTop:15}}>
+        //                                 <Modal trigger={
+        //                                     <Button basic color='grey'>
+        //                                         ipfsIDを確認する
+        //                                     </Button>
+        //
+        //                                 }>
+        //                                     <Modal.Header>このメッセージの IPFS ID</Modal.Header>
+        //                                     <Modal.Content image>
+        //                                         <Modal.Description>
+        //                                             <MediaQuery query="(min-width: 768px)">
+        //                                                 <Header> {messagesData[i]["ipfsId"]}</Header>
+        //                                             </MediaQuery>
+        //                                             <MediaQuery query="(max-width: 768px)">
+        //                                                 <Header> {responsiveIpfsId}</Header>
+        //                                             </MediaQuery>
+        //
+        //                                         </Modal.Description>
+        //
+        //                                     </Modal.Content>
+        //                                 </Modal>
+        //
+        //                             </div>
+        //
+        //
+        //
+        //                         </Modal.Description>
+        //
+        //                     </Modal.Content>
+        //
+        //                 </Modal>
+        //
+        //             </MediaQuery>
+        //         )
+        //
+        //
+        //
+        //
+        //     }
         }
 
         return (
