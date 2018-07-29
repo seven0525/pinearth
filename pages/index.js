@@ -487,7 +487,7 @@ class MessagesIndex extends Component {
 
                     } >
 
-                    <MediaQuery query="(min-width:768px, max-width:1023px)">
+                    <MediaQuery maxWidth={1023} minWidth={767}>
                         <Modal.Content style={{width:700}} image>
                             <Image style={{width:400, height:250}} src={ipfsImageUrl} />
                             <Modal.Description>
