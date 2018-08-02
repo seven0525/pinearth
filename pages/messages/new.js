@@ -9,6 +9,8 @@ import web3 from '../../ethereum/web3';
 import TimeCapsule from '../../ethereum/TimeCapsule';
 import firebase from 'firebase';
 import ipfs from '../../ethereum/ipfs';
+import factory from '../../ethereum/factory';
+import Message from '../../ethereum/message';
 
 var config = {
     apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
@@ -257,14 +259,6 @@ class MessageForm extends Component {
 
             var ipfsId = '';
 
-            await TimeCapsule.methods.postMessage(
-                "Kosuke",
-                message,
-                place
-            ).send({ from: accounts[0] })
-                .on('transactionHash', function(hash){
-                    transactionId = hash;
-                })
 
             await ipfs.add(this.state.buffer, (err, ipfsHash) => {
                 console.log(err,ipfsHash);
@@ -279,6 +273,31 @@ class MessageForm extends Component {
 
             })
 
+             // await TimeCapsule.methods.postMessage(
+            //     "Kosuke",
+            //     message,
+            //     place
+            // ).send({ from: accounts[0] })
+            //     .on('transactionHash', function(hash){
+            //         transactionId = hash;
+            //     })
+
+            //onSubmitで、FactoryのcreateMessageを発動して、Messageコントラクトを新しく生成
+            //生成されたMessageコントラクトのTransaction Hashを使って、そのMessageコントラクトのPostMessageを発動
+
+            const contractAddress = await factory.methods.createMessage(place)
+
+            await factory.methods.storeMessage(place, contractAddress)
+            .send({ from: accounts[0] })
+
+            const newMessage = await Message(contractAddress);
+
+            await newMessage.methods
+            .postMessage(message, postUsername, ipfsId)
+            .send({ from: accounts[0] })
+                .on('transactionHash', function(hash){
+                    transactionId = hash;
+            })
 
 
 
