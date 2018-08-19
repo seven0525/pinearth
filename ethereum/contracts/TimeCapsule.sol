@@ -1,11 +1,16 @@
 pragma solidity ^0.4.18;
 
 contract MessageFactory {
+
+    // struct によって　構造体を扱う
+    // 構造体とは一つのデータ型
     
     struct Request {
         string location;
         address messageaddress;
     }
+
+
     Request [] public requests;
     address [] public awsrequests; 
 
