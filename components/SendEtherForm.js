@@ -7,6 +7,8 @@ import firebase from 'firebase';
 import web3 from '../ethereum/web3';
 import TimeCapsule from '../ethereum/TimeCapsule';
 import MediaQuery from 'react-responsive';
+import Message from '../ethereum/message';
+
 
 
 var config = {
@@ -60,11 +62,24 @@ class SendEtherForm extends Component {
 
             const accounts = await web3.eth.getAccounts();
 
-            await web3.eth.sendTransaction({
-                to:this.props.toAddress, //そのメッセージを残した相手に変更予定
+            //donate関数を使用
+            
+            messageAddress = index.jsからもらってきたそのメッセージのコントラクトアドレス
+            
+            theMessage = Message(messageAddress);
+
+            await theMessage.methods.donate().send({
                 from: accounts[0],
-                value:web3.utils.toWei("0.0001", "ether")
+                value: 1000000000
             });
+
+            amountEther += 0.001;
+
+            // await web3.eth.sendTransaction({
+            //     to:this.props.toAddress, //そのメッセージを残した相手に変更予定
+            //     from: accounts[0],
+            //     value:web3.utils.toWei("0.0001", "ether")
+            // });
             const {messageId} = this.props;
 
             var uniqueKey = '';
