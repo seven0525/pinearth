@@ -447,9 +447,10 @@ class MessagesIndex extends Component {
         const accounts = await web3.eth.getAccounts();
 
         const theMessage = Message(このaddress);
-            const summary = theMessage.methods.withdraw().send({
-                from: accounts[0]
-              });
+        const summary = theMessage.methods.withdraw().send({
+            from: accounts[0]
+        });
+    }
 
 
 

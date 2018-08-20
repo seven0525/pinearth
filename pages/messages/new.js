@@ -285,7 +285,11 @@ class MessageForm extends Component {
             //onSubmitで、FactoryのcreateMessageを発動して、Messageコントラクトを新しく生成
             //生成されたMessageコントラクトのTransaction Hashを使って、そのMessageコントラクトのPostMessageを発動
 
+            console.log("aaa")
+
             const contractAddress = await factory.methods.createMessage(place)
+
+            console.log(contractAddress)
 
             await factory.methods.storeMessage(place, contractAddress)
             .send({ from: accounts[0] })
