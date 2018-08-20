@@ -291,7 +291,9 @@ class MessageForm extends Component {
                 .on('transactionHash', function(hash){
                     transactionId = hash;
                     console.log(hash)
-                })
+                }).transactionHash
+
+            console.log(contractAddress)
 
 
             await factory.methods.storeMessage(place, contractAddress)
