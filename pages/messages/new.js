@@ -287,6 +287,10 @@ class MessageForm extends Component {
 
             console.log("aaa")
 
+            console.log(TimeCapsule)
+
+            console.log(factory)
+
             const contractAddress = await factory.methods.createMessage(place)
 
             console.log(contractAddress)
@@ -302,6 +306,8 @@ class MessageForm extends Component {
                 .on('transactionHash', function(hash){
                     transactionId = hash;
             })
+
+            console.log(transactionId)
 
 
 
