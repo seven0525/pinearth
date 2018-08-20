@@ -285,11 +285,7 @@ class MessageForm extends Component {
             //onSubmitで、FactoryのcreateMessageを発動して、Messageコントラクトを新しく生成
             //生成されたMessageコントラクトのTransaction Hashを使って、そのMessageコントラクトのPostMessageを発動
 
-            console.log("aaa")
 
-            console.log(TimeCapsule)
-
-            console.log(factory)
 
             const contractAddress = await factory.methods.createMessage(place).send({ from: accounts[0] })
                 .on('transactionHash', function(hash){
@@ -297,7 +293,6 @@ class MessageForm extends Component {
                     console.log(hash)
                 })
 
-            console.log(contractAddress)
 
             await factory.methods.storeMessage(place, contractAddress)
             .send({ from: accounts[0] }).on('transactionHash', function(hash){
@@ -315,7 +310,6 @@ class MessageForm extends Component {
                     console.log(hash)
             })
 
-            console.log(transactionId)
 
 
 
