@@ -287,11 +287,8 @@ class MessageForm extends Component {
 
 
 
-            const contractAddress = await factory.methods.createMessage(place).send({ from: accounts[0] })
-                .on('transactionHash', function(hash){
-                    transactionId = hash;
-                    console.log(hash)
-                })
+            const contractAddress = await factory.methods.createMessage(place).call({ from: accounts[0] })
+
 
             console.log(contractAddress)
 
