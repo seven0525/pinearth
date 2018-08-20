@@ -316,7 +316,7 @@ class MessageForm extends Component {
         } catch (err){
 
             // this.setState({ errorMessage: err.message });
-            consol.log(err.message)
+            console.log(err.message)
 
 
         }
