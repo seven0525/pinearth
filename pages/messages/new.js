@@ -301,11 +301,10 @@ class MessageForm extends Component {
 
             const newMessage = await Message(contractAddress);
 
-            console.log(newMessage)
 
             await newMessage.methods
             .postMessage(message, postUsername, ipfsId)
-            .send({ from: accounts[0] })
+            .send({ from: accounts[0],  gasLimit: 4700000 })
                 .on('transactionHash', function(hash){
                     transactionId = hash;
                     console.log(hash)

@@ -62,15 +62,17 @@ class SendEtherForm extends Component {
 
             const accounts = await web3.eth.getAccounts();
 
-            //donate関数を使用
+            //donate関数を使用x
+           var messageAddress = '0xf352CAd04973C484B0d158455248127a04900886'
             
-            messageAddress = index.jsからもらってきたそのメッセージのコントラクトアドレス
-            
-            theMessage = Message(messageAddress);
+            var theMessage = Message(messageAddress);
+
+            console.log(theMessage)
 
             await theMessage.methods.donate().send({
                 from: accounts[0],
-                value: 1000000000
+                value: 1000000000,
+                gasLimit: 4700000
             });
 
             amountEther += 0.001;
