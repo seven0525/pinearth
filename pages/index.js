@@ -301,9 +301,16 @@ class MessagesIndex extends Component {
 
     async getMessagesArrayFromBlockChain(){
 
+        console.log("hello")
+
         console.log(this.state.place)
 
         await factory.methods.searchMessage(this.state.place).send({ from: accounts[0] })
+            .on('transactionHash', function(hash){
+
+                console.log(hash)
+
+        })
 
 
 
@@ -389,7 +396,8 @@ class MessagesIndex extends Component {
 
 
                             }).then(() => {
-                            hereThis.getMessagesArray();
+                            // hereThis.getMessagesArray();
+                            hereThis.getMessagesArrayFromBlockChain();
                         });
 
                     },
@@ -443,8 +451,6 @@ class MessagesIndex extends Component {
             var savedKeido = Number(sessionStorage.getItem('keido'));
 
 
-            console.log(savedPlaceName)
-
             hereThis.setState({place: savedPlaceName, ido:savedIdo, keido:savedKeido});
             hereThis.setState({loading: false});
             hereThis.getMessagesArrayFromCache(savedPlaceName);
@@ -465,8 +471,6 @@ class MessagesIndex extends Component {
 
 
     render(){
-
-        console.log(this.state.cardModalOpen)
 
 
         const messagesDataNew = [];

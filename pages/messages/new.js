@@ -287,7 +287,11 @@ class MessageForm extends Component {
 
 
 
-            const contractAddress = await factory.methods.createMessage(place).call({ from: accounts[0] })
+             await factory.methods.createMessage(place).send({ from: accounts[0] })
+
+            const contractAddress = await factory.methods.getMessageAddress().call({ from: accounts[0] })
+
+
 
 
             console.log(contractAddress)
