@@ -314,6 +314,20 @@ class MessagesIndex extends Component {
 
         console.log(awsrequests.length)
 
+        for (var i = 0; i < awsrequests.length; i++) {
+
+            var newMessage = await Message(awsrequests[i]);
+
+            var messageContent =  await  newMessage.methods.getMessage().call({ from: "0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22" });
+
+            console.log(messageContent)
+
+
+
+
+        }
+
+
 
         var messages = [];
 
