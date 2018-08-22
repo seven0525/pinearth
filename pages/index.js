@@ -305,6 +305,8 @@ class MessagesIndex extends Component {
 
         console.log(this.state.place)
 
+        var messages = [];
+
         var awsrequests = ""
 
        awsrequests = await factory.methods.searchMessages(this.state.place).call({ from: "0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22" })
@@ -322,38 +324,16 @@ class MessagesIndex extends Component {
 
             console.log(messageContent)
 
+            messages.push({ message:messageContent[3], place: messageContent[2], author: messageContent[1],
+
+                    ipfsId: messageContent[4]});
+
 
 
 
         }
 
-
-
-        var messages = [];
-
-        var message='';
-
-        var messagePlace = '';
-
-        var messageAuthor = '';
-
-        var messageAddress = '';
-
-        var messageId ='';
-
-        var messageEther = '';
-
-        var messageTransactionId = '';
-
-        var messageIpfsId ='';
-
-        var messagesPostDate = '';
-
-        messages.push({ message:message, place: messagePlace, author: messageAuthor, address:messageAddress,
-            messageId: messageId, amountEther:messageEther, transactionId: messageTransactionId,
-            ipfsId: messageIpfsId, postDate: messagesPostDate, etherSentDate: messagesEtherSentDate});
-
-
+        console.log(messages)
 
 
 
