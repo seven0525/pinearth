@@ -192,7 +192,7 @@ class MessagesIndex extends Component {
 
                     });
 
-                this.setState({messagesArray:sortedArray});
+                // this.setState({messagesArray:sortedArray});
 
             }).bind(this);
 
@@ -292,7 +292,7 @@ class MessagesIndex extends Component {
 
                     });
 
-                this.setState({messagesArray:sortedArray});
+                // this.setState({messagesArray:sortedArray});
 
             }).bind(this);
 
@@ -301,15 +301,31 @@ class MessagesIndex extends Component {
 
     async getMessagesArrayFromBlockChain(){
 
-        console.log("hello")
 
-        console.log(this.state.place)
+
+        var place = '';
+
+        var savedPlaceName =  sessionStorage.getItem('place');
+
+
+        if(savedPlaceName = null){
+
+            place = this.state.place
+
+
+        }else{
+
+            place =  sessionStorage.getItem('place')
+
+        }
+
+
 
         var messages = [];
 
         var awsrequests = ""
 
-       awsrequests = await factory.methods.searchMessages(this.state.place).call({ from: "0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22" })
+       awsrequests = await factory.methods.searchMessages(place).call({ from: "0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22" })
 
 
         console.log(awsrequests)
@@ -326,7 +342,7 @@ class MessagesIndex extends Component {
 
             messages.push({ message:messageContent[3], place: messageContent[2], author: messageContent[1],
 
-                    ipfsId: messageContent[4]});
+                    ipfsId: messageContent[4], transactionId: ""});
 
 
 
@@ -479,7 +495,8 @@ class MessagesIndex extends Component {
 
             hereThis.setState({place: savedPlaceName, ido:savedIdo, keido:savedKeido});
             hereThis.setState({loading: false});
-            hereThis.getMessagesArrayFromCache(savedPlaceName);
+            // hereThis.getMessagesArrayFromCache(savedPlaceName);
+            hereThis.getMessagesArrayFromBlockChain()
 
         }
     }
