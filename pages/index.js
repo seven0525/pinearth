@@ -312,6 +312,34 @@ class MessagesIndex extends Component {
 
         console.log(awsrequests)
 
+        console.log(awsrequests.length)
+
+
+        var messages = [];
+
+        var message='';
+
+        var messagePlace = '';
+
+        var messageAuthor = '';
+
+        var messageAddress = '';
+
+        var messageId ='';
+
+        var messageEther = '';
+
+        var messageTransactionId = '';
+
+        var messageIpfsId ='';
+
+        var messagesPostDate = '';
+
+        messages.push({ message:message, place: messagePlace, author: messageAuthor, address:messageAddress,
+            messageId: messageId, amountEther:messageEther, transactionId: messageTransactionId,
+            ipfsId: messageIpfsId, postDate: messagesPostDate, etherSentDate: messagesEtherSentDate});
+
+
 
 
 
