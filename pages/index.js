@@ -299,6 +299,16 @@ class MessagesIndex extends Component {
 
     }
 
+    async getMessagesArrayFromBlockChain(){
+
+        console.log(this.state.place)
+
+        await factory.methods.searchMessage(this.state.place).send({ from: accounts[0] })
+
+
+
+    }
+
 
 
 
