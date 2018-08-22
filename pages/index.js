@@ -333,6 +333,9 @@ class MessagesIndex extends Component {
 
         }
 
+
+        this.setState({messagesArray:messages});
+
         console.log(messages)
 
 
