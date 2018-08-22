@@ -305,7 +305,7 @@ class MessagesIndex extends Component {
 
         console.log(this.state.place)
 
-        await factory.methods.searchMessage(this.state.place).send({ from: accounts[0] })
+        await factory.methods.searchMessages(this.state.place).call({ from: accounts[0] })
             .on('transactionHash', function(hash){
 
                 console.log(hash)
