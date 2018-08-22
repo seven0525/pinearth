@@ -305,12 +305,13 @@ class MessagesIndex extends Component {
 
         console.log(this.state.place)
 
-        await factory.methods.searchMessages(this.state.place).call({ from: accounts[0] })
-            .on('transactionHash', function(hash){
+        var awsrequests = ""
 
-                console.log(hash)
+       awsrequests = await factory.methods.searchMessages(this.state.place).call({ from: "0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22" })
 
-        })
+
+        console.log(awsrequests)
+
 
 
 
