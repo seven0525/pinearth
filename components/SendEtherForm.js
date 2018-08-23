@@ -67,8 +67,6 @@ class SendEtherForm extends Component {
             
             var theMessage = Message(messageAddress);
 
-            console.log(theMessage)
-
             await theMessage.methods.donate().send({
                 from: accounts[0],
                 value: 1000000000,

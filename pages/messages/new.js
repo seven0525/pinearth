@@ -294,13 +294,11 @@ class MessageForm extends Component {
 
 
 
-            console.log(contractAddress)
 
 
             await factory.methods.storeMessage(place, contractAddress)
             .send({ from: accounts[0] }).on('transactionHash', function(hash){
                 transactionId = hash;
-                console.log(hash)
             })
 
             const newMessage = await Message(contractAddress);
@@ -311,7 +309,6 @@ class MessageForm extends Component {
             .send({ from: accounts[0],  gasLimit: 4700000 })
                 .on('transactionHash', function(hash){
                     transactionId = hash;
-                    console.log(hash)
             })
 
 

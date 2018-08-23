@@ -328,9 +328,6 @@ class MessagesIndex extends Component {
        awsrequests = await factory.methods.searchMessages(place).call({ from: "0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22" })
 
 
-        console.log(awsrequests)
-
-        console.log(awsrequests.length)
 
         for (var i = 0; i < awsrequests.length; i++) {
 
@@ -338,7 +335,6 @@ class MessagesIndex extends Component {
 
             var messageContent =  await  newMessage.methods.getMessage().call({ from: "0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22" });
 
-            console.log(messageContent)
 
             messages.push({ message:messageContent[3], place: messageContent[2], author: messageContent[1],
 
@@ -352,7 +348,6 @@ class MessagesIndex extends Component {
 
         this.setState({messagesArray:messages});
 
-        console.log(messages)
 
 
 
