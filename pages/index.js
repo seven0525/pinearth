@@ -805,9 +805,33 @@ class MessagesIndex extends Component {
 
         </div>
 
+                <div style={{marginTop:10}}>
+                    <Modal trigger={
+                        <Button style={{width:150, marginTop:10}}basic color='grey'>
+                            引き出す
+                        </Button>
+
+                    }>
+                        <Modal.Header>このメッセージのトランザクションID</Modal.Header>
+                        <Modal.Content image>
+                            <Modal.Description>
+                                <MediaQuery query="(min-width: 768px)">
+                                    <Header> {messagesData[i]["transactionId"]}</Header>
+                                </MediaQuery>
+                                <MediaQuery query="(max-width: 768px)">
+                                    <Header> {responsiveTransactionId}</Header>
+                                </MediaQuery>
+
+                            </Modal.Description>
+
+                        </Modal.Content>
+                    </Modal>
+
+                </div>
 
 
-        </Modal.Description>
+
+            </Modal.Description>
 
         </Modal.Content>
                      </MediaQuery>
