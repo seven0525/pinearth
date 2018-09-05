@@ -39,13 +39,22 @@ const styles = {
     }
 };
 
+// var config = {
+//     apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
+//     authDomain: "timecapsule-3b1bd.firebaseapp.com",
+//     databaseURL: "https://timecapsule-3b1bd.firebaseio.com",
+//     projectId: "timecapsule-3b1bd",
+//     storageBucket: "timecapsule-3b1bd.appspot.com",
+//     messagingSenderId: "221653140896"
+// };
+
 var config = {
-    apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
-    authDomain: "timecapsule-3b1bd.firebaseapp.com",
-    databaseURL: "https://timecapsule-3b1bd.firebaseio.com",
-    projectId: "timecapsule-3b1bd",
-    storageBucket: "timecapsule-3b1bd.appspot.com",
-    messagingSenderId: "221653140896"
+    apiKey: "AIzaSyCRS9Dk4CH6N9P5ZcRelu_DnW-kT7r4O3c",
+    authDomain: "pinearth-93101.firebaseapp.com",
+    databaseURL: "https://pinearth-93101.firebaseio.com",
+    projectId: "pinearth-93101",
+    storageBucket: "pinearth-93101.appspot.com",
+    messagingSenderId: "669054719425"
 };
 
 if (!firebase.apps.length) {
@@ -88,18 +97,18 @@ class ResponsiveHeader extends Component{
 
         return (
             <div className={this.props.classes.root}>
-                <AppBar position="static" style={{backgroundColor: "#0066ff"}}>
+                <AppBar position="static" style={{backgroundColor: "#ffffff"}}>
                     <Toolbar>
-                        <Typography variant="title" color="#FFFFFF" className={this.props.classes.flex}>
+                        <Typography variant="title" color="#000000" className={this.props.classes.flex}>
                             <Link route="/">
-                                <a style={{color:"#FFFFFF"}}>
+                                <a style={{color:"#000000"}}>
 
-                            TimeCapsule
+                            PinEarth
 
                                 </a>
                             </Link>
                         </Typography>
-                        <Button onClick={this.toggleDrawer('right', true)} color="inherit">{this.props.username}</Button>
+                        <Button onClick={this.toggleDrawer('right', true)} color="#000000">{this.props.username}</Button>
                         <Drawer anchor="right" open={this.state.right} onClose={this.toggleDrawer('right', false)}>
                             <div
                                 tabIndex={0}

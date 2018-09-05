@@ -9,8 +9,16 @@ export default props => {
             <Head>
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css"></link>
             </Head>
-            <LoginSignHeader/>
-            {props.children}
+            <div style = {containerStyle}>
+                <LoginSignHeader/>
+                {props.children}
+            </div>
         </Container>
     )
+}
+
+const containerStyle = {
+    position: "absolute",
+    left: "0px",
+    right: "0px"
 }

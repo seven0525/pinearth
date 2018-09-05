@@ -12,25 +12,21 @@ class LoginSignHeader extends Component {
     render(){
 
         return (
-            <Menu color='blue' inverted widths={3}>
-
-                        <Menu.Item name='Time Coupsel'  />
-
-                <Menu.Item
-                    // name='signout'
-                    // onClick={()=>{this.signOut()}}
-                />
-                <Menu.Item
-                >
-                    {/*<Icon link name='user'></Icon>*/}
-                </Menu.Item>
-            </Menu>
-
-
+            <div>
+                <Menu color='#000000' inverted widths={3}>
+                    <Menu.Item
+                        // name='signout'
+                        // onClick={()=>{this.signOut()}}
+                    />
+                    <Menu.Item name='PinEarth'  />
+                    <Menu.Item
+                    >
+                        {/*<Icon link name='user'></Icon>*/}
+                    </Menu.Item>
+                </Menu>
+            </div>
         );
     };
 }
-
-
 
 export default LoginSignHeader;

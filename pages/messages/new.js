@@ -13,12 +13,12 @@ import factory from '../../ethereum/factory';
 import Message from '../../ethereum/message';
 
 var config = {
-    apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
-    authDomain: "timecapsule-3b1bd.firebaseapp.com",
-    databaseURL: "https://timecapsule-3b1bd.firebaseio.com",
-    projectId: "timecapsule-3b1bd",
-    storageBucket: "timecapsule-3b1bd.appspot.com",
-    messagingSenderId: "221653140896"
+    apiKey: "AIzaSyCRS9Dk4CH6N9P5ZcRelu_DnW-kT7r4O3c",
+    authDomain: "pinearth-93101.firebaseapp.com",
+    databaseURL: "https://pinearth-93101.firebaseio.com",
+    projectId: "pinearth-93101",
+    storageBucket: "pinearth-93101.appspot.com",
+    messagingSenderId: "669054719425"
 };
 
 if (!firebase.apps.length) {
@@ -61,17 +61,15 @@ class MessageForm extends Component {
     }
 
 
+
+
     componentDidMount() {
 
         var hereThis= this;
-
-
         var here = '';
 
         if( sessionStorage.getItem('place')==null) {
             if (navigator.geolocation) {
-                // alert( "あなたの端末では、現在位置を取得することができます。" ) ;
-                // console.log("あなたの端末では、現在位置を取得することができます");
 
                 // 現在地を取得
                 navigator.geolocation.getCurrentPosition(
@@ -94,8 +92,7 @@ class MessageForm extends Component {
                         // アラート表示
                         // alert("あなたの現在位置は、\n[" + ido + "," + keido + "]\nです。");
 
-                        var apiKey = 'AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0';
-
+                        var apiKey = 'AIzaSyDbAOtIl2hgmopE9sk4K95XqUVxjrTfsRw';
                         var requestURL = 'https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false';
 
                         requestURL += '&latlng=' + ido + ',' + keido;
@@ -273,33 +270,13 @@ class MessageForm extends Component {
 
             })
 
-             // await TimeCapsule.methods.postMessage(
-            //     "Kosuke",
-            //     message,
-            //     place
-            // ).send({ from: accounts[0] })
-            //     .on('transactionHash', function(hash){
-            //         transactionId = hash;
-            //     })
-
-            //onSubmitで、FactoryのcreateMessageを発動して、Messageコントラクトを新しく生成
-            //生成されたMessageコントラクトのTransaction Hashを使って、そのMessageコントラクトのPostMessageを発動
-
-
-
-             await factory.methods.createMessage(place).send({ from: accounts[0] })
+            await factory.methods.createMessage(place).send({ from: accounts[0] })
 
             const contractAddress = await factory.methods.getMessageAddress().call({ from: accounts[0] })
 
 
-
-
-
-
             await factory.methods.storeMessage(place, contractAddress)
-            .send({ from: accounts[0] }).on('transactionHash', function(hash){
-                transactionId = hash;
-            })
+            .send({ from: accounts[0] })
 
             const newMessage = await Message(contractAddress);
 
@@ -310,6 +287,8 @@ class MessageForm extends Component {
                 .on('transactionHash', function(hash){
                     transactionId = hash;
             })
+
+
 
 
 
@@ -370,7 +349,7 @@ class MessageForm extends Component {
 
         return (
             <Layout>
-                <div>
+                <div style={contentStyle}>
                     <Form onSubmit={this.onSubmit}>
                     <Form.Input fluid label='現在地' placeholder='東京都'>
                         <h2> {this.state.place}</h2>
@@ -405,12 +384,13 @@ class MessageForm extends Component {
                         style={{height: 380, marginBottom: 200}}
                         open={this.state.modalOpen}
                     >
-                        <Modal.Header>あなたのメッセージはここに保存されました！</Modal.Header>
+                        <Modal.Header>あなたの思い出はこの場所に永遠に記録されました</Modal.Header>
                         <Modal.Content >
                             <MapComponent
                                 ido = {this.state.ido}
                                 keido={this.state.keido}
                             />
+                            <dev>{this.state.transactionId}</dev>
 
 
                         </Modal.Content>
@@ -431,6 +411,13 @@ class MessageForm extends Component {
 
         )
     }
+}
+
+const contentStyle = {
+    position:"relative",
+    width: "65%",
+    margin:"auto",
+    padding:"15px"
 }
 
 export default MessageForm;
