@@ -22,12 +22,12 @@ const Div = styled.div`
 `;
 
 var config = {
-    apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
-    authDomain: "timecapsule-3b1bd.firebaseapp.com",
-    databaseURL: "https://timecapsule-3b1bd.firebaseio.com",
-    projectId: "timecapsule-3b1bd",
-    storageBucket: "timecapsule-3b1bd.appspot.com",
-    messagingSenderId: "221653140896"
+    apiKey: "AIzaSyCRS9Dk4CH6N9P5ZcRelu_DnW-kT7r4O3c",
+    authDomain: "pinearth-93101.firebaseapp.com",
+    databaseURL: "https://pinearth-93101.firebaseio.com",
+    projectId: "pinearth-93101",
+    storageBucket: "pinearth-93101.appspot.com",
+    messagingSenderId: "669054719425"
 };
 
 if (!firebase.apps.length) {
@@ -99,43 +99,44 @@ class Signup extends Component {
         return(
 
           <LoginSignLayout>
-                <h2>signup</h2>
-                <Form error={!!this.state.errorMessage}>
-                    <Form.Field>
-                        <label>username</label>
-                        <input placeholder='username'
-                               onChange={event => this.setState({ username: event.target.value})}
+                <div style={contentStyle}>
+                    <h2>signup</h2>
+                    <Form error={!!this.state.errorMessage}>
+                        <Form.Field>
+                            <label>username</label>
+                            <input placeholder='username'
+                                onChange={event => this.setState({ username: event.target.value})}
 
-                        />
-                    </Form.Field>
-                    <Form.Field>
-                        <label>ether address</label>
-                        <input placeholder='ether address'
-                               onChange={event => this.setState({ address: event.target.value})}
-                        />
-                    </Form.Field>
-                    <Form.Field>
-                        <label>password</label>
-                        <input placeholder='passwod'
-                               onChange={event => this.setState({ password: event.target.value})}
+                            />
+                        </Form.Field>
+                        <Form.Field>
+                            <label>ether address</label>
+                            <input placeholder='ether address'
+                                onChange={event => this.setState({ address: event.target.value})}
+                            />
+                        </Form.Field>
+                        <Form.Field>
+                            <label>password</label>
+                            <input placeholder='passwod'
+                                onChange={event => this.setState({ password: event.target.value})}
 
-                        />
-                    </Form.Field>
-                    <Form.Field>
-                        <label>avatar</label>
-                        <input type="file" id="file" />
-                    </Form.Field>
-                    <Form.Field>
-                        <Checkbox label='I agree to the Terms and Conditions' />
-                    </Form.Field>
+                            />
+                        </Form.Field>
+                        <Form.Field>
+                            <label>avatar</label>
+                            <input type="file" id="file" />
+                        </Form.Field>
+                        <Form.Field>
+                            <Checkbox label='I agree to the Terms and Conditions' />
+                        </Form.Field>
 
 
-                    <Message error header="Opps" content={this.state.errorMessage}/>
-                    <Button type='submit'
-                            onClick={() => {this.signupUser()}}
-                    >Submit</Button>
-                </Form>
-
+                        <Message error header="Opps" content={this.state.errorMessage}/>
+                        <Button type='submit'
+                                onClick={() => {this.signupUser()}}
+                        >Submit</Button>
+                    </Form>
+                </div>
           </LoginSignLayout>
 
 
@@ -150,5 +151,12 @@ class Signup extends Component {
 const style = {
     margin: 15,
 };
+
+const contentStyle = {
+    position:"relative",
+    width: "65%",
+    margin:"auto",
+    padding:"15px"
+}
 
 export default Signup;

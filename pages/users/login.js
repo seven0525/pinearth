@@ -26,12 +26,12 @@ const Div = styled.div`
 `;
 
 var config = {
-    apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
-    authDomain: "timecapsule-3b1bd.firebaseapp.com",
-    databaseURL: "https://timecapsule-3b1bd.firebaseio.com",
-    projectId: "timecapsule-3b1bd",
-    storageBucket: "timecapsule-3b1bd.appspot.com",
-    messagingSenderId: "221653140896"
+    apiKey: "AIzaSyCRS9Dk4CH6N9P5ZcRelu_DnW-kT7r4O3c",
+    authDomain: "pinearth-93101.firebaseapp.com",
+    databaseURL: "https://pinearth-93101.firebaseio.com",
+    projectId: "pinearth-93101",
+    storageBucket: "pinearth-93101.appspot.com",
+    messagingSenderId: "669054719425"
 };
 
 if (!firebase.apps.length) {
@@ -72,6 +72,7 @@ class Login extends Component {
         return(
 
            <LoginSignLayout>
+               <div style={contentStyle}>
                 <h2>Login</h2>
                 <Form error={!!this.state.errorMessage}>
                     <Form.Field>
@@ -103,6 +104,7 @@ class Login extends Component {
                             </Link>
 
                             へ</h4>
+                </div>
            </LoginSignLayout>
         )
     }
@@ -112,5 +114,12 @@ class Login extends Component {
 const style = {
     margin: 15,
 };
+
+const contentStyle = {
+    position:"relative",
+    width: "65%",
+    margin:"auto",
+    padding:"15px"
+}
 
 export default Login;
