@@ -15,14 +15,25 @@ import ResponsiveHeader from './ResponsiveHeader';
 
 
 
+// var config = {
+//     apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
+//     authDomain: "timecapsule-3b1bd.firebaseapp.com",
+//     databaseURL: "https://timecapsule-3b1bd.firebaseio.com",
+//     projectId: "timecapsule-3b1bd",
+//     storageBucket: "timecapsule-3b1bd.appspot.com",
+//     messagingSenderId: "221653140896"
+// };
+
 var config = {
-    apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
-    authDomain: "timecapsule-3b1bd.firebaseapp.com",
-    databaseURL: "https://timecapsule-3b1bd.firebaseio.com",
-    projectId: "timecapsule-3b1bd",
-    storageBucket: "timecapsule-3b1bd.appspot.com",
-    messagingSenderId: "221653140896"
+    apiKey: "AIzaSyCRS9Dk4CH6N9P5ZcRelu_DnW-kT7r4O3c",
+    authDomain: "pinearth-93101.firebaseapp.com",
+    databaseURL: "https://pinearth-93101.firebaseio.com",
+    projectId: "pinearth-93101",
+    storageBucket: "pinearth-93101.appspot.com",
+    messagingSenderId: "669054719425"
 };
+
+
 
 if (!firebase.apps.length) {
     firebase.initializeApp(config);
