@@ -13,11 +13,11 @@ Google Map　APIを使っており、日本だけでなくGPSが届く範囲な�
 バックエンドはfirebaseで動いております。
 
 
-##使い方　　　
-npm install　をしてください
-（エラーが発生する場合は、 npm run rebuild　をしてください）
-　　　　　
-localhost3000を開いて、サインインをしてください。
-   
-メタマスク（chrome拡張）を取得して、Rinkeby　testnet用のEthereumを無料で取得して、あとは自由に遊んでください。
+##使い方　　　    
+npm install　をしてください    
+（エラーが発生する場合は、 npm run rebuild　をしてください）   
+　　　　　   
+localhost3000を開いて、サインインをしてください。   
+      
+メタマスク（chrome拡張）を取得して、Rinkeby　testnet用のEthereumを無料で取得して、あとは自由に遊んでください。    
 
