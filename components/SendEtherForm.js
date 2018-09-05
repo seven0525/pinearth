@@ -7,15 +7,16 @@ import firebase from 'firebase';
 import web3 from '../ethereum/web3';
 import TimeCapsule from '../ethereum/TimeCapsule';
 import MediaQuery from 'react-responsive';
+import Message from '../ethereum/message';
 
 
 var config = {
-    apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
-    authDomain: "timecapsule-3b1bd.firebaseapp.com",
-    databaseURL: "https://timecapsule-3b1bd.firebaseio.com",
-    projectId: "timecapsule-3b1bd",
-    storageBucket: "timecapsule-3b1bd.appspot.com",
-    messagingSenderId: "221653140896"
+    apiKey: "AIzaSyCRS9Dk4CH6N9P5ZcRelu_DnW-kT7r4O3c",
+    authDomain: "pinearth-93101.firebaseapp.com",
+    databaseURL: "https://pinearth-93101.firebaseio.com",
+    projectId: "pinearth-93101",
+    storageBucket: "pinearth-93101.appspot.com",
+    messagingSenderId: "669054719425"
 };
 
 if (!firebase.apps.length) {
@@ -60,11 +61,24 @@ class SendEtherForm extends Component {
 
             const accounts = await web3.eth.getAccounts();
 
-            await web3.eth.sendTransaction({
-                to:this.props.toAddress, //そのメッセージを残した相手に変更予定
+            //donate関数を使用x
+           var messageAddress = '0xf352CAd04973C484B0d158455248127a04900886'
+            
+            var theMessage = Message(messageAddress);
+
+            await theMessage.methods.donate().send({
                 from: accounts[0],
-                value:web3.utils.toWei("0.0001", "ether")
+                value: 1000000000,
+                gasLimit: 4700000
             });
+
+            amountEther += 0.001;
+
+            // await web3.eth.sendTransaction({
+            //     to:this.props.toAddress, //そのメッセージを残した相手に変更予定
+            //     from: accounts[0],
+            //     value:web3.utils.toWei("0.0001", "ether")
+            // });
             const {messageId} = this.props;
 
             var uniqueKey = '';

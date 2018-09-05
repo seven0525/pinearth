@@ -8,7 +8,7 @@ import {
     Marker
 } from "react-google-maps";
 
-const MyMapComponent = compose(
+const MapComponent = compose(
     withProps({
         /**
          * Note: create and replace your own key in the Google console.
@@ -24,10 +24,12 @@ const MyMapComponent = compose(
     withScriptjs,
     withGoogleMap
 )(props => (
-    <GoogleMap defaultZoom={10} defaultCenter={{ lat: 35.6895, lng: 139.6917 }}>
-        {console.log(props.markerElementArray)}
-        {props.markerElementArray}
+    <GoogleMap defaultZoom={5} defaultCenter={{ lat: 35.6895, lng: 139.6917 }}>
+        {/*{props.isMarkerShown && (*/}
+            {/*<Marker position={{ lat: -34.397, lng: 150.644 }} />*/}
+        {/*)}*/}
+        <Marker position={{ lat: props.ido, lng: props.keido }} />
     </GoogleMap>
 ));
 
-export default MyMapComponent;
+export default MapComponent;

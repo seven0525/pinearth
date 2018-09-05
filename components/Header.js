@@ -10,19 +10,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-// import MenuIcon from '@material-ui/icons/Menu';
 import ResponsiveHeader from './ResponsiveHeader';
 
 
 
-// var config = {
-//     apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
-//     authDomain: "timecapsule-3b1bd.firebaseapp.com",
-//     databaseURL: "https://timecapsule-3b1bd.firebaseio.com",
-//     projectId: "timecapsule-3b1bd",
-//     storageBucket: "timecapsule-3b1bd.appspot.com",
-//     messagingSenderId: "221653140896"
-// };
 
 var config = {
     apiKey: "AIzaSyCRS9Dk4CH6N9P5ZcRelu_DnW-kT7r4O3c",
@@ -32,7 +23,6 @@ var config = {
     storageBucket: "pinearth-93101.appspot.com",
     messagingSenderId: "669054719425"
 };
-
 
 
 if (!firebase.apps.length) {
@@ -72,13 +62,9 @@ class Header extends Component {
             if (user) {
                 console.log("User is signed in.")
                 const { currentUser } = firebase.auth();
-
                 var userId = currentUser.uid;
-
                 var savedUserId = '';
-
                 var  savedUserNickname = '';
-
                 const firebaseUsersRef = firebase.database().ref(`/users`);
 
                 firebaseUsersRef
@@ -92,8 +78,6 @@ class Header extends Component {
                             if( userId === savedUserId ) {
                                 savedUserNickname = childData.username;
                             }
-
-
                         });
 
                         hereThis.setState({username: savedUserNickname});
@@ -115,15 +99,10 @@ class Header extends Component {
 
 
                 const {currentUser} = firebase.auth();
-
                 var userId = currentUser.uid;
-
                 var storageRef = firebase.storage().ref();
-
                 const firebaseImagesRef = firebase.database().ref(`/images`);
-
                 var savedImageName = '';
-
                 var savedUserId = '';
 
                 firebaseImagesRef
@@ -149,7 +128,6 @@ class Header extends Component {
 
                         })
                     })
-
             }
          })
      }
@@ -177,10 +155,10 @@ class Header extends Component {
             <div>
                 <MediaQuery query="(min-width: 769px)">
 
-            <Menu color="#0066ff" style={{backgroundColor:"#0066ff"}} inverted widths={4}>
+            <Menu style={containerStyle} inverted widths={4}>
                 <Link route="/">
                     <a>
-                <Menu.Item name='Time Coupsel'  />
+                <Menu.Item name='PinEarth' />
                     </a>
                 </Link>
                 <Menu.Item
@@ -227,6 +205,11 @@ class Header extends Component {
         );
 };
 }
+
+const containerStyle = {
+    backgroundColor:"#000000",
+}
+
 
 
 
