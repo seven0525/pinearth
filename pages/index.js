@@ -11,16 +11,18 @@ import SendEtherForm from "../components/SendEtherForm";
 import DetailModal from "../components/DetailModal";
 import PictureCard from "../components/PictureCard";
 import MediaQuery from 'react-responsive';
+import factory from '../ethereum/factory';
+import Message from '../ethereum/message';
 
 
 
 var config = {
-    apiKey: "AIzaSyBC5188TstyDNnw0AdbCTYqyp7YyAx0DQ0",
-    authDomain: "timecapsule-3b1bd.firebaseapp.com",
-    databaseURL: "https://timecapsule-3b1bd.firebaseio.com",
-    projectId: "timecapsule-3b1bd",
-    storageBucket: "timecapsule-3b1bd.appspot.com",
-    messagingSenderId: "221653140896"
+    apiKey: "AIzaSyCRS9Dk4CH6N9P5ZcRelu_DnW-kT7r4O3c",
+    authDomain: "pinearth-93101.firebaseapp.com",
+    databaseURL: "https://pinearth-93101.firebaseio.com",
+    projectId: "pinearth-93101",
+    storageBucket: "pinearth-93101.appspot.com",
+    messagingSenderId: "669054719425"
 };
 
 if (!firebase.apps.length) {
@@ -71,213 +73,167 @@ class MessagesIndex extends Component {
         }
     };
 
+    ////DBからデータを取得する場合
+    // getMessagesArray() {
 
-    getMessagesArray() {
+
+    //     var messages = [];
+
+    //     var message='';
+
+    //     var messagePlace = '';
+
+    //     var messageAuthor = '';
+
+    //     var messageAddress = '';
+
+    //     var messageId ='';
+
+    //     var messageEther = '';
+
+    //     var messageTransactionId = '';
+
+    //     var messageIpfsId ='';
+
+    //     var messagesPostDate = '';
+
+    //     var sortedArray = [];
+
+    //     var messagesEtherSentDate = '';
+
+    //     const here = this.state.place;
+
+
+    //     firebase.database().ref("/messages")
+
+    //         .on('value', snapshot => {
+    //             snapshot.forEach(function (childSnapshot) {
+
+    //                 const messagesData = childSnapshot.val();
+
+
+    //                 message = messagesData['message'];
+
+    //                 messagePlace = messagesData['place'];
+
+    //                 messageAuthor = messagesData['postUsername'];
+
+    //                 messageAddress = messagesData['postUserAddress'];
+
+    //                 messageId = messagesData['messageId'];
+
+    //                 messageEther = messagesData['amountEther'];
+
+    //                 messageTransactionId = messagesData['transactionId'];
+
+    //                 messageIpfsId = messagesData['ipfsId'];
+
+    //                 messagesPostDate =  messagesData['postDate'];
+
+    //                 messagesEtherSentDate =  messagesData['etherSentDate'];
+
+
+
+
+    //                 if (messageEther === undefined){
+
+    //                     messageEther = 0;
+
+    //                 }else{
+
+    //                     messageEther = messageEther*0.0001;
+
+    //                 }
+
+
+
+    //                 if( here === messagePlace) {
+
+    //                     messages.push({ message:message, place: messagePlace, author: messageAuthor, address:messageAddress,
+    //                         messageId: messageId, amountEther:messageEther, transactionId: messageTransactionId,
+    //                         ipfsId: messageIpfsId, postDate: messagesPostDate, etherSentDate: messagesEtherSentDate});
+
+    //                 }
+
+    //             })
+
+    //             // Ether量が多い記事が上に来るように降順にソート
+
+    //             sortedArray=
+    //                 messages.sort(function(a,b){
+
+
+    //                     return (a.etherSentDate>b.etherSentDate) ? -1 : 1;
+
+    //                 });
+
+    //             // this.setState({messagesArray:sortedArray});
+
+    //         }).bind(this);
+
+
+    // }
+
+    
+    //ブロックチェーン上からデータを取得する場合
+    async getMessagesArrayFromBlockChain(){
 
 
         var messages = [];
-
-        var message='';
-
         var messagePlace = '';
-
-        var messageAuthor = '';
-
-        var messageAddress = '';
-
-        var messageId ='';
-
-        var messageEther = '';
-
+        var awsrequests = ""
+        var place = '';
         var messageTransactionId = '';
+        var messageTransactionIds = [];
+        var savedPlaceName =  sessionStorage.getItem('place');
 
-        var messageIpfsId ='';
-
-        var messagesPostDate = '';
-
-        var sortedArray = [];
-
-        var messagesEtherSentDate = '';
-
-        const here = this.state.place;
-
+        if(savedPlaceName = null){
+            place = this.state.place
+        }else{
+            place =  sessionStorage.getItem('place')
+        }
 
         firebase.database().ref("/messages")
-
             .on('value', snapshot => {
                 snapshot.forEach(function (childSnapshot) {
 
                     const messagesData = childSnapshot.val();
 
-
-                    message = messagesData['message'];
-
                     messagePlace = messagesData['place'];
-
-                    messageAuthor = messagesData['postUsername'];
-
-                    messageAddress = messagesData['postUserAddress'];
-
-                    messageId = messagesData['messageId'];
-
-                    messageEther = messagesData['amountEther'];
-
                     messageTransactionId = messagesData['transactionId'];
 
-                    messageIpfsId = messagesData['ipfsId'];
-
-                    messagesPostDate =  messagesData['postDate'];
-
-                    messagesEtherSentDate =  messagesData['etherSentDate'];
-
-
-
-
-                    if (messageEther === undefined){
-
-                        messageEther = 0;
-
-                    }else{
-
-                        messageEther = messageEther*0.0001;
-
-                    }
-
-
-
-                    if( here === messagePlace) {
-
-                        messages.push({ message:message, place: messagePlace, author: messageAuthor, address:messageAddress,
-                            messageId: messageId, amountEther:messageEther, transactionId: messageTransactionId,
-                            ipfsId: messageIpfsId, postDate: messagesPostDate, etherSentDate: messagesEtherSentDate});
-
+                    if( messagePlace === place) {
+                        messageTransactionIds.push({ transactionId: messageTransactionId });
                     }
 
                 })
-
-                // Ether量が多い記事が上に来るように降順にソート
-
-                sortedArray=
-                    messages.sort(function(a,b){
-
-
-                        return (a.etherSentDate>b.etherSentDate) ? -1 : 1;
-
-                    });
-
-                this.setState({messagesArray:sortedArray});
-
+                // this.setState({messagesArray:sortedArray});
             }).bind(this);
 
+        console.log("hello");
+        console.log(place);
+        console.log(messagePlace);
+        console.log(messageTransactionIds);
+        awsrequests = await factory.methods.searchMessages(place).call({ from: "0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22" })
+
+        for (var i = 0; i < awsrequests.length; i++) {
+
+            var newMessage = await Message(awsrequests[i]);
+
+            var messageContent =  await newMessage.methods.getMessage().call({ from: "0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22" });
+
+            console.log(messageContent);
+
+
+
+            messages.push({ message:messageContent[3], place: messageContent[2], author: messageContent[1],
+
+                    ipfsId: messageContent[4], transactionId: "0x7fdaa87ae97c15443a1057940e2ca3b3ce4ecb22"});
+        }
+
+        this.setState({messagesArray:messages});
 
     }
-
-    getMessagesArrayFromCache(place) {
-
-
-        var messages = [];
-
-        var message='';
-
-        var messagePlace = '';
-
-        var messageAuthor = '';
-
-        var messageAddress = '';
-
-        var messageId ='';
-
-        var messageEther = '';
-
-        var messageTransactionId = '';
-
-        var messageIpfsId ='';
-
-        var messagesPostDate = '';
-
-        var sortedArray = [];
-
-        var messagesEtherSentDate = '';
-
-        const here = place;
-
-
-        firebase.database().ref("/messages")
-
-            .on('value', snapshot => {
-                snapshot.forEach(function (childSnapshot) {
-
-                    const messagesData = childSnapshot.val();
-
-
-                    message = messagesData['message'];
-
-                    messagePlace = messagesData['place'];
-
-                    messageAuthor = messagesData['postUsername'];
-
-                    messageAddress = messagesData['postUserAddress'];
-
-                    messageId = messagesData['messageId'];
-
-                    messageEther = messagesData['amountEther'];
-
-                    messageTransactionId = messagesData['transactionId'];
-
-                    messageIpfsId = messagesData['ipfsId'];
-
-                    messagesPostDate =  messagesData['postDate'];
-
-                    messagesEtherSentDate =  messagesData['etherSentDate'];
-
-
-
-
-                    if (messageEther === undefined){
-
-                        messageEther = 0;
-
-                    }else{
-
-                        messageEther = messageEther*0.0001;
-
-                    }
-
-
-
-                    if( here === messagePlace) {
-
-                        messages.push({ message:message, place: messagePlace, author: messageAuthor, address:messageAddress,
-                            messageId: messageId, amountEther:messageEther, transactionId: messageTransactionId,
-                            ipfsId: messageIpfsId, postDate: messagesPostDate, etherSentDate: messagesEtherSentDate});
-
-                    }
-
-                })
-
-                // Ether量が多い記事が上に来るように降順にソート
-
-                sortedArray=
-                    messages.sort(function(a,b){
-
-
-                        return (a.etherSentDate>b.etherSentDate) ? -1 : 1;
-
-                    });
-
-                this.setState({messagesArray:sortedArray});
-
-            }).bind(this);
-
-
-    }
-
-
-
-
-
-
-
 
 
 
@@ -288,10 +244,8 @@ class MessagesIndex extends Component {
 
         var here = '';
 
-        if( sessionStorage.getItem('place')==null) {
+        // if( sessionStorage.getItem('place')==null) {
             if (navigator.geolocation) {
-                // alert( "あなたの端末では、現在位置を取得することができます。" ) ;
-                // console.log("あなたの端末では、現在位置を取得することができます");
 
                 // 現在地を取得
                 navigator.geolocation.getCurrentPosition(
@@ -314,7 +268,7 @@ class MessagesIndex extends Component {
                         // アラート表示
                         // alert("あなたの現在位置は、\n[" + ido + "," + keido + "]\nです。");
 
-                        var apiKey = 'AIzaSyBjaU7Kz8PQ3gPIJmf70fm-Zvenjq9suT0';
+                        var apiKey = 'AIzaSyDbAOtIl2hgmopE9sk4K95XqUVxjrTfsRw';
 
                         var requestURL = 'https://maps.googleapis.com/maps/api/geocode/json?language=ja&sensor=false';
 
@@ -352,7 +306,8 @@ class MessagesIndex extends Component {
 
 
                             }).then(() => {
-                            hereThis.getMessagesArray();
+                            // hereThis.getMessagesArray();
+                            hereThis.getMessagesArrayFromBlockChain();
                         });
 
                     },
@@ -399,27 +354,23 @@ class MessagesIndex extends Component {
                 console.log("あなたの端末では、現在位置を取得できません");
 
             }
-        }else{
-
-            var savedPlaceName =  sessionStorage.getItem('place');
-            var savedIdo = Number(sessionStorage.getItem('ido'));
-            var savedKeido = Number(sessionStorage.getItem('keido'));
-
-
-            console.log(savedPlaceName)
-
-            hereThis.setState({place: savedPlaceName, ido:savedIdo, keido:savedKeido});
-            hereThis.setState({loading: false});
-            hereThis.getMessagesArrayFromCache(savedPlaceName);
-
-        }
     }
+
+    //そのaddressのメッセージのEther残高の引き出し
+    onClick = async () => {
+        const accounts = await web3.eth.getAccounts();
+
+        const theMessage = Message(このaddress);
+        const summary = theMessage.methods.withdraw().send({
+            from: accounts[0]
+        });
+    }
+
 
 
 
     render(){
 
-        console.log(this.state.cardModalOpen)
 
 
         const messagesDataNew = [];
@@ -460,11 +411,13 @@ class MessagesIndex extends Component {
 
             responsiveIpfsId = firstIpfs + "\n" + secondIpfs + "\n" + thirdIpfs;
 
-            // if(window.innerWidth>1023){
+            console.log(messagesData[i]["transactionId"]);
 
 
 
 
+
+            ////使用するデバイスごとに見た目を変更（PC画面 or スマホ画面など）
             messagesDataNew.push(
 
 
@@ -491,10 +444,8 @@ class MessagesIndex extends Component {
                         <Modal.Content style={{width:700}} image>
                             <Image style={{width:400, height:250}} src={ipfsImageUrl} />
                             <Modal.Description>
-                                <section>
-                                    <Header>{messagesData[i]["author"]}</Header>
-                                    <hr color="#D8D8D8" size="1"　width="200" noshade/>
-                                </section>
+                                <p style={{width:300}}>{messagesData[i]["author"]}</p>
+                                <hr color="#D8D8D8" size="1"　width="200" noshade/>
                                 <p style={{width:300}}>{messagesData[i]["message"]}</p>
                                 <hr color="#D8D8D8" size="1" width="200" noshade/>
                                 <p style={{width:300}}>Amount Of Ether</p>
@@ -651,10 +602,10 @@ class MessagesIndex extends Component {
         <Modal.Content style={{width:930}} image>
             <Image style={{width:600, height:450}} src={ipfsImageUrl} />
             <Modal.Description>
-                <section>
-                <Header>{messagesData[i]["author"]}</Header>
-                    <hr color="#D8D8D8" size="1"　width="200" noshade/>
+                <section style={{width: 300}}>
+                    <Header>{messagesData[i]["author"]}</Header>
                 </section>
+                <hr color="#D8D8D8" size="1"　width="200" noshade/>
                 <p style={{width:300}}>{messagesData[i]["message"]}</p>
                 <hr color="#D8D8D8" size="1" width="200" noshade/>
                 <p style={{width:300}}>Amount Of Ether</p>
@@ -716,9 +667,33 @@ class MessagesIndex extends Component {
 
         </div>
 
+                <div style={{marginTop:10}}>
+                    <Modal trigger={
+                        <Button style={{width:150, marginTop:10}}basic color='grey'>
+                            引き出す
+                        </Button>
+
+                    }>
+                        <Modal.Header>このメッセージのトランザクションID</Modal.Header>
+                        <Modal.Content image>
+                            <Modal.Description>
+                                <MediaQuery query="(min-width: 768px)">
+                                    <Header> {messagesData[i]["transactionId"]}</Header>
+                                </MediaQuery>
+                                <MediaQuery query="(max-width: 768px)">
+                                    <Header> {responsiveTransactionId}</Header>
+                                </MediaQuery>
+
+                            </Modal.Description>
+
+                        </Modal.Content>
+                    </Modal>
+
+                </div>
 
 
-        </Modal.Description>
+
+            </Modal.Description>
 
         </Modal.Content>
                      </MediaQuery>
@@ -726,135 +701,42 @@ class MessagesIndex extends Component {
         </Modal>
 
             );
-        //
-        // }else{
-        //
-        //
-        //         messagesDataNew.push(
-        //
-        //
-        //
-        //
-        //             <MediaQuery query="(max-width: 1023px)">
-        //
-        //
-        //
-        //
-        //
-        //                 <Modal trigger ={
-        //
-        //                     <Card>
-        //                         <Image src={ipfsImageUrl}/>
-        //
-        //                         <Card.Content extra>
-        //                             {messagesData[i]["postDate"]}
-        //                         </Card.Content>
-        //                         <Card.Content extra>
-        //                             Amount Of Ether: {messagesData[i]["amountEther"]}ether
-        //                         </Card.Content>
-        //
-        //
-        //                     </Card>
-        //
-        //
-        //                 } style={{width:1000}}>
-        //                     <Modal.Content image>
-        //                         <Image style={{width:600, height:450}} src={ipfsImageUrl} />
-        //                         <Modal.Description>
-        //                             <section>
-        //                                 <Header>{messagesData[i]["author"]}</Header>
-        //                                 <hr color="#D8D8D8" size="1"　width="200" noshade/>
-        //                             </section>
-        //                             <p style={{width:300}}>{messagesData[i]["message"]}</p>
-        //                             <hr color="#D8D8D8" size="1" width="200" noshade/>
-        //                             <p style={{width:300}}>Amount Of Ether</p>
-        //                             <p>{messagesData[i]["amountEther"]}</p>
-        //                         </Modal.Description>
-        //                         <Modal.Description style={{marginLeft:100}}>
-        //                             <SendEtherForm
-        //                                 toAddress={messagesData[i]["address"]}
-        //                                 messageId={messagesData[i]["messageId"]}
-        //                             />
-        //
-        //
-        //
-        //                             <div style={{marginTop:15}}>
-        //                                 <Modal trigger={
-        //                                     <Button style={{width:150, marginTop:10}}basic color='grey'>
-        //                                         トランザクションIDを確認する
-        //                                     </Button>
-        //
-        //                                 }>
-        //                                     <Modal.Header>このメッセージのトランザクションID</Modal.Header>
-        //                                     <Modal.Content image>
-        //                                         <Modal.Description>
-        //                                             <MediaQuery query="(min-width: 768px)">
-        //                                                 <Header> {messagesData[i]["transactionId"]}</Header>
-        //                                             </MediaQuery>
-        //                                             <MediaQuery query="(max-width: 768px)">
-        //                                                 <Header> {responsiveTransactionId}</Header>
-        //                                             </MediaQuery>
-        //
-        //                                         </Modal.Description>
-        //
-        //                                     </Modal.Content>
-        //                                 </Modal>
-        //
-        //                             </div>
-        //
-        //                             <div  style={{marginTop:15}}>
-        //                                 <Modal trigger={
-        //                                     <Button basic color='grey'>
-        //                                         ipfsIDを確認する
-        //                                     </Button>
-        //
-        //                                 }>
-        //                                     <Modal.Header>このメッセージの IPFS ID</Modal.Header>
-        //                                     <Modal.Content image>
-        //                                         <Modal.Description>
-        //                                             <MediaQuery query="(min-width: 768px)">
-        //                                                 <Header> {messagesData[i]["ipfsId"]}</Header>
-        //                                             </MediaQuery>
-        //                                             <MediaQuery query="(max-width: 768px)">
-        //                                                 <Header> {responsiveIpfsId}</Header>
-        //                                             </MediaQuery>
-        //
-        //                                         </Modal.Description>
-        //
-        //                                     </Modal.Content>
-        //                                 </Modal>
-        //
-        //                             </div>
-        //
-        //
-        //
-        //                         </Modal.Description>
-        //
-        //                     </Modal.Content>
-        //
-        //                 </Modal>
-        //
-        //             </MediaQuery>
-        //         )
-        //
-        //
-        //
-        //
-        //     }
+        
         }
 
         return (
             <Layout>
-                <ClipLoader
-                    loading={this.state.loading}
-                />
-                <h1>{this.state.place}</h1>
-                <h1>に書かれたメッセージ</h1>
-                <Card.Group>
+                <MediaQuery query="(min-width: 769px)">
+                    <div style={contentStyle}>
+                        <ClipLoader
+                            loading={this.state.loading}
+                        />
+                        <h1>{this.state.place}</h1>
+                        <h1>に書かれたメッセージ</h1>
+                        <Card.Group>
 
-                    {messagesDataNew}
+                            {messagesDataNew}
 
-                </Card.Group>
+                        </Card.Group>
+                    </div>
+                </MediaQuery>
+                <MediaQuery query="(max-width: 768px)">
+                    <div style={minContentStyle}>
+                        <ClipLoader
+                            loading={this.state.loading}
+                        />
+                        <h1>{this.state.place}</h1>
+                        <h1>に書かれたメッセージ</h1>
+                        <div>
+                            <Card.Group style={minCardStyle}>
+
+                                {messagesDataNew}
+
+                            </Card.Group>
+                        </div>
+                    </div>
+                </MediaQuery>
+                
 
             </Layout>
 
@@ -863,3 +745,22 @@ class MessagesIndex extends Component {
 }
 
 export default MessagesIndex;
+
+
+const contentStyle = {
+    position:"relative",
+    width: "65%",
+    margin:"auto",
+    padding:"15px"
+}
+
+const minContentStyle = {
+    width: "90%",
+    margin:"auto"
+}
+
+const minCardStyle = {
+    padding:"12px",
+    margin:"auto",
+    width:"100%"
+}
