@@ -13,10 +13,13 @@
     　　
       
 ##特徴  
-これはethereumのsmart contractを使用したwebアプリケーションであり、Rinkebyテストネットワークにconstractは置いてあります。　　　　
-Google Map　APIを使っており、日本だけでなくGPSが届く範囲なら世界中で使用することが可能です。　　　
-フロントエンドはreact.js、　　　
-バックエンドはfirebaseで動いております。　　　
+これはethereumのsmart contractを使用したwebアプリケーションであり、Rinkebyテストネットワークにconstractは置いてあります。　　　　　　
+
+Google Map　APIを使っており、日本だけでなくGPSが届く範囲なら世界中で使用することが可能です。　　　　　　
+
+フロントエンドはreact.js、　　　　　
+
+バックエンドはfirebaseで動いております。　　　　　　
 
 
 　　
