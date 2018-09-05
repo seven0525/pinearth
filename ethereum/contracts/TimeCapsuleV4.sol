@@ -2,24 +2,31 @@ pragma solidity ^0.4.18;
 
 contract MessageFactory {
 
-    // struct によって　構造体を扱う
-    // 構造体とは一つのデータ型
-    
     struct Request {
         string location;
         address messageaddress;
     }
-
-
     Request [] public requests;
-    address [] public awsrequests; 
+    address [] public awsrequests;
+    address public messageContractAddress;
 
-    function createMessage(string _location) public {
+    function createMessage(string _location) public returns(address){
         address newMessage = new Message(_location, msg.sender);
+        // return newMessage;
+        messageContractAddress = newMessage;
+    }
+
+    function getMessageAddress() public view returns(address) {
+        return messageContractAddress;
+    }
+
+
+
+    function storeMessage(string _location, address newMessage) public {
         Request memory newRequest = Request({
             messageaddress: newMessage,
             location: _location
-        });
+            });
         requests.push(newRequest);
     }
 
@@ -35,36 +42,36 @@ contract MessageFactory {
 
 
 contract Message {
-    
+
     string location;
     address writer;
     string text;
     string nickName;
     string ipfsUrl;
     uint fee = 100;
-    
+
     function Message(string _location, address _writer) public {
         location = _location;
         writer = _writer;
     }
-    
+
     modifier restricted() {
         require(msg.sender == writer);
         _;
     }
-    
+
     function postMessage(string _text, string _nickName, string _ipfsUrl) public restricted {
         text = _text;
         nickName = _nickName;
         ipfsUrl = _ipfsUrl;
     }
-    
+
     function getMessage() public view returns(address, string, string, string, string, uint) {
         return (writer, nickName, location, text, ipfsUrl, this.balance);
     }
-    
-     function donate() public payable{
-         require(fee == msg.value);
+
+    function donate() public payable{
+        require(fee == msg.value);
     }
 
     function withdraw() public restricted {
