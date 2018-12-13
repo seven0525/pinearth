@@ -28,10 +28,12 @@ Google Map　APIを使っており、日本だけでなくGPSが届く範囲な�
       　　
         
 ## 使い方　　　    
-npm install　をしてください    
+ - npm install　をしてください    
 （エラーが発生する場合は、 npm run rebuild　をしてください）   
+
+ - npm run dev　で起動してください。
 　　　　　   
-localhost3000を開いて、サインインをしてください。   
+ - localhost3000を開いて、サインインをしてください。   
       
-メタマスク（chrome拡張）を取得して、Rinkeby　testnet用のEthereumを無料で取得して、あとは自由に遊んでください。    
+ - メタマスク（chrome拡張）を取得して、Rinkeby　testnet用のEthereumを無料で取得して、あとは自由に遊んでください。    
 
