@@ -21,6 +21,8 @@ Google Map　APIを使っており、日本だけでなくGPSが届く範囲な�
 
 バックエンドはfirebaseで動いております。　　　　　　
 
+## 取材されました！
+[こちら](https://dappsmarket.net/other/pinearth-interview/)よりご確認ください
 
 **Copyright © Taichi Watanabe. All Rights Reserved.**
 
