@@ -22,6 +22,8 @@ Google Map　APIを使っており、日本だけでなくGPSが届く範囲な�
 バックエンドはfirebaseで動いております。　　　　　　
 
 
+**Copyright © Taichi Watanabe. All Rights Reserved.**
+
 　　
   　　
     　　
